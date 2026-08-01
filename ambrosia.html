@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambrosia | Country House</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --burgundy: #6E2A34;
+            --terracotta: #CBA96C;
+            --olive: #8B9770;
+            --sage: #A6AD8A;
+            --walnut: #4C1D24;
+            --chestnut: #B8945A;
+            --tobacco: #CBA96C;
+            --warm-brown: #CBA96C;
+            --warm-cream: #F5F3ED;
+            --limestone: #EFE8D4;
+            --warm-limestone: #E4D9BE;
+            --muted-warm: #C9BB98;
+            --volcanic-charcoal: #2E1B1F;
+            --deep-charcoal: #1E1315;
+            --warm-charcoal: #241618;
+            --dark-burgundy: #59202A;
+        }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--deep-charcoal); color: var(--warm-cream); }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        .glass { background: rgba(203, 169, 108, 0.12); backdrop-filter: blur(20px); border: 1px solid rgba(203, 169, 108, 0.2); }
+        .text-gold { color: var(--terracotta); }
+        .bg-burgundy-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(110, 42, 52,0.15) 25%, #1E1315 50%, rgba(89, 32, 42,0.1) 75%, #1E1315 100%); }
+        .bg-terracotta-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(203, 169, 108,0.12) 30%, #1E1315 60%, rgba(203, 169, 108,0.08) 100%); }
+        .bg-olive-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(139, 151, 112,0.12) 25%, #1E1315 50%, rgba(166, 173, 138,0.08) 75%, #1E1315 100%); }
+        .bg-walnut-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(76, 29, 36,0.15) 30%, #1E1315 55%, rgba(184, 148, 90,0.1) 80%, #1E1315 100%); }
+        .bg-chestnut-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(184, 148, 90,0.12) 25%, #1E1315 50%, rgba(76, 29, 36,0.1) 75%, #1E1315 100%); }
+        .bg-sage-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(166, 173, 138,0.1) 30%, #1E1315 60%, rgba(139, 151, 112,0.08) 100%); }
+        .bg-burgundy-radial { background: radial-gradient(ellipse at 20% 50%, rgba(110, 42, 52,0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 50%, rgba(203, 169, 108,0.1) 0%, transparent 50%), #1E1315; }
+        .bg-walnut-radial { background: radial-gradient(ellipse at 30% 30%, rgba(76, 29, 36,0.2) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(184, 148, 90,0.12) 0%, transparent 50%), #1E1315; }
+        .bg-olive-radial { background: radial-gradient(ellipse at 50% 20%, rgba(139, 151, 112,0.12) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(166, 173, 138,0.08) 0%, transparent 45%), #1E1315; }
+        .bg-mixed-warm { background: radial-gradient(ellipse at 15% 30%, rgba(110, 42, 52,0.15) 0%, transparent 50%), radial-gradient(ellipse at 85% 20%, rgba(203, 169, 108,0.1) 0%, transparent 45%), radial-gradient(ellipse at 50% 80%, rgba(76, 29, 36,0.12) 0%, transparent 50%), #1E1315; }
+        .bg-mixed-cool { background: radial-gradient(ellipse at 20% 40%, rgba(139, 151, 112,0.1) 0%, transparent 50%), radial-gradient(ellipse at 80% 60%, rgba(166, 173, 138,0.08) 0%, transparent 45%), radial-gradient(ellipse at 50% 20%, rgba(203, 169, 108,0.1) 0%, transparent 50%), #1E1315; }
+    </style>
+</head>
+<body class="bg-[#1E1315] text-[#F5F3ED]">
+
+    <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#1E1315] transition-opacity duration-1000">
+        <div class="text-[#CBA96C] text-2xl tracking-[0.3em] uppercase animate-pulse">Divino</div>
+    </div>
+
+    <nav class="fixed w-full z-50 px-4 sm:px-6 py-6 sm:py-8 bg-[#1E1315]">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="index.html">
+                    <img src="ambrosia white.png" alt="Ambrosia" class="h-10 md:h-12 lg:h-14">
+                </a>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex items-center gap-6 lg:gap-10 text-xs uppercase tracking-[0.2em] text-[#F5F3ED]">
+                    <div class="relative group">
+                        <button class="hover:text-[#CBA96C] transition-colors flex items-center gap-1">
+                            Natural Cosmetics
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-48 bg-[#1E1315]/95 backdrop-blur-xl border border-[#CBA96C]/20 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2 text-xs uppercase tracking-widest text-[#EFE8D4]">
+                                <a href="#cosmetics-soaps" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Handmade soaps</a>
+                                <a href="#cosmetics-shampoos" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Natural shampoos</a>
+                                <a href="#cosmetics-bodywash" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Body wash</a>
+                                <a href="#cosmetics-essential" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Essential oils</a>
+                                <a href="#cosmetics-creams" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Herbal creams</a>
+                                <a href="#cosmetics-hydrosols" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Hydrosols</a>
+                                <a href="#cosmetics-fragrances" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Home fragrances</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <button class="hover:text-[#CBA96C] transition-colors flex items-center gap-1">
+                            Mediterranean Pantry
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-48 bg-[#1E1315]/95 backdrop-blur-xl border border-[#CBA96C]/20 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2 text-xs uppercase tracking-widest text-[#EFE8D4]">
+                                <a href="#pantry-preserves" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Preserves</a>
+                                <a href="#pantry-jams" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Jams</a>
+                                <a href="#pantry-marmalades" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Marmalades</a>
+                                <a href="#pantry-sauces" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Sauces</a>
+                                <a href="#pantry-pesto" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Pesto</a>
+                                <a href="#pantry-pickled" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Pickled vegetables</a>
+                                <a href="#pantry-herbs" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Dried herbs</a>
+                                <a href="#pantry-teas" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Herbal teas</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <button class="hover:text-[#CBA96C] transition-colors flex items-center gap-1">
+                            Agricultural Products
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-56 bg-[#1E1315]/95 backdrop-blur-xl border border-[#CBA96C]/20 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2 text-xs uppercase tracking-widest text-[#EFE8D4]">
+                                <a href="#agri-oliveoil" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Extra Virgin Olive Oil</a>
+                                <a href="#agri-wine" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Wine</a>
+                                <a href="#agri-honey" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Honey (future project)</a>
+                                <a href="#agri-lavender" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Lavender</a>
+                                <a href="#agri-helichrysum" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Helichrysum</a>
+                                <a href="#agri-rosemary" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Rosemary</a>
+                                <a href="#agri-oregano" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Oregano</a>
+                                <a href="#agri-thyme" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Thyme</a>
+                                <a href="#agri-sage" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Sage</a>
+                                <a href="#agri-vegetables" class="block px-4 py-2 hover:text-[#CBA96C] hover:bg-white/5 transition-colors">Seasonal vegetables</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="index.html" class="hover:text-[#CBA96C] transition-colors" data-i18n="nav.ambrosia">Divino</a>
+                    <button data-lang-toggle class="inline-flex items-center rounded-full border border-[#CBA96C]/25 px-3 py-2 text-[11px] uppercase tracking-[0.25em] text-[#F5F3ED] hover:bg-[#CBA96C]/15">
+                        <span data-lang-label>IT</span>
+                    </button>
+                </div>
+                <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden inline-flex items-center justify-center p-2 rounded-md border border-[#CBA96C]/25 text-[#F5F3ED] hover:bg-[#CBA96C]/15 focus:outline-none focus:ring-2 focus:ring-[#CBA96C]">
+                    <span class="sr-only" data-i18n="mobile.menu">Open mobile menu</span>
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden absolute inset-x-0 top-full bg-[#1E1315]/95 backdrop-blur-xl border-t border-[#CBA96C]/20 shadow-2xl">
+            <div class="flex flex-col px-6 py-4 gap-4 text-sm uppercase tracking-[0.2em] text-[#F5F3ED]">
+                <div class="space-y-2">
+                    <button class="mobile-dropdown-toggle w-full text-left hover:text-[#CBA96C] transition-colors flex items-center justify-between" data-dropdown="cosmetics">
+                        Natural Cosmetics
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="cosmetics" class="hidden pl-4 space-y-2 text-xs">
+                        <a href="#cosmetics-soaps" class="block hover:text-[#CBA96C] transition-colors">Handmade soaps</a>
+                        <a href="#cosmetics-shampoos" class="block hover:text-[#CBA96C] transition-colors">Natural shampoos</a>
+                        <a href="#cosmetics-bodywash" class="block hover:text-[#CBA96C] transition-colors">Body wash</a>
+                        <a href="#cosmetics-essential" class="block hover:text-[#CBA96C] transition-colors">Essential oils</a>
+                        <a href="#cosmetics-creams" class="block hover:text-[#CBA96C] transition-colors">Herbal creams</a>
+                        <a href="#cosmetics-hydrosols" class="block hover:text-[#CBA96C] transition-colors">Hydrosols</a>
+                        <a href="#cosmetics-fragrances" class="block hover:text-[#CBA96C] transition-colors">Home fragrances</a>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <button class="mobile-dropdown-toggle w-full text-left hover:text-[#CBA96C] transition-colors flex items-center justify-between" data-dropdown="pantry">
+                        Mediterranean Pantry
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="pantry" class="hidden pl-4 space-y-2 text-xs">
+                        <a href="#pantry-preserves" class="block hover:text-[#CBA96C] transition-colors">Preserves</a>
+                        <a href="#pantry-jams" class="block hover:text-[#CBA96C] transition-colors">Jams</a>
+                        <a href="#pantry-marmalades" class="block hover:text-[#CBA96C] transition-colors">Marmalades</a>
+                        <a href="#pantry-sauces" class="block hover:text-[#CBA96C] transition-colors">Sauces</a>
+                        <a href="#pantry-pesto" class="block hover:text-[#CBA96C] transition-colors">Pesto</a>
+                        <a href="#pantry-pickled" class="block hover:text-[#CBA96C] transition-colors">Pickled vegetables</a>
+                        <a href="#pantry-herbs" class="block hover:text-[#CBA96C] transition-colors">Dried herbs</a>
+                        <a href="#pantry-teas" class="block hover:text-[#CBA96C] transition-colors">Herbal teas</a>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <button class="mobile-dropdown-toggle w-full text-left hover:text-[#CBA96C] transition-colors flex items-center justify-between" data-dropdown="agricultural">
+                        Agricultural Products
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="agricultural" class="hidden pl-4 space-y-2 text-xs">
+                        <a href="#agri-oliveoil" class="block hover:text-[#CBA96C] transition-colors">Extra Virgin Olive Oil</a>
+                        <a href="#agri-wine" class="block hover:text-[#CBA96C] transition-colors">Wine</a>
+                        <a href="#agri-honey" class="block hover:text-[#CBA96C] transition-colors">Honey (future project)</a>
+                        <a href="#agri-lavender" class="block hover:text-[#CBA96C] transition-colors">Lavender</a>
+                        <a href="#agri-helichrysum" class="block hover:text-[#CBA96C] transition-colors">Helichrysum</a>
+                        <a href="#agri-rosemary" class="block hover:text-[#CBA96C] transition-colors">Rosemary</a>
+                        <a href="#agri-oregano" class="block hover:text-[#CBA96C] transition-colors">Oregano</a>
+                        <a href="#agri-thyme" class="block hover:text-[#CBA96C] transition-colors">Thyme</a>
+                        <a href="#agri-sage" class="block hover:text-[#CBA96C] transition-colors">Sage</a>
+                        <a href="#agri-vegetables" class="block hover:text-[#CBA96C] transition-colors">Seasonal vegetables</a>
+                    </div>
+                </div>
+                <a href="index.html" class="hover:text-[#CBA96C] transition-colors pt-2 border-t border-[#CBA96C]/20">Divino</a>
+                <button data-lang-toggle class="inline-flex items-center rounded-full border border-[#CBA96C]/25 px-3 py-2 text-[11px] uppercase tracking-[0.25em] text-[#F5F3ED] hover:bg-[#CBA96C]/15 mt-2">
+                    <span data-lang-label>IT</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="placeholder2.png" alt="Ambrosia countryside" class="w-full h-full object-cover opacity-40">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#1E1315]/60 via-[#1E1315]/40 to-[#1E1315]/80"></div>
+        <div class="relative z-10 max-w-4xl text-center">
+            <img src="ambrosia white.png" alt="Ambrosia" class="w-48 md:w-64 max-w-full mx-auto mb-6 drop-shadow-[0_0_15px_rgba(245, 243, 237,0.3)]">
+            <p class="uppercase tracking-[0.3em] text-[#CBA96C] text-sm mb-4">Ambrosia Country House</p>
+            <h1 class="text-4xl md:text-6xl leading-tight mb-6" data-i18n="ambrosia.hero.title">A Mediterranean Country Experience.</h1>
+            <p class="text-lg md:text-xl text-[#E4D9BE] max-w-2xl mx-auto mb-8" data-i18n="ambrosia.hero.text">An agricultural laboratory where visitors reconnect with nature, learn traditional skills, and experience authentic Sicilian rural life.</p>
+            <a href="#experience" class="inline-block px-8 py-4 border border-[#F5F3ED] text-[#F5F3ED] uppercase tracking-[0.2em] hover:bg-[#F5F3ED] hover:text-[#1E1315] transition-all" data-i18n="ambrosia.hero.cta">Discover Ambrosia</a>
+        </div>
+    </header>
+
+    <section id="experience" class="py-24 px-6 max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+                <img src="grapes.svg" class="w-20 h-20 mb-6 opacity-80" alt="">
+                <p class="uppercase tracking-[0.3em] text-[#CBA96C] text-sm mb-4" data-i18n="ambrosia.experience.eyebrow">Main Experiences</p>
+                <h2 class="text-4xl mb-6" data-i18n="ambrosia.experience.title">A place to learn, live, and remember</h2>
+                <p class="text-[#E4D9BE] leading-relaxed mb-4" data-i18n="ambrosia.experience.text1">Ambrosia Country House is designed as a place where visitors reconnect with nature, learn traditional skills, and experience authentic Sicilian rural life through active, memorable moments.</p>
+                <p class="text-[#E4D9BE] leading-relaxed" data-i18n="ambrosia.experience.text2">The objective is simple: to create experiences people will remember for the rest of their lives.</p>
+            </div>
+            <div class="glass p-10 rounded-[2rem]">
+                <h3 class="text-2xl mb-4 text-[#CBA96C]" data-i18n="ambrosia.experience.list.title">Signature experiences</h3>
+                <ul class="space-y-3 text-[#EFE8D4]">
+                    <li data-i18n="ambrosia.experience.list.item1">• Sicilian Cooking Classes</li>
+                    <li data-i18n="ambrosia.experience.list.item2">• Farm Experiences</li>
+                    <li data-i18n="ambrosia.experience.list.item3">• Vegetable Garden Tours</li>
+                    <li data-i18n="ambrosia.experience.list.item4">• Mediterranean Agriculture Workshops</li>
+                    <li data-i18n="ambrosia.experience.list.item5">• Animal Experiences</li>
+                    <li data-i18n="ambrosia.experience.list.item6">• Herb Harvesting</li>
+                    <li data-i18n="ambrosia.experience.list.item7">• Olive Harvest</li>
+                    <li data-i18n="ambrosia.experience.list.item8">• Grape Harvest</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-burgundy-radial">
+        <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div class="glass p-8 rounded-[1.5rem]">
+                <h3 class="text-2xl mb-3" data-i18n="ambrosia.seasonal.title">Seasonal Experiences</h3>
+                <p class="text-[#E4D9BE]" data-i18n="ambrosia.seasonal.text">Outdoor dining, private events, corporate team building, and wellness in nature.</p>
+            </div>
+            <div class="glass p-8 rounded-[1.5rem]">
+                <h3 class="text-2xl mb-3" data-i18n="ambrosia.brand.title">One Brand</h3>
+                <p class="text-[#E4D9BE]" data-i18n="ambrosia.brand.text">Divino introduces visitors to Sicily. Ambrosia allows them to live it.</p>
+            </div>
+            <div class="glass p-8 rounded-[1.5rem]">
+                <h3 class="text-2xl mb-3" data-i18n="ambrosia.journey.title">Customer Journey</h3>
+                <p class="text-[#E4D9BE]" data-i18n="ambrosia.journey.text">Discover Divino, book a wine tasting, learn about Ambrosia, and return for another experience.</p>
+            </div>
+            <div class="glass p-8 rounded-[1.5rem]">
+                <h3 class="text-2xl mb-3" data-i18n="ambrosia.connection.title">Long-Term Connection</h3>
+                <p class="text-[#E4D9BE]" data-i18n="ambrosia.connection.text">Every experience naturally leads to the next, building a lasting relationship with Sicily.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="py-24 px-6 bg-walnut-warm">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <img src="corkscrew2.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="">
+                <p class="uppercase tracking-[0.3em] text-[#CBA96C] text-sm mb-4" data-i18n="ambrosia.products.eyebrow">Ambrosia Product Collection</p>
+                <h2 class="text-4xl md:text-5xl mb-6" data-i18n="ambrosia.products.title">Our long-term objective is to develop our own collection of products under the Ambrosia brand.</h2>
+                <p class="text-[#E4D9BE] max-w-3xl mx-auto leading-relaxed" data-i18n="ambrosia.products.text">Wherever possible, products should be made using ingredients grown on our farm or sourced from carefully selected local producers.</p>
+            </div>
+            <div class="grid gap-6 lg:grid-cols-3">
+                <div class="glass p-8 rounded-[1.5rem]">
+                    <h3 class="text-2xl mb-4 text-[#CBA96C]" data-i18n="ambrosia.categories.cosmetics.title">Natural Cosmetics</h3>
+                    <ul class="space-y-2 text-[#EFE8D4] text-sm md:text-base">
+                        <li data-i18n="ambrosia.categories.cosmetics.item1">• Handmade soaps</li>
+                        <li data-i18n="ambrosia.categories.cosmetics.item2">• Natural shampoos</li>
+                        <li data-i18n="ambrosia.categories.cosmetics.item3">• Body wash</li>
+                        <li data-i18n="ambrosia.categories.cosmetics.item4">• Essential oils</li>
+                        <li data-i18n="ambrosia.categories.cosmetics.item5">• Herbal creams</li>
+                        <li data-i18n="ambrosia.categories.cosmetics.item6">• Hydrosols</li>
+                        <li data-i18n="ambrosia.categories.cosmetics.item7">• Home fragrances</li>
+                    </ul>
+                </div>
+                <div class="glass p-8 rounded-[1.5rem]">
+                    <h3 class="text-2xl mb-4 text-[#CBA96C]" data-i18n="ambrosia.categories.pantry.title">Mediterranean Pantry</h3>
+                    <ul class="space-y-2 text-[#EFE8D4] text-sm md:text-base">
+                        <li data-i18n="ambrosia.categories.pantry.item1">• Preserves</li>
+                        <li data-i18n="ambrosia.categories.pantry.item2">• Jams</li>
+                        <li data-i18n="ambrosia.categories.pantry.item3">• Marmalades</li>
+                        <li data-i18n="ambrosia.categories.pantry.item4">• Sauces</li>
+                        <li data-i18n="ambrosia.categories.pantry.item5">• Pesto</li>
+                        <li data-i18n="ambrosia.categories.pantry.item6">• Pickled vegetables</li>
+                        <li data-i18n="ambrosia.categories.pantry.item7">• Dried herbs</li>
+                        <li data-i18n="ambrosia.categories.pantry.item8">• Herbal teas</li>
+                    </ul>
+                </div>
+                <div class="glass p-8 rounded-[1.5rem]">
+                    <h3 class="text-2xl mb-4 text-[#CBA96C]" data-i18n="ambrosia.categories.agriculture.title">Agricultural Products</h3>
+                    <ul class="space-y-2 text-[#EFE8D4] text-sm md:text-base">
+                        <li data-i18n="ambrosia.categories.agriculture.item1">• Extra Virgin Olive Oil</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item2">• Wine</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item3">• Honey (future project)</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item4">• Lavender</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item5">• Helichrysum</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item6">• Rosemary</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item7">• Oregano</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item8">• Thyme</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item9">• Sage</li>
+                        <li data-i18n="ambrosia.categories.agriculture.item10">• Seasonal vegetables</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-mixed-warm">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <img src="winebottle1.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="">
+                <p class="uppercase tracking-[0.3em] text-[#CBA96C] text-sm mb-4" data-i18n="ambrosia.experiences.products.eyebrow">Experiences Become Products</p>
+                <h2 class="text-4xl md:text-5xl mb-6" data-i18n="ambrosia.experiences.products.title">Every guest should have the opportunity to take home what they have experienced.</h2>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2">
+                <div class="glass p-8 rounded-[1.5rem]">
+                    <h3 class="text-2xl mb-3 text-[#CBA96C]" data-i18n="ambrosia.experiences.products.item1.title">After the lavender fields</h3>
+                    <p class="text-[#E4D9BE]" data-i18n="ambrosia.experiences.products.item1.text">After visiting the lavender fields they purchase lavender soap.</p>
+                </div>
+                <div class="glass p-8 rounded-[1.5rem]">
+                    <h3 class="text-2xl mb-3 text-[#CBA96C]" data-i18n="ambrosia.experiences.products.item2.title">After a cooking class</h3>
+                    <p class="text-[#E4D9BE]" data-i18n="ambrosia.experiences.products.item2.text">After attending a cooking class they buy the pesto they prepared.</p>
+                </div>
+                <div class="glass p-8 rounded-[1.5rem]">
+                    <h3 class="text-2xl mb-3 text-[#CBA96C]" data-i18n="ambrosia.experiences.products.item3.title">After olive harvest</h3>
+                    <p class="text-[#E4D9BE]" data-i18n="ambrosia.experiences.products.item3.text">After harvesting olives they purchase the new season olive oil.</p>
+                </div>
+                <div class="glass p-8 rounded-[1.5rem]">
+                    <h3 class="text-2xl mb-3 text-[#CBA96C]" data-i18n="ambrosia.experiences.products.item4.title">After collecting herbs</h3>
+                    <p class="text-[#E4D9BE]" data-i18n="ambrosia.experiences.products.item4.text">After collecting herbs they take home herbal teas or natural cosmetics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-5xl mx-auto text-center">
+        <img src="barrel.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="">
+        <p class="uppercase tracking-[0.3em] text-[#CBA96C] text-sm mb-4" data-i18n="ambrosia.philosophy.eyebrow">Our Philosophy</p>
+        <h2 class="text-4xl mb-6" data-i18n="ambrosia.philosophy.title">We do not want to create souvenirs. We want to create products that people actively search for because of their authenticity and quality.</h2>
+        <p class="text-[#E4D9BE] max-w-3xl mx-auto leading-relaxed" data-i18n="ambrosia.philosophy.text">The Ambrosia brand should become synonymous with Mediterranean culture, sustainability, craftsmanship, authentic Sicily, and premium quality.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <span class="rounded-full border border-[#CBA96C]/25 bg-[#241618]/70 px-4 py-2 text-sm uppercase tracking-[0.2em] text-[#EFE8D4]" data-i18n="ambrosia.value1">Mediterranean culture</span>
+            <span class="rounded-full border border-[#CBA96C]/25 bg-[#241618]/70 px-4 py-2 text-sm uppercase tracking-[0.2em] text-[#EFE8D4]" data-i18n="ambrosia.value2">Sustainability</span>
+            <span class="rounded-full border border-[#CBA96C]/25 bg-[#241618]/70 px-4 py-2 text-sm uppercase tracking-[0.2em] text-[#EFE8D4]" data-i18n="ambrosia.value3">Craftsmanship</span>
+            <span class="rounded-full border border-[#CBA96C]/25 bg-[#241618]/70 px-4 py-2 text-sm uppercase tracking-[0.2em] text-[#EFE8D4]" data-i18n="ambrosia.value4">Authentic Sicily</span>
+            <span class="rounded-full border border-[#CBA96C]/25 bg-[#241618]/70 px-4 py-2 text-sm uppercase tracking-[0.2em] text-[#EFE8D4]" data-i18n="ambrosia.value5">Premium quality</span>
+        </div>
+        <a href="index.html" class="inline-block mt-8 px-8 py-4 bg-[#6E2A34] hover:bg-[#59202A] text-[#F5F3ED] uppercase tracking-[0.2em] transition-all" data-i18n="ambrosia.back">Back to Divino</a>
+    </section>
+
+    <script>
+        const translations = {
+            en: {
+                'nav.philosophy': 'Philosophy',
+                'nav.vision': 'Vision',
+                'nav.experiences': 'Experiences',
+                'nav.space': 'Our Space',
+                'nav.ambrosia': 'Divino',
+                'nav.visit': 'Visit',
+                'ambrosia.hero.title': 'A Mediterranean Country Experience.',
+                'ambrosia.hero.text': 'An agricultural laboratory where visitors reconnect with nature, learn traditional skills, and experience authentic Sicilian rural life.',
+                'ambrosia.hero.cta': 'Discover Ambrosia',
+                'ambrosia.experience.eyebrow': 'Main Experiences',
+                'ambrosia.experience.title': 'A place to learn, live, and remember',
+                'ambrosia.experience.text1': 'Ambrosia Country House is designed as a place where visitors reconnect with nature, learn traditional skills, and experience authentic Sicilian rural life through active, memorable moments.',
+                'ambrosia.experience.text2': 'The objective is simple: to create experiences people will remember for the rest of their lives.',
+                'ambrosia.experience.list.title': 'Signature experiences',
+                'ambrosia.experience.list.item1': '• Sicilian Cooking Classes',
+                'ambrosia.experience.list.item2': '• Farm Experiences',
+                'ambrosia.experience.list.item3': '• Vegetable Garden Tours',
+                'ambrosia.experience.list.item4': '• Mediterranean Agriculture Workshops',
+                'ambrosia.experience.list.item5': '• Animal Experiences',
+                'ambrosia.experience.list.item6': '• Herb Harvesting',
+                'ambrosia.experience.list.item7': '• Olive Harvest',
+                'ambrosia.experience.list.item8': '• Grape Harvest',
+                'ambrosia.seasonal.title': 'Seasonal Experiences',
+                'ambrosia.seasonal.text': 'Outdoor dining, private events, corporate team building, and wellness in nature.',
+                'ambrosia.brand.title': 'One Brand',
+                'ambrosia.brand.text': 'Divino introduces visitors to Sicily. Ambrosia allows them to live it.',
+                'ambrosia.journey.title': 'Customer Journey',
+                'ambrosia.journey.text': 'Discover Divino, book a wine tasting, learn about Ambrosia, and return for another experience.',
+                'ambrosia.connection.title': 'Long-Term Connection',
+                'ambrosia.connection.text': 'Every experience naturally leads to the next, building a lasting relationship with Sicily.',
+                'ambrosia.products.eyebrow': 'Ambrosia Product Collection',
+                'ambrosia.products.title': 'Our long-term objective is to develop our own collection of products under the Ambrosia brand.',
+                'ambrosia.products.text': 'Wherever possible, products should be made using ingredients grown on our farm or sourced from carefully selected local producers.',
+                'ambrosia.categories.cosmetics.title': 'Natural Cosmetics',
+                'ambrosia.categories.cosmetics.item1': '• Handmade soaps',
+                'ambrosia.categories.cosmetics.item2': '• Natural shampoos',
+                'ambrosia.categories.cosmetics.item3': '• Body wash',
+                'ambrosia.categories.cosmetics.item4': '• Essential oils',
+                'ambrosia.categories.cosmetics.item5': '• Herbal creams',
+                'ambrosia.categories.cosmetics.item6': '• Hydrosols',
+                'ambrosia.categories.cosmetics.item7': '• Home fragrances',
+                'ambrosia.categories.pantry.title': 'Mediterranean Pantry',
+                'ambrosia.categories.pantry.item1': '• Preserves',
+                'ambrosia.categories.pantry.item2': '• Jams',
+                'ambrosia.categories.pantry.item3': '• Marmalades',
+                'ambrosia.categories.pantry.item4': '• Sauces',
+                'ambrosia.categories.pantry.item5': '• Pesto',
+                'ambrosia.categories.pantry.item6': '• Pickled vegetables',
+                'ambrosia.categories.pantry.item7': '• Dried herbs',
+                'ambrosia.categories.pantry.item8': '• Herbal teas',
+                'ambrosia.categories.agriculture.title': 'Agricultural Products',
+                'ambrosia.categories.agriculture.item1': '• Extra Virgin Olive Oil',
+                'ambrosia.categories.agriculture.item2': '• Wine',
+                'ambrosia.categories.agriculture.item3': '• Honey (future project)',
+                'ambrosia.categories.agriculture.item4': '• Lavender',
+                'ambrosia.categories.agriculture.item5': '• Helichrysum',
+                'ambrosia.categories.agriculture.item6': '• Rosemary',
+                'ambrosia.categories.agriculture.item7': '• Oregano',
+                'ambrosia.categories.agriculture.item8': '• Thyme',
+                'ambrosia.categories.agriculture.item9': '• Sage',
+                'ambrosia.categories.agriculture.item10': '• Seasonal vegetables',
+                'ambrosia.experiences.products.eyebrow': 'Experiences Become Products',
+                'ambrosia.experiences.products.title': 'Every guest should have the opportunity to take home what they have experienced.',
+                'ambrosia.experiences.products.item1.title': 'After the lavender fields',
+                'ambrosia.experiences.products.item1.text': 'After visiting the lavender fields they purchase lavender soap.',
+                'ambrosia.experiences.products.item2.title': 'After a cooking class',
+                'ambrosia.experiences.products.item2.text': 'After attending a cooking class they buy the pesto they prepared.',
+                'ambrosia.experiences.products.item3.title': 'After olive harvest',
+                'ambrosia.experiences.products.item3.text': 'After harvesting olives they purchase the new season olive oil.',
+                'ambrosia.experiences.products.item4.title': 'After collecting herbs',
+                'ambrosia.experiences.products.item4.text': 'After collecting herbs they take home herbal teas or natural cosmetics.',
+                'ambrosia.philosophy.eyebrow': 'Our Philosophy',
+                'ambrosia.philosophy.title': 'We do not want to create souvenirs. We want to create products that people actively search for because of their authenticity and quality.',
+                'ambrosia.philosophy.text': 'The Ambrosia brand should become synonymous with Mediterranean culture, sustainability, craftsmanship, authentic Sicily, and premium quality.',
+                'ambrosia.value1': 'Mediterranean culture',
+                'ambrosia.value2': 'Sustainability',
+                'ambrosia.value3': 'Craftsmanship',
+                'ambrosia.value4': 'Authentic Sicily',
+                'ambrosia.value5': 'Premium quality',
+                'ambrosia.future.eyebrow': 'A Vision for the Future',
+                'ambrosia.future.title': 'One brand, two experiences, one unforgettable journey',
+                'ambrosia.future.text': 'Ambrosia Country House will become a place where every visit feels personal — a living bridge between land, tradition, and human connection.',
+                'ambrosia.back': 'Back to Divino',
+                'mobile.menu': 'Open mobile menu',
+                'toggle.lang': 'Switch to Italiano',
+                'toggle.lang.back': 'Switch to English'
+            },
+            it: {
+                'nav.philosophy': 'Filosofia',
+                'nav.vision': 'Visione',
+                'nav.experiences': 'Esperienze',
+                'nav.space': 'Il Nostro Spazio',
+                'nav.ambrosia': 'Divino',
+                'nav.visit': 'Visita',
+                'ambrosia.hero.title': 'Un\'esperienza mediterranea in campagna.',
+                'ambrosia.hero.text': 'Un laboratorio agricolo in cui i visitatori si riconnettono con la natura, imparano competenze tradizionali e vivono una vita rurale autenticamente siciliana.',
+                'ambrosia.hero.cta': 'Scopri Ambrosia',
+                'ambrosia.experience.eyebrow': 'Esperienze principali',
+                'ambrosia.experience.title': 'Un luogo per imparare, vivere e ricordare',
+                'ambrosia.experience.text1': 'Ambrosia Country House è pensata come un luogo in cui i visitatori si riconnettono con la natura, imparano competenze tradizionali e sperimentano la vita rurale autentica siciliana attraverso momenti attivi e memorabili.',
+                'ambrosia.experience.text2': 'L\'obiettivo è semplice: creare esperienze che le persone ricorderanno per il resto della vita.',
+                'ambrosia.experience.list.title': 'Esperienze di firma',
+                'ambrosia.experience.list.item1': '• Lezioni di cucina siciliana',
+                'ambrosia.experience.list.item2': '• Esperienze in azienda agricola',
+                'ambrosia.experience.list.item3': '• Tour di orti',
+                'ambrosia.experience.list.item4': '• Workshop di agricoltura mediterranea',
+                'ambrosia.experience.list.item5': '• Esperienze con animali',
+                'ambrosia.experience.list.item6': '• Raccolta di erbe',
+                'ambrosia.experience.list.item7': '• Raccolta di olive',
+                'ambrosia.experience.list.item8': '• Raccolta di uve',
+                'ambrosia.seasonal.title': 'Esperienze stagionali',
+                'ambrosia.seasonal.text': 'Pranzi all\'aperto, eventi privati, team building aziendale e benessere in natura.',
+                'ambrosia.brand.title': 'Un unico brand',
+                'ambrosia.brand.text': 'Divino introduce i visitatori alla Sicilia. Ambrosia permette loro di viverla.',
+                'ambrosia.journey.title': 'Percorso del cliente',
+                'ambrosia.journey.text': 'Scopri Divino, prenota una degustazione, scopri Ambrosia e torna per un\'altra esperienza.',
+                'ambrosia.connection.title': 'Connessione a lungo termine',
+                'ambrosia.connection.text': 'Ogni esperienza conduce naturalmente alla successiva, creando una relazione duratura con la Sicilia.',
+                'ambrosia.products.eyebrow': 'Collezione di prodotti Ambrosia',
+                'ambrosia.products.title': 'Il nostro obiettivo a lungo termine è sviluppare una nostra collezione di prodotti sotto il brand Ambrosia.',
+                'ambrosia.products.text': 'Se possibile, i prodotti dovrebbero essere realizzati con ingredienti coltivati nella nostra azienda o reperiti da produttori locali selezionati con cura.',
+                'ambrosia.categories.cosmetics.title': 'Cosmetici naturali',
+                'ambrosia.categories.cosmetics.item1': '• Saponi artigianali',
+                'ambrosia.categories.cosmetics.item2': '• Shampoo naturali',
+                'ambrosia.categories.cosmetics.item3': '• Bagnoschiuma',
+                'ambrosia.categories.cosmetics.item4': '• Oli essenziali',
+                'ambrosia.categories.cosmetics.item5': '• Creme a base di erbe',
+                'ambrosia.categories.cosmetics.item6': '• Idrosoli',
+                'ambrosia.categories.cosmetics.item7': '• Fragranze per la casa',
+                'ambrosia.categories.pantry.title': 'Dispensa mediterranea',
+                'ambrosia.categories.pantry.item1': '• Conserve',
+                'ambrosia.categories.pantry.item2': '• Marmellate',
+                'ambrosia.categories.pantry.item3': '• Confetture',
+                'ambrosia.categories.pantry.item4': '• Salse',
+                'ambrosia.categories.pantry.item5': '• Pesto',
+                'ambrosia.categories.pantry.item6': '• Verdure sottaceto',
+                'ambrosia.categories.pantry.item7': '• Erbe secche',
+                'ambrosia.categories.pantry.item8': '• Tè alle erbe',
+                'ambrosia.categories.agriculture.title': 'Prodotti agricoli',
+                'ambrosia.categories.agriculture.item1': '• Olio extra vergine di oliva',
+                'ambrosia.categories.agriculture.item2': '• Vino',
+                'ambrosia.categories.agriculture.item3': '• Miele (progetto futuro)',
+                'ambrosia.categories.agriculture.item4': '• Lavanda',
+                'ambrosia.categories.agriculture.item5': '• Helichrysum',
+                'ambrosia.categories.agriculture.item6': '• Rosmarino',
+                'ambrosia.categories.agriculture.item7': '• Origano',
+                'ambrosia.categories.agriculture.item8': '• Timo',
+                'ambrosia.categories.agriculture.item9': '• Salvia',
+                'ambrosia.categories.agriculture.item10': '• Verdure seasonal',
+                'ambrosia.experiences.products.eyebrow': 'Le esperienze diventano prodotti',
+                'ambrosia.experiences.products.title': 'Ogni ospite dovrebbe avere la possibilità di portare a casa ciò che ha vissuto.',
+                'ambrosia.experiences.products.item1.title': 'Dopo i campi di lavanda',
+                'ambrosia.experiences.products.item1.text': 'Dopo aver visitato i campi di lavanda, acquistano il sapone alla lavanda.',
+                'ambrosia.experiences.products.item2.title': 'Dopo una lezione di cucina',
+                'ambrosia.experiences.products.item2.text': 'Dopo aver partecipato a una lezione di cucina comprano il pesto che hanno preparato.',
+                'ambrosia.experiences.products.item3.title': 'Dopo la raccolta delle olive',
+                'ambrosia.experiences.products.item3.text': 'Dopo la raccolta delle olive acquistano il nuovo olio di stagione.',
+                'ambrosia.experiences.products.item4.title': 'Dopo la raccolta delle erbe',
+                'ambrosia.experiences.products.item4.text': 'Dopo la raccolta delle erbe portano a casa tè alle erbe o cosmetici naturali.',
+                'ambrosia.philosophy.eyebrow': 'La nostra filosofia',
+                'ambrosia.philosophy.title': 'Non vogliamo creare souvenir. Vogliamo creare prodotti che le persone cercano attivamente per autenticità e qualità.',
+                'ambrosia.philosophy.text': 'Il brand Ambrosia dovrebbe diventare sinonimo di cultura mediterranea, sostenibilità, artigianalità, Sicilia autentica e qualità premium.',
+                'ambrosia.value1': 'Cultura mediterranea',
+                'ambrosia.value2': 'Sostenibilità',
+                'ambrosia.value3': 'Artigianalità',
+                'ambrosia.value4': 'Sicilia autentica',
+                'ambrosia.value5': 'Qualità premium',
+                'ambrosia.future.eyebrow': 'Una visione per il futuro',
+                'ambrosia.future.title': 'Un brand, due esperienze, un viaggio indimenticabile',
+                'ambrosia.future.text': 'Ambrosia Country House diventerà un luogo in cui ogni visita appare personale — un ponte vivente tra terra, tradizione e connessione umana.',
+                'ambrosia.back': 'Torna a Divino',
+                'mobile.menu': 'Apri il menu mobile',
+                'toggle.lang': 'Switch to English',
+                'toggle.lang.back': 'Passa all\'italiano'
+            }
+        };
+
+        function getStoredLanguage() {
+            const stored = localStorage.getItem('divino-language');
+            return stored === 'it' ? 'it' : 'en';
+        }
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang === 'it' ? 'it' : 'en';
+            localStorage.setItem('divino-language', lang);
+            applyLanguage(lang);
+        }
+
+        function applyLanguage(lang) {
+            const current = lang === 'it' ? 'it' : 'en';
+            document.querySelectorAll('[data-i18n]').forEach((element) => {
+                const key = element.getAttribute('data-i18n');
+                const translation = translations[current][key];
+                if (translation) {
+                    element.textContent = translation;
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                const translation = translations[current][key];
+                if (translation) {
+                    element.placeholder = translation;
+                }
+            });
+
+            document.querySelectorAll('[data-lang-toggle]').forEach((button) => {
+                const label = button.querySelector('[data-lang-label]');
+                if (label) {
+                    label.textContent = current === 'it' ? 'EN' : 'IT';
+                }
+                button.setAttribute('aria-label', current === 'it' ? 'Switch to English' : 'Switch to Italiano');
+            });
+        }
+
+        function initializeLanguageToggle() {
+            document.querySelectorAll('[data-lang-toggle]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const nextLang = document.documentElement.lang === 'it' ? 'en' : 'it';
+                    setLanguage(nextLang);
+                });
+            });
+
+            const initialLang = getStoredLanguage();
+            setLanguage(initialLang);
+        }
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton?.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
+        });
+
+        document.querySelectorAll('.mobile-dropdown-toggle').forEach((button) => {
+            button.addEventListener('click', () => {
+                const dropdownId = button.getAttribute('data-dropdown');
+                const dropdown = document.getElementById(dropdownId);
+                const isHidden = dropdown.classList.toggle('hidden');
+                button.setAttribute('aria-expanded', String(!isHidden));
+            });
+        });
+
+        window.addEventListener('load', () => {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000);
+        });
+
+        initializeLanguageToggle();
+    </script>
+</body>
+</html>
