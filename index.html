@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divino | Urban Cellar - Cefalù</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --burgundy: #6E2A34;
+            --terracotta: #A6AD8A;
+            --olive: #8B9770;
+            --sage: #A6AD8A;
+            --walnut: #4C1D24;
+            --header-h: clamp(88px, 14vh, 200px);
+            --chestnut: #B8945A;
+            --tobacco: #CBA96C;
+            --warm-brown: #CBA96C;
+            --warm-cream: #F5F3ED;
+            --limestone: #EFE8D4;
+            --warm-limestone: #E4D9BE;
+            --muted-warm: #C9BB98;
+            --volcanic-charcoal: #2E1B1F;
+            --deep-charcoal: #1E1315;
+            --warm-charcoal: #241618;
+            --dark-burgundy: #59202A;
+        }
+        @keyframes reveal { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slow-zoom { from { transform: scale(1); } to { transform: scale(1.05); } }
+        .animate-reveal { animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-slow-zoom { animation: slow-zoom 20s infinite alternate ease-in-out; }
+        
+body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-color: var(--walnut); color: var(--warm-cream); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        
+        .glass { background: rgba(203, 169, 108, 0.12); backdrop-filter: blur(20px); border: 1px solid rgba(203, 169, 108, 0.2); }
+        .text-gold { color: var(--terracotta); }
+        
+        .scroll-reveal { opacity: 1; transform: none; transition: none; }
+
+        @media (max-width: 767px) {
+            .glass {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+            .animate-reveal,
+            .animate-slow-zoom,
+            .hero-logo-glow {
+                animation: none !important;
+            }
+            .cellar-gallery-wrap .item:hover {
+                flex: 1 1 0;
+                transform: none;
+            }
+            .lightbox-overlay,
+            .lightbox-content,
+            .month-chip {
+                transition: none !important;
+            }
+        }
+        section { position: relative; overflow: hidden; }
+        section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: rgba(30, 19, 21, 0.18);
+            mix-blend-mode: soft-light;
+            opacity: 0.65;
+        }
+        section > * { position: relative; z-index: 2; }
+        .section-icon { display: block; width: 80px; height: 80px; margin: 0 auto 1.5rem auto; opacity: 0.9; filter: none; }
+        .section-icon.calendar-icon { width: 240px; height: auto; filter: brightness(0) invert(1); }
+        .section-icon.mountain-icon { width: clamp(180px, 22vw, 360px); height: auto; filter: brightness(0) invert(1); }
+        .section-icon.corkscrew-icon { filter: none; width: 140px; height: 140px; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+        
+        #owner {
+            position: relative;
+            isolation: isolate;
+            background-color: #1E1315;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(30, 19, 21,0.45), rgba(30, 19, 21,0.45)), url('seamless.svg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        
+        /* Wine color background gradients for sections */
+        .bg-burgundy-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(110, 42, 52,0.15) 25%, #1E1315 50%, rgba(89, 32, 42,0.1) 75%, #1E1315 100%); }
+        .bg-terracotta-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(203, 169, 108,0.12) 30%, #1E1315 60%, rgba(203, 169, 108,0.08) 100%); }
+        .bg-olive-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(139, 151, 112,0.12) 25%, #1E1315 50%, rgba(166, 173, 138,0.08) 75%, #1E1315 100%); }
+        .bg-walnut-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(76, 29, 36,0.15) 30%, #1E1315 55%, rgba(184, 148, 90,0.1) 80%, #1E1315 100%); }
+        .bg-chestnut-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(184, 148, 90,0.12) 25%, #1E1315 50%, rgba(76, 29, 36,0.1) 75%, #1E1315 100%); }
+        .bg-sage-warm { background: linear-gradient(135deg, #1E1315 0%, rgba(166, 173, 138,0.1) 30%, #1E1315 60%, rgba(139, 151, 112,0.08) 100%); }
+        .bg-burgundy-radial { background: radial-gradient(ellipse at 20% 50%, rgba(110, 42, 52,0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 50%, rgba(203, 169, 108,0.1) 0%, transparent 50%), #1E1315; }
+        .bg-walnut-radial { background: radial-gradient(ellipse at 30% 30%, rgba(76, 29, 36,0.2) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(184, 148, 90,0.12) 0%, transparent 50%), #1E1315; }
+        .bg-olive-radial { background: radial-gradient(ellipse at 50% 20%, rgba(139, 151, 112,0.12) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(166, 173, 138,0.08) 0%, transparent 45%), #1E1315; }
+        .bg-mixed-warm { background: radial-gradient(ellipse at 15% 30%, rgba(110, 42, 52,0.15) 0%, transparent 50%), radial-gradient(ellipse at 85% 20%, rgba(203, 169, 108,0.1) 0%, transparent 45%), radial-gradient(ellipse at 50% 80%, rgba(76, 29, 36,0.12) 0%, transparent 50%), #1E1315; }
+        .bg-mixed-cool { background: radial-gradient(ellipse at 20% 40%, rgba(139, 151, 112,0.1) 0%, transparent 50%), radial-gradient(ellipse at 80% 60%, rgba(166, 173, 138,0.08) 0%, transparent 45%), radial-gradient(ellipse at 50% 20%, rgba(203, 169, 108,0.1) 0%, transparent 50%), #1E1315; }
+        .bg-sage-radial { background: radial-gradient(ellipse at 30% 30%, rgba(166, 173, 138,0.25) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(166, 173, 138,0.18) 0%, transparent 50%), #1E1315; }
+        
+        /* Seamless texture color overrides for owner section */
+        #owner .seamless-texture .s0 { fill: #4C1D24; }
+        #owner .seamless-texture .s1 { fill: #B8945A; }
+        #owner .seamless-texture .s2 { fill: #E4D9BE; }
+        #owner .seamless-texture {
+            background-image: url('seamless.svg');
+            background-size: 1200px 1200px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        #leaflet-map { height: clamp(320px, 45vh, 500px); width: 100%; border-radius: 1.5rem; border: 1px solid rgba(203, 169, 108, 0.25); }
+        .custom-leaflet-icon { position: relative; width: 160px; height: 110px; pointer-events: none; }
+        .custom-leaflet-icon .pin { position: absolute; left: 50%; bottom: 0; width: 46px; height: 46px; background: radial-gradient(circle at 35% 30%, #A6AD8A, #6E2A34 60%, #59202A); border-radius: 50% 50% 50% 0; transform: translateX(-50%) rotate(-45deg); box-shadow: 0 0 20px rgba(110, 42, 52, 0.45); }
+        .custom-leaflet-icon .pin::after { content: ''; position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; background: var(--warm-cream); border-radius: 50%; transform: translate(-50%, -50%); }
+        .custom-leaflet-icon .pin-label { position: absolute; top: 0; left: 50%; transform: translateX(-50%); padding: 0.45rem 0.9rem; background: rgba(30, 19, 21, 0.95); border: 1px solid rgba(203, 169, 108, 0.25); border-radius: 9999px; color: #A6AD8A; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; box-shadow: 0 12px 28px rgba(30, 19, 21, 0.35); }
+        .custom-leaflet-icon-alt { position: relative; width: 160px; height: 110px; pointer-events: none; }
+        .custom-leaflet-icon-alt .pin { position: absolute; left: 50%; bottom: 0; width: 46px; height: 46px; background: radial-gradient(circle at 35% 30%, #A6AD8A, #8B9770 60%, #6E7A56); border-radius: 50% 50% 50% 0; transform: translateX(-50%) rotate(-45deg); box-shadow: 0 0 20px rgba(139, 151, 112, 0.35); }
+        .custom-leaflet-icon-alt .pin::after { content: ''; position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; background: var(--warm-cream); border-radius: 50%; transform: translate(-50%, -50%); }
+        .custom-leaflet-icon-alt .pin-label { position: absolute; top: 0; left: 50%; transform: translateX(-50%); padding: 0.45rem 0.9rem; background: rgba(30, 19, 21, 0.95); border: 1px solid rgba(203, 169, 108, 0.25); border-radius: 9999px; color: #A6AD8A; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; box-shadow: 0 12px 28px rgba(30, 19, 21, 0.35); }
+        .hero-logo-glow { animation: logoGlow 3s ease-in-out infinite alternate; }
+        .hero-stack > * + * { margin-top: 10px; }
+        
+        #header-svg-container { position: absolute; top: 0; left: 0; width: 100%; height: var(--header-h); pointer-events: none; z-index: 0; }
+        #header-svg-container svg { width: 100%; height: 100%; display: block; overflow: visible; }
+        @media (max-width: 767px) {
+            #header-svg-container {
+                display: none;
+            }
+        }
+        /* Header inner height responsive across breakpoints */
+        .header-inner { height: var(--header-h); }
+        /* Match header background to SVG gradient colors */
+        #header { background: var(--warm-cream); }
+        .cellar-gallery-wrap { display: flex; gap: 12px; min-height: clamp(420px, 48vh, 640px); width: 100%; overflow: hidden; border-radius: 1.5rem; }
+        .cellar-gallery-wrap .item { position: relative; flex: 1 1 0; min-width: 0; background-size: cover; background-position: center; border: none; padding: 0; cursor: pointer; transition: flex 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s ease; outline: none; }
+        .cellar-gallery-wrap .item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30, 19, 21, 0.08), rgba(30, 19, 21, 0.62)); opacity: 0; transition: opacity 0.35s ease; }
+        .cellar-gallery-wrap .item:hover::before { opacity: 1; }
+        .cellar-gallery-wrap .item:hover { flex: 4 1 0; transform: scale(1.02); }
+        .cellar-gallery-wrap .item .gallery-label { position: absolute; left: 1.5rem; bottom: 1.5rem; z-index: 1; color: var(--warm-cream); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.9rem; line-height: 1.3; }
+        .cellar-gallery-wrap .item .gallery-cover { position: absolute; inset: 0; background: rgba(30, 19, 21, 0.3); transition: background 0.35s ease; }
+        .cellar-gallery-wrap .item:hover .gallery-cover { background: rgba(30, 19, 21, 0.1); }
+        @media (max-width: 767px) {
+            .cellar-gallery-wrap .item .gallery-label { display: none; }
+        }
+        .lightbox-overlay { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: rgba(30, 19, 21, 0.95); opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+        .lightbox-overlay.open { opacity: 1; pointer-events: auto; }
+        .lightbox-content { position: relative; width: min(92vw, 900px); max-height: min(92vh, 900px); transform: scale(0.95); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+        .lightbox-overlay.open .lightbox-content { transform: scale(1); }
+        .lightbox-image { width: 100%; height: auto; max-height: calc(92vh - 4rem); object-fit: contain; border-radius: 1.5rem; box-shadow: 0 30px 90px rgba(30, 19, 21, 0.6); }
+        .lightbox-caption { margin-top: 1rem; text-align: center; color: var(--limestone); font-size: 0.95rem; letter-spacing: 0.03em; }
+        .lightbox-close { position: absolute; top: -1rem; right: -1rem; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 9999px; border: 1px solid rgba(203, 169, 108, 0.3); background: rgba(30, 19, 21, 0.7); color: var(--warm-cream); cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+        .lightbox-close:hover { transform: scale(1.05); background: rgba(203, 169, 108, 0.25); }
+        @keyframes logoGlow { from { filter: drop-shadow(0 0 12px rgba(245, 243, 237, 0.25)); } to { filter: drop-shadow(0 0 26px rgba(245, 243, 237, 0.45)); } }
+        .booking-modal { display: none; }
+        .booking-modal.open { display: flex; }
+        .calendar-shell::before {
+            content: '';
+            position: absolute;
+            inset: -20% auto auto -10%;
+            width: 280px;
+            height: 280px;
+            border-radius: 9999px;
+            background: radial-gradient(circle, rgba(110, 42, 52, 0.18), transparent 70%);
+            filter: blur(28px);
+            animation: calendarGlow 7s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        .calendar-shell::after {
+            content: '';
+            position: absolute;
+            inset: auto -12% -18% auto;
+            width: 320px;
+            height: 320px;
+            border-radius: 9999px;
+            background: radial-gradient(circle, rgba(203, 169, 108, 0.16), transparent 70%);
+            filter: blur(34px);
+            animation: calendarGlow 9s ease-in-out infinite alternate-reverse;
+            pointer-events: none;
+        }
+        .month-chip {
+            border: 1px solid rgba(203, 169, 108, 0.25);
+            border-radius: 9999px;
+            background: rgba(203, 169, 108, 0.08);
+            color: var(--warm-cream);
+            padding: 0.7rem 1rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .month-chip:hover {
+            transform: translateY(-2px);
+            border-color: rgba(203, 169, 108, 0.45);
+            background: rgba(203, 169, 108, 0.12);
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            padding: 2rem 5rem;
+        }
+        .month-chip.active {
+            background: linear-gradient(135deg, rgba(110, 42, 52, 0.25), rgba(203, 169, 108, 0.18));
+            border-color: rgba(203, 169, 108, 0.5);
+            box-shadow: 0 10px 24px rgba(110, 42, 52, 0.15);
+            color: var(--warm-cream);
+        }
+        #calendar .month-chip { color: #1E1315; }
+        .calendar-detail {
+            animation: fadeSlide 0.35s ease;
+        }
+        @keyframes calendarGlow {
+            from { transform: translate3d(0, 0, 0) scale(1); }
+            to { transform: translate3d(12px, -10px, 0) scale(1.08); }
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-[#4C1D24]">
+
+    <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#1E1315] transition-opacity duration-1000">
+        <div class="text-center">
+            <img src="animation1.svg" alt="Divino animation" class="mx-auto mb-6 h-40 md:h-52 w-auto" />
+            <div class="text-[#A6AD8A] text-2xl tracking-[0.3em] uppercase mb-4">Divino</div>
+            <div class="h-2 w-64 mx-auto rounded-full bg-[#3F2B21]/40 overflow-hidden shadow-inner">
+                <div id="loader-bar" class="h-full w-0 bg-[#A6AD8A] transition-all duration-300"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav id="header" class="fixed top-0 left-0 w-full z-50">
+        <div id="header-svg-container" class="absolute inset-0 z-0">
+            <svg preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2278 200">
+                <defs>
+                    <linearGradient id="grad-1" x1="0" y1="0" x2="2278" y2="200" gradientUnits="userSpaceOnUse">
+                    <stop offset="0.2" stop-color="#F5F3ED"></stop>
+                    <stop offset="0.8" stop-color="#F5F3ED"></stop>
+                    </linearGradient>
+                </defs>
+                <g>
+                    <path class="wiggle-path" fill="url(#grad-1)" d="M0,0 L2278,0 L2278,200 C2278,200, 1814,200, 1139,200 C464,200, 0,200, 0,200 Z"/>
+                </g>
+            </svg>
+        </div>
+        <div class="relative z-10 w-full px-6 header-inner flex justify-center items-center text-[#1E1315]">
+            <div class="inline-flex items-center gap-8">
+                <img src="divino logo black and red.svg" alt="Divino" class="h-16 md:h-20 lg:h-24">
+                <div class="hidden md:flex items-center gap-8 lg:gap-12 text-xs uppercase tracking-[0.2em] text-[#1E1315]">
+                    <a href="#booking" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.book">Book</a>
+                    <a href="#vision" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.vision">Vision</a>
+                    <a href="#cellar" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.cellar">The Urban Cellar</a>
+                    <a href="#calendar" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.calendar">Calendar</a>
+                    <a href="#owner" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.about">About</a>
+                    <a href="ambrosia.html" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.ambrosia">Ambrosia</a>
+                    <button data-lang-toggle class="inline-flex items-center rounded-full border border-[#CBA96C]/40 px-3 py-2 text-[11px] uppercase tracking-[0.25em] text-[#1E1315] hover:bg-[#CBA96C]/15">
+                        <span data-lang-label>IT</span>
+                    </button>
+                </div>
+                <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden inline-flex items-center justify-center p-2 rounded-md border border-[#CBA96C]/40 text-[#1E1315] hover:bg-[#CBA96C]/15 focus:outline-none focus:ring-2 focus:ring-[#6E2A34]">
+                    <span class="sr-only" data-i18n="mobile.menu">Open mobile menu</span>
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden absolute inset-x-0 top-full bg-[#F5F3ED]/95 backdrop-blur-xl border-t border-[#CBA96C]/30 shadow-2xl">
+            <div class="flex flex-col px-6 py-4 gap-4 text-sm uppercase tracking-[0.2em] text-[#1E1315]">
+                <a href="#booking" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.book">Book</a>
+                <a href="#vision" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.vision">Vision</a>
+                <a href="#cellar" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.cellar">The Urban Cellar</a>
+                <a href="#calendar" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.calendar">Calendar</a>
+                <a href="#owner" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.about">About</a>
+                <a href="ambrosia.html" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.ambrosia">Ambrosia</a>
+                <button data-lang-toggle class="inline-flex items-center rounded-full border border-[#CBA96C]/40 px-3 py-2 text-[11px] uppercase tracking-[0.25em] text-[#1E1315] hover:bg-[#CBA96C]/15">
+                    <span data-lang-label>IT</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative min-h-screen flex items-center justify-center px-4 sm:px-6">
+        <div class="absolute inset-0 bg-[#4C1D24] overflow-hidden">
+            <video src="v3.mp4" autoplay muted loop playsinline class="w-full h-full object-cover opacity-40"></video>
+        </div>
+        <div class="relative z-10 text-center animate-reveal hero-stack max-w-xl mx-auto">
+              <img src="divino logo white and red.svg"
+                  class="w-64 md:w-96 max-w-full mx-auto drop-shadow-[0_0_15px_rgba(245, 243, 237,0.3)] hero-logo-glow">
+            <p class="text-[#E4D9BE] italic text-base sm:text-xl tracking-widest" data-i18n="hero.subtitle">Sicily's Premier Urban Cellar & Tasting Room</p>
+            <a href="#booking" class="inline-block w-full sm:w-auto px-8 py-4 bg-transparent border border-[#F5F3ED] text-[#F5F3ED] font-semibold uppercase tracking-widest hover:bg-[#F5F3ED] hover:text-[#1E1315] transition-all" data-i18n="hero.cta">Begin your journey</a>
+        </div>
+    </header>
+
+    <section id="booking" class="py-32 px-6 scroll-reveal" style="background-color: #e9decc;">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10">
+                <img src="grapes.svg" class="section-icon corkscrew-icon" alt="">
+                <span class="text-[#6E2A34] uppercase text-xs tracking-[0.3em]" data-i18n="booking.eyebrow">Book Your Experience</span>
+                <h2 class="text-4xl md:text-5xl mt-4 text-[#1E1315]" data-i18n="booking.title">Book wine tastings, cooking classes or unique events</h2>
+                <p class="text-[#4A3730] max-w-2xl mx-auto mt-4" data-i18n="booking.text">Reserve your place for an event experience that explores tastings, memberships, and the Ambrosia experience.</p>
+            </div>
+            <div class="glass rounded-[2rem] border border-[#CBA96C]/40 overflow-hidden shadow-2xl p-8 md:p-12">
+                <div class="grid gap-10 md:grid-cols-[1.1fr_0.9fr] items-center">
+                    <div class="space-y-6">
+                        <div class="inline-flex items-center rounded-full border border-[#6E2A34]/30 bg-[#6E2A34]/10 px-4 py-2 text-sm uppercase tracking-[0.2em] text-[#6E2A34]">
+                            <span data-i18n="booking.badge">Event experience</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl text-[#1E1315]" data-i18n="booking.card.title">Reserve a time that fits your journey</h3>
+                        <p class="text-[#4A3730] leading-relaxed" data-i18n="booking.card.text">Whether you are planning a tasting, exploring memberships, or learning more about Ambrosia, this is the fastest way to connect directly with the team.</p>
+                        <button type="button" id="open-booking-modal" class="inline-flex items-center justify-center px-8 py-4 bg-[#6E2A34] hover:bg-[#59202A] text-[#F5F3ED] uppercase tracking-[0.2em] font-semibold transition-all" data-i18n="booking.button">
+                            Book your slot
+                        </button>
+                    </div>
+            <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8">
+                        <h4 class="text-xl mb-4 text-[#6E2A34]" data-i18n="booking.list.title">What you can discuss</h4>
+                        <ul class="space-y-3 text-[#4A3730]">
+                            <li data-i18n="booking.list.item1">• Wine tasting experiences and private visits</li>
+                            <li data-i18n="booking.list.item2">• Cooking classes</li>
+                            <li data-i18n="booking.list.item3">• Farm experiences</li>
+                            <li data-i18n="booking.list.item4">• Seasonal events and special occasions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="philosophy" class="py-40 px-6 sm:px-10 lg:px-16 scroll-reveal" style="background-color: #e9decc;">
+        <div class="grid md:grid-cols-2 gap-24 items-center">
+            <div class="space-y-6">
+                <img src="mount etna.svg" class="section-icon mountain-icon" alt="Mount Etna" style="filter: none;">
+                <span class="text-[#6E2A34] uppercase text-xs tracking-[0.3em]" data-i18n="philosophy.eyebrow">The Vision</span>
+                <h2 class="text-5xl leading-tight text-[#1E1315]" data-i18n="philosophy.title">Where Etna Meets the Sea</h2>
+                <p class="leading-relaxed text-[#4A3730]" data-i18n="philosophy.text1">Divino is not merely a bar; it is an interrogation of the Sicilian soil. Our urban cellar holds the secrets of volcanic slopes and ancient coastal vines, presented in a space designed for deep contemplation.</p>
+                <p class="leading-relaxed text-[#59202A] italic" data-i18n="philosophy.text2">"Our mission is to bridge the gap between the rugged, fertile volcanic peaks of Mount Etna and the refined, salty breeze of the Tyrrhenian coast."</p>
+            </div>
+            <div class="h-[500px] bg-[#4C1D24] rounded-lg overflow-hidden shadow-2xl relative group">
+                <img src="gallery1.jpeg" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" style="filter: saturate(0.5);">
+            </div>
+        </div>
+    </section>
+
+    <section id="vision" class="py-32 px-6 scroll-reveal" style="background-image: url('walnut stucco.png'); background-size: cover; background-position: center;">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <img src="wineglass1.svg" class="section-icon corkscrew-icon" alt="">
+                <span class="text-[#A6AD8A] uppercase text-xs tracking-[0.3em]" data-i18n="vision.eyebrow">2026–2035 Strategic Vision</span>
+                <h2 class="text-5xl mt-4" data-i18n="vision.title">Divino & Ambrosia: Building a Living Sicilian Legacy</h2>
+                <p class="text-[#E4D9BE] max-w-3xl mx-auto mt-4" data-i18n="vision.intro">From a first encounter with our cellar to a lasting relationship with Sicily itself, our long-term ambition is to create a deeper, more meaningful experience for every guest.</p>
+            </div>
+            <div class="grid gap-8 lg:grid-cols-2">
+                <article class="glass p-8 border border-[#CBA96C]/25">
+                    <h3 class="text-2xl mb-4 text-[#A6AD8A]" data-i18n="vision.ecosystem.title">Ecosystem Building</h3>
+                    <p class="text-[#E4D9BE] leading-relaxed" data-i18n="vision.ecosystem.text">Creating a singular, authentic Sicilian experience where Divino serves as the introduction and Ambrosia as the core experience.</p>
+                </article>
+                <article class="glass p-8 border border-[#CBA96C]/25">
+                    <h3 class="text-2xl mb-4 text-[#A6AD8A]" data-i18n="vision.community.title">International Community</h3>
+                    <p class="text-[#E4D9BE] leading-relaxed" data-i18n="vision.community.text">Transforming visitors into long-term members and "ambassadors for Sicily" who stay connected to our land and projects year-round.</p>
+                </article>
+                <article class="glass p-8 border border-[#CBA96C]/25">
+                    <h3 class="text-2xl mb-4 text-[#A6AD8A]" data-i18n="vision.growth.title">Value-Driven Growth</h3>
+                    <p class="text-[#E4D9BE] leading-relaxed" data-i18n="vision.growth.text">Moving beyond simple commerce to focus on Mediterranean lifestyle values—hospitality, sustainability, education, and community.</p>
+                </article>
+                <article class="glass p-8 border border-[#CBA96C]/25">
+                    <h3 class="text-2xl mb-4 text-[#A6AD8A]" data-i18n="vision.legacy.title">Cultural Legacy</h3>
+                    <p class="text-[#E4D9BE] leading-relaxed" data-i18n="vision.legacy.text">Becoming a leading destination where wine, agriculture, food, and human connection create unforgettable, life-long memories for our guests.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="cellar" class="py-32 px-6 scroll-reveal" style="background-image: url('wood dark.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
+        <div class="mb-16 text-center">
+            <img src="winejug.svg" class="section-icon" alt="">
+            <h2 class="text-5xl mb-4" data-i18n="cellar.title">The Urban Cellar</h2>
+            <p class="text-[#C9BB98] max-w-2xl mx-auto" data-i18n="cellar.text">Step inside our sanctuary in the heart of Cefalù. Designed with raw basalt and warm Mediterranean oak, our cellar provides the perfect quiet atmosphere for discovery.</p>
+        </div>
+        <div class="cellar-gallery-wrap" aria-label="Urban cellar gallery">
+            <button type="button" class="item item-1 lightbox-trigger" style="background-image:url('d1.avif');" data-src="d1.avif" data-caption="Main cellar view" aria-label="View main cellar image">
+                <div class="gallery-cover"></div>
+                <span class="gallery-label">Main cellar view</span>
+            </button>
+            <button type="button" class="item item-2 lightbox-trigger" style="background-image:url('d2.avif');" data-src="d2.avif" data-caption="Cellar tasting corner" aria-label="View tasting corner image">
+                <div class="gallery-cover"></div>
+                <span class="gallery-label">Tasting corner</span>
+            </button>
+            <button type="button" class="item item-3 lightbox-trigger" style="background-image:url('d3.avif');" data-src="d3.avif" data-caption="Stone and glass cellar" aria-label="View stone and glass cellar image">
+                <div class="gallery-cover"></div>
+                <span class="gallery-label">Stone & glass cellar</span>
+            </button>
+            <button type="button" class="item item-4 lightbox-trigger" style="background-image:url('14.webp');" data-src="14.webp" data-caption="Rustic tasting alcove" aria-label="View rustic tasting alcove image">
+                <div class="gallery-cover"></div>
+                <span class="gallery-label">Rustic alcove</span>
+            </button>
+            <button type="button" class="item item-5 lightbox-trigger" style="background-image:url('13.webp');" data-src="13.webp" data-caption="Curated wine displays" aria-label="View curated wine displays image">
+                <div class="gallery-cover"></div>
+                <span class="gallery-label">Wine display</span>
+            </button>
+        </div>
+    </section>
+
+
+    <section id="calendar" class="py-32 px-6 scroll-reveal" style="background-color: #e9decc;">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <img src="olives in a bowl.svg" class="section-icon calendar-icon" alt="" style="filter: none;">
+                <span class="text-[#6E2A34] uppercase text-xs tracking-[0.3em]" data-i18n="calendar.eyebrow">Mediterranean Rhythm</span>
+                <h2 class="text-4xl md:text-5xl mt-4 text-[#1E1315]" data-i18n="calendar.title">The Mediterranean Seasonal Calendar</h2>
+                <p class="text-[#4A3730] max-w-3xl mx-auto mt-4" data-i18n="calendar.text">Nature will dictate our calendar. Rather than organising random events, every month should celebrate one of the Mediterranean's traditional crops.</p>
+            </div>
+            <div class="calendar-shell relative glass rounded-[2rem] border border-[#CBA96C]/40 p-6 md:p-8 lg:p-10 overflow-hidden">
+                <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] items-start">
+                    <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-6">
+                        <div class="flex flex-wrap gap-3" id="calendar-months">
+                            <button type="button" class="month-chip active" data-month="april">April</button>
+                            <button type="button" class="month-chip" data-month="may">May</button>
+                            <button type="button" class="month-chip" data-month="june">June</button>
+                            <button type="button" class="month-chip" data-month="july">July</button>
+                            <button type="button" class="month-chip" data-month="august">August</button>
+                            <button type="button" class="month-chip" data-month="september">September</button>
+                            <button type="button" class="month-chip" data-month="october">October</button>
+                        </div>
+                        <div id="calendar-detail" class="calendar-detail mt-8 rounded-[1.25rem] border border-[#CBA96C]/40 bg-[#F5F3ED] p-6">
+                            <p id="calendar-title" class="text-2xl text-[#1E1315]">Spring Festival</p>
+                            <p id="calendar-subtitle" class="text-[#6E2A34] uppercase tracking-[0.25em] text-xs mt-3">Wild herbs</p>
+                            <ul id="calendar-list" class="mt-5 space-y-2 text-[#4A3730] text-sm md:text-base"></ul>
+                        </div>
+                    </div>
+                    <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8 md:p-10">
+                        <p class="text-[#6E2A34] uppercase tracking-[0.3em] text-xs" data-i18n="calendar.motive">Annual tradition</p>
+                        <h3 class="text-3xl text-[#1E1315] mt-3" data-i18n="calendar.motiveTitle">One major event each month, from April to October</h3>
+                        <p class="text-[#4A3730] mt-4 leading-relaxed" data-i18n="calendar.motiveText">These gatherings are designed to become annual traditions that people actively look forward to attending, shaped by the season and the land.</p>
+                        <div class="mt-8 grid gap-4 md:grid-cols-2">
+                            <div class="rounded-[1rem] border border-[#CBA96C]/40 bg-[#F5F3ED] p-4">
+                                <p class="text-[#6E2A34] text-sm uppercase tracking-[0.25em]" data-i18n="calendar.feature1">Season-led</p>
+                                <p class="text-[#4A3730] mt-2 text-sm" data-i18n="calendar.feature1Text">Each month follows a single crop or ritual rooted in the Mediterranean.</p>
+                            </div>
+                            <div class="rounded-[1rem] border border-[#CBA96C]/40 bg-[#F5F3ED] p-4">
+                                <p class="text-[#6E2A34] text-sm uppercase tracking-[0.25em]" data-i18n="calendar.feature2">Community-driven</p>
+                                <p class="text-[#4A3730] mt-2 text-sm" data-i18n="calendar.feature2Text">The events gather growers, cooks, musicians, and guests into one shared celebration.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-32 scroll-reveal" style="background-color: #e9decc;">
+        <div class="max-w-6xl mx-auto px-6 mb-16 text-center">
+            <img src="barrel.svg" class="section-icon" style="width: 160px; height: 160px;" alt="">
+            <span class="text-[#6E2A34] uppercase text-xs tracking-[0.3em]" data-i18n="faq.eyebrow">Tasting FAQ</span>
+            <h2 class="text-5xl mt-4 text-[#1E1315]" data-i18n="faq.title">Questions About Tasting & Wine</h2>
+            <p class="text-[#4A3730] max-w-3xl mx-auto mt-4" data-i18n="faq.intro">Explore our most common questions about the tasting experience, the wines we serve, and how Sicily's terroirs shape every glass.</p>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 grid gap-8 lg:grid-cols-2">
+            <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-10">
+                <h3 class="text-2xl mb-4 text-[#1E1315]" data-i18n="faq.q1.title">What should I expect during a tasting?</h3>
+                <p class="text-[#4A3730]" data-i18n="faq.q1.text">Expect a curated journey through Sicilian terroirs. Our tastings focus on volcanic Etna reds, heritage Nero d'Avola, and crisp coastal whites with a strong sense of place.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-10">
+                <h3 class="text-2xl mb-4 text-[#1E1315]" data-i18n="faq.q2.title">How do you choose the wines for each flight?</h3>
+                <p class="text-[#4A3730]" data-i18n="faq.q2.text">We select wines that tell a story: the ash and minerality of Etna, the warm fruit of the inland valleys, and the saline freshness from Cefalù's nearby shorelines.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-10">
+                <h3 class="text-2xl mb-4 text-[#1E1315]" data-i18n="faq.q3.title">Can I taste both red and white wines?</h3>
+                <p class="text-[#4A3730]" data-i18n="faq.q3.text">Yes. Our tasting experiences are designed for balance, letting you compare the intensity of reds with the crispness of coastal whites and aromatic Sicilian rosés.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-10">
+                <h3 class="text-2xl mb-4 text-[#1E1315]" data-i18n="faq.q4.title">What makes Sicilian wine unique?</h3>
+                <p class="text-[#4A3730]" data-i18n="faq.q4.text">Sicilian wine combines volcanic energy, Mediterranean sunlight, and ancient grape varieties. At Divino, you'll taste the contrast between Etna's mineral depth and the sea-salt brightness of the coast.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-32 px-6 scroll-reveal" style="background-image: url('natural-wooden-background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.3);">
+        <div class="max-w-6xl mx-auto mb-16 text-center">
+            <img src="grape leaf.svg" class="w-40 h-40 mx-auto mb-6" style="filter: grayscale(1) brightness(0) invert(1);" alt="">
+            <span class="text-[#A6AD8A] uppercase text-xs tracking-[0.3em]" data-i18n="reviews.eyebrow">Google Reviews</span>
+            <h2 class="text-5xl mt-4" data-i18n="reviews.title">Trusted by Visitors from Around the World</h2>
+            <p class="text-[#E4D9BE] max-w-3xl mx-auto mt-4" data-i18n="reviews.intro">Real feedback from guests who stopped by Divino Urban Cellar for wine, tasting and a warm Sicilian welcome.</p>
+        </div>
+        <div class="max-w-7xl mx-auto grid gap-8 lg:grid-cols-2">
+            <article class="glass p-8 border border-[#CBA96C]/25 hover:border-[#A6AD8A] transition-all duration-500">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl">Alex Dalla Zanna</h3>
+                        <p class="text-[#C9BB98] text-sm uppercase tracking-[0.2em] mt-2">5/5 · 2 weeks ago</p>
+                    </div>
+                    <div class="text-[#A6AD8A] text-lg tracking-[0.2em]">★★★★★</div>
+                </div>
+                <p class="text-[#EFE8D4] leading-relaxed">This place is incredible! The owner Massimo is so knowledgeable and personable. The wines offered are incredibly delicious and priced very well. The atmosphere is exactly what you want for a tasting experience in Cefalù.</p>
+            </article>
+            <article class="glass p-8 border border-[#CBA96C]/25 hover:border-[#A6AD8A] transition-all duration-500">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl">Sofia Bhargava</h3>
+                        <p class="text-[#C9BB98] text-sm uppercase tracking-[0.2em] mt-2">5/5 · 3 weeks ago</p>
+                    </div>
+                    <div class="text-[#A6AD8A] text-lg tracking-[0.2em]">★★★★★</div>
+                </div>
+                <p class="text-[#EFE8D4] leading-relaxed">Such an amazing place and our favorite spot in Cefalù now! We came in on a Monday even though wine tasting service is Thursday-Sunday. They kindly accommodated us and made every detail feel special.</p>
+            </article>
+            <article class="glass p-8 border border-[#CBA96C]/25 hover:border-[#A6AD8A] transition-all duration-500">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl">Mike Page</h3>
+                        <p class="text-[#C9BB98] text-sm uppercase tracking-[0.2em] mt-2">5/5 · a month ago</p>
+                    </div>
+                    <div class="text-[#A6AD8A] text-lg tracking-[0.2em]">★★★★★</div>
+                </div>
+                <p class="text-[#EFE8D4] leading-relaxed">We already loved Sicily. We didn't think it was possible to love it more. Then we walked into Divino Urban Cellar and found a place as warm and memorable as the territory itself.</p>
+            </article>
+            <article class="glass p-8 border border-[#CBA96C]/25 hover:border-[#A6AD8A] transition-all duration-500">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl">Allan Baynton</h3>
+                        <p class="text-[#C9BB98] text-sm uppercase tracking-[0.2em] mt-2">5/5 · 3 months ago</p>
+                    </div>
+                    <div class="text-[#A6AD8A] text-lg tracking-[0.2em]">★★★★★</div>
+                </div>
+                <p class="text-[#EFE8D4] leading-relaxed">We had a very short visit to Cefalù recently and popped in to see what the place was like under the new ownership. What a transformation! The service is friendly and the wine selection is exceptional.</p>
+            </article>
+            <article class="glass p-8 border border-[#CBA96C]/25 hover:border-[#A6AD8A] transition-all duration-500 lg:col-span-2">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl">Sarah Moore</h3>
+                        <p class="text-[#C9BB98] text-sm uppercase tracking-[0.2em] mt-2">5/5 · 3 months ago</p>
+                    </div>
+                    <div class="text-[#A6AD8A] text-lg tracking-[0.2em]">★★★★★</div>
+                </div>
+                <p class="text-[#EFE8D4] leading-relaxed">Absolutely adore this wine shop. They have an incredible curation of wines (with a focus on Sicilian) plus they've kept the very affordable tap wine - a perfect mix of quality and personality.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="owner" class="py-32 px-6 scroll-reveal relative overflow-hidden">
+        <div class="max-w-6xl mx-auto grid gap-16 lg:grid-cols-[1.2fr_0.8fr] items-center relative z-10">
+            <div class="space-y-6">
+                <span class="text-[#A6AD8A] uppercase text-xs tracking-[0.3em]" data-i18n="owner.eyebrow">Meet the Owner</span>
+                <h2 class="text-5xl" data-i18n="owner.title">Massimo: the spirit behind Divino</h2>
+                <p class="text-[#E4D9BE] max-w-3xl" data-i18n="owner.text">Massimo brings Sicilian hospitality, wine expertise, and a storyteller's eye to every tasting. His passion for local growers and volcanic wines has shaped Divino into a place where every sip feels personal.</p>
+                <div class="glass p-8 border border-[#CBA96C]/25 shadow-2xl">
+                    <p class="text-[#EFE8D4] leading-relaxed" data-i18n="owner.quote">From carefully selected Etna reds to coastal whites and rare olive oils, Massimo curates a menu built on authenticity, warmth and unforgettable moments. He welcomes both seasoned wine lovers and first-time visitors with equal care.</p>
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-[1.5rem] border border-[#CBA96C]/25 shadow-2xl bg-[#4C1D24]/30">
+                <img src="massimo.png" alt="Massimo" class="w-full h-full object-cover min-h-[420px]">
+            </div>
+        </div>
+    </section>
+
+    <section id="membership" class="py-32 px-6 scroll-reveal" style="background-image: url('natural-wooden-background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.3);">
+        <div class="max-w-5xl mx-auto">
+            <div class="glass p-10 md:p-14 border border-[#CBA96C]/25 rounded-[2rem] text-center">
+                <img src="wineglass1.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="">
+                <span class="text-[#A6AD8A] uppercase text-xs tracking-[0.3em]" data-i18n="newsletter.eyebrow">Join the Circle</span>
+                <h2 class="text-4xl md:text-5xl mt-4" data-i18n="newsletter.title">Newsletter</h2>
+                <p class="text-[#E4D9BE] max-w-2xl mx-auto mt-4" data-i18n="newsletter.text">Receive the latest news from Divino and Ambrosia, along with exclusive updates, invitations, and stories from Sicily.</p>
+                <form class="mt-8 flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+                    <input type="email" data-i18n-placeholder="newsletter.placeholder" placeholder="Your Email Address" class="flex-1 bg-[#4C1D24] border border-[#CBA96C]/25 p-4 focus:border-[#A6AD8A] outline-none text-[#F5F3ED]">
+                    <button class="px-8 py-4 bg-[#6E2A34] hover:bg-[#59202A] text-[#F5F3ED] uppercase tracking-widest font-bold transition-all" data-i18n="newsletter.button">Join the Newsletter</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="ambrosia-membership" class="py-32 px-6 scroll-reveal relative" style="background-color: #e9decc;">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-12">
+                <img src="corkscrew2.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="">
+                <span class="text-[#6E2A34] uppercase text-xs tracking-[0.3em]" data-i18n="ambrosia.eyebrow">Ambrosia Membership</span>
+                <h2 class="text-4xl md:text-5xl mt-4 text-[#1E1315]" data-i18n="ambrosia.title">The Ambrosia Membership</h2>
+                <p class="text-[#4A3730] max-w-3xl mx-auto mt-4" data-i18n="ambrosia.text">Members will receive privileged access to a curated world of Sicilian products, experiences, and traditions rooted in hospitality, craft, and seasonality.</p>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8">
+                    <h3 class="text-xl mb-3 text-[#1E1315]" data-i18n="ambrosia.exclusive.title">Exclusive Access</h3>
+                    <p class="text-[#4A3730]" data-i18n="ambrosia.exclusive.text">Limited products and early releases reserved for members.</p>
+                </div>
+                <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8">
+                    <h3 class="text-xl mb-3 text-[#1E1315]" data-i18n="ambrosia.seasonal.title">Seasonal Boxes</h3>
+                    <p class="text-[#4A3730]" data-i18n="ambrosia.seasonal.text">Curated seasonal product boxes delivered throughout the year.</p>
+                </div>
+                <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8">
+                    <h3 class="text-xl mb-3 text-[#1E1315]" data-i18n="ambrosia.harvest.title">Harvest Gifts</h3>
+                    <p class="text-[#4A3730]" data-i18n="ambrosia.harvest.text">Olive oil from the annual harvest and carefully selected wines.</p>
+                </div>
+                <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8">
+                    <h3 class="text-xl mb-3 text-[#1E1315]" data-i18n="ambrosia.cosmetics.title">Natural Cosmetics</h3>
+                    <p class="text-[#4A3730]" data-i18n="ambrosia.cosmetics.text">Handmade natural cosmetics inspired by local ingredients and traditions.</p>
+                </div>
+                <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8">
+                    <h3 class="text-xl mb-3 text-[#1E1315]" data-i18n="ambrosia.specialties.title">Mediterranean Specialties</h3>
+                    <p class="text-[#4A3730]" data-i18n="ambrosia.specialties.text">Preserves and other authentic Mediterranean delicacies.</p>
+                </div>
+                <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8">
+                    <h3 class="text-xl mb-3 text-[#1E1315]" data-i18n="ambrosia.events.title">Festivals & Events</h3>
+                    <p class="text-[#4A3730]" data-i18n="ambrosia.events.text">Invitations to harvest festivals, online cooking classes, and virtual wine tastings.</p>
+                </div>
+            </div>
+            <div class="mt-10 text-center">
+                <a href="ambrosia.html" class="inline-block px-8 py-4 bg-[#6E2A34] hover:bg-[#59202A] text-[#F5F3ED] uppercase tracking-widest font-bold transition-all" data-i18n="ambrosia.cta">Become a Member</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="visit" class="relative py-32 scroll-reveal" style="background-color: #e9decc;">
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <img src="divino logo black and red.svg" alt="Divino" class="mx-auto mb-10" style="height:240px; width:auto;">
+            <h2 class="text-5xl mb-12 text-[#1E1315]" data-i18n="visit.title">Plan Your Visit</h2>
+            <div class="glass p-12 text-left grid md:grid-cols-2 gap-12 border border-[#CBA96C]/40">
+                <div class="space-y-4">
+                    <h4 class="text-xl uppercase tracking-widest text-[#6E2A34]" data-i18n="visit.location">Location</h4>
+                    <p class="text-[#4A3730]">
+                        Via Gibilmanna, 16<br>
+                        90015 Cefalù PA, Italy
+                    </p>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Via+Gibilmanna,16,90015+Cefalù+PA,Italy"
+                       target="_blank" class="block text-[#6E2A34] hover:text-[#59202A] underline transition-all text-sm uppercase tracking-widest mt-2" data-i18n="visit.getDirections">Get Directions</a>
+
+                    <h4 class="text-xl uppercase tracking-widest text-[#6E2A34] pt-6" data-i18n="visit.contact">Contact</h4>
+                    <p class="text-[#4A3730]">
+                        <a href="tel:+393358426107" class="hover:text-[#59202A] transition-colors">+39 335 842 6107</a><br>
+                        <a href="https://divinocefalu.com" class="hover:text-[#59202A] transition-colors">divinocefalu.com</a>
+                    </p>
+
+                    <h4 class="text-xl uppercase tracking-widest text-[#6E2A34] pt-6" data-i18n="visit.hours">Hours</h4>
+                    <p class="text-[#4A3730]">Daily: 16:00 - 21:00</p>
+                </div>
+                <form class="space-y-4">
+                    <input type="text" data-i18n-placeholder="visit.namePlaceholder" placeholder="Your Name" class="w-full bg-[#F5F3ED] border border-[#CBA96C]/40 p-4 focus:border-[#6E2A34] outline-none text-[#1E1315]">
+                    <input type="email" data-i18n-placeholder="visit.emailPlaceholder" placeholder="Your Email" class="w-full bg-[#F5F3ED] border border-[#CBA96C]/40 p-4 focus:border-[#6E2A34] outline-none text-[#1E1315]">
+                    <textarea data-i18n-placeholder="visit.messagePlaceholder" placeholder="Special Requests" class="w-full bg-[#F5F3ED] border border-[#CBA96C]/40 p-4 h-24 focus:border-[#6E2A34] outline-none text-[#1E1315]"></textarea>
+                    <button class="w-full py-4 bg-[#6E2A34] hover:bg-[#59202A] text-[#F5F3ED] uppercase tracking-widest font-bold transition-all" data-i18n="visit.submit">Request Information</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div id="booking-choice-modal" class="booking-modal fixed inset-0 z-[80] items-center justify-center bg-[#4C1D24]/90 px-4 py-6">
+        <div class="relative w-full max-w-2xl rounded-[2rem] border border-[#CBA96C]/25 bg-[#4C1D24] shadow-2xl overflow-hidden">
+            <button id="close-booking-choice-modal" type="button" class="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#CBA96C]/20 bg-[#4C1D24]/70 text-[#F5F3ED] hover:bg-[#CBA96C]/15" aria-label="Close booking modal">×</button>
+            <div class="p-8 md:p-10">
+                <p class="text-[#A6AD8A] uppercase tracking-[0.3em] text-xs mb-3" data-i18n="booking.modal.eyebrow">Choose an experience</p>
+                <h3 class="text-3xl md:text-4xl text-[#F5F3ED]" data-i18n="booking.modal.title">Book your Divino experience</h3>
+                <p class="text-[#E4D9BE] mt-3 leading-relaxed" data-i18n="booking.modal.text">Select the experience you'd like to explore and we'll open the booking page for you.</p>
+                <div class="mt-8 grid gap-3">
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-i18n="booking.option.wine">Wine Tasting Experience</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-i18n="booking.option.cooking">Cooking Classes</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-i18n="booking.option.farm">Farm Experiences</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-i18n="booking.option.events">Seasonal Events</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="booking-calendly-modal" class="booking-modal fixed inset-0 z-[81] items-center justify-center bg-[#4C1D24]/95 px-4 py-6">
+        <div class="relative w-full max-w-5xl h-full max-h-[90vh] rounded-[2rem] border border-[#CBA96C]/25 bg-[#4C1D24] shadow-2xl overflow-hidden">
+            <div class="absolute left-4 top-4 z-10 flex items-center gap-3">
+                <button id="back-to-booking-choice" type="button" class="flex items-center rounded-full border border-[#CBA96C]/20 bg-[#4C1D24]/70 px-3 py-2 text-sm text-[#F5F3ED] hover:bg-[#CBA96C]/15" data-i18n="booking.modal.back">Back</button>
+            </div>
+            <button id="close-booking-calendly-modal" type="button" class="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#CBA96C]/20 bg-[#4C1D24]/70 text-[#F5F3ED] hover:bg-[#CBA96C]/15" aria-label="Close booking modal">×</button>
+            <iframe src="https://calendly.com/mq-experiences/30min?embed_domain=localhost&embed_type=Inline&background_color=1C1919&text_color=F3EDE0&primary_color=7A2021" class="h-full w-full" frameborder="0" scrolling="yes" title="Book a Divino experience"></iframe>
+        </div>
+    </div>
+
+    <footer class="py-12 text-center bg-[#F5F3ED] text-[#1E1315] text-xs uppercase tracking-widest">
+        <span data-i18n="footer">&copy; 2026 Divino Urban Cellar Cefalù. Designed by HR STUDIOS.</span>
+    </footer>
+
+    <div id="lightbox-overlay" class="lightbox-overlay" aria-hidden="true">
+        <div class="lightbox-content">
+            <button id="lightbox-close" type="button" class="lightbox-close" aria-label="Close image viewer">×</button>
+            <img id="lightbox-image" class="lightbox-image" src="" alt="Expanded cellar image">
+            <p id="lightbox-caption" class="lightbox-caption"></p>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/EasePack.min.js"></script>
+    <script>
+        const translations = {
+            en: {
+                'nav.book': 'Book',
+                'nav.vision': 'Vision',
+                'nav.cellar': 'The Urban Cellar',
+                'nav.calendar': 'Calendar',
+                'nav.about': 'About',
+                'nav.ambrosia': 'Ambrosia',
+                'hero.subtitle': "Sicily's Premier Urban Cellar & Tasting Room",
+                'hero.cta': 'Begin your journey',
+                'philosophy.eyebrow': 'The Vision',
+                'philosophy.title': 'Where Etna Meets the Sea',
+                'philosophy.text1': 'Divino is not merely a bar; it is an interrogation of the Sicilian soil. Our urban cellar holds the secrets of volcanic slopes and ancient coastal vines, presented in a space designed for deep contemplation.',
+                'philosophy.text2': '"Our mission is to bridge the gap between the rugged, fertile volcanic peaks of Mount Etna and the refined, salty breeze of the Tyrrhenian coast."',
+                'vision.eyebrow': '2026–2035 Strategic Vision',
+                'vision.title': 'Divino & Ambrosia: Building a Living Sicilian Legacy',
+                'vision.intro': 'From a first encounter with our cellar to a lasting relationship with Sicily itself, our long-term ambition is to create a deeper, more meaningful experience for every guest.',
+                'vision.ecosystem.title': 'Ecosystem Building',
+                'vision.ecosystem.text': 'Creating a singular, authentic Sicilian experience where Divino serves as the introduction and Ambrosia as the core experience.',
+                'vision.community.title': 'International Community',
+                'vision.community.text': 'Transforming visitors into long-term members and "ambassadors for Sicily" who stay connected to our land and projects year-round.',
+                'vision.growth.title': 'Value-Driven Growth',
+                'vision.growth.text': 'Moving beyond simple commerce to focus on Mediterranean lifestyle values—hospitality, sustainability, education, and community.',
+                'vision.legacy.title': 'Cultural Legacy',
+                'vision.legacy.text': 'Becoming a leading destination where wine, agriculture, food, and human connection create unforgettable, life-long memories for our guests.',
+                'tasting.eyebrow': 'Tasting Journeys',
+                'tasting.subtitle': 'Curated flights for the discerning palate.',
+                'tasting.volcanic.title': 'Volcanic Soul',
+                'tasting.volcanic.text': 'A deep dive into Etna\'s basaltic terroirs. Taste the ash, the height, and the age.',
+                'tasting.volcanic.price': '€85 / person',
+                'tasting.heritage.title': 'Heritage Reds',
+                'tasting.heritage.text': 'Sun-drenched Nero d\'Avola and Cerasuolo, honoring the ancient Mediterranean traditions.',
+                'tasting.heritage.price': '€65 / person',
+                'tasting.coastal.title': 'Coastal Crisp',
+                'tasting.coastal.text': 'Refreshment from the shores. Grillo, Zibibbo, and salty notes of the northern coast.',
+                'tasting.coastal.price': '€55 / person',
+                'faq.eyebrow': 'Tasting FAQ',
+                'faq.title': 'Questions About Tasting & Wine',
+                'faq.intro': 'Explore our most common questions about the tasting experience, the wines we serve, and how Sicily\'s terroirs shape every glass.',
+                'faq.q1.title': 'What should I expect during a tasting?',
+                'faq.q1.text': 'Expect a curated journey through Sicilian terroirs. Our tastings focus on volcanic Etna reds, heritage Nero d\'Avola, and crisp coastal whites with a strong sense of place.',
+                'faq.q2.title': 'How do you choose the wines for each flight?',
+                'faq.q2.text': 'We select wines that tell a story: the ash and minerality of Etna, the warm fruit of the inland valleys, and the saline freshness from Cefalù\'s nearby shorelines.',
+                'faq.q3.title': 'Can I taste both red and white wines?',
+                'faq.q3.text': 'Yes. Our tasting experiences are designed for balance, letting you compare the intensity of reds with the crispness of coastal whites and aromatic Sicilian rosés.',
+                'faq.q4.title': 'What makes Sicilian wine unique?',
+                'faq.q4.text': 'Sicilian wine combines volcanic energy, Mediterranean sunlight, and ancient grape varieties. At Divino, you\'ll taste the contrast between Etna\'s mineral depth and the sea-salt brightness of the coast.',
+                'cellar.title': 'The Urban Cellar',
+                'cellar.text': 'Step inside our sanctuary in the heart of Cefalù. Designed with raw basalt and warm Mediterranean oak, our cellar provides the perfect quiet atmosphere for discovery.',
+                'shop.eyebrow': 'Cellar Shop',
+                'shop.title': 'Wines Available for Purchase',
+                'shop.intro': 'Bring the flavors of Divino home with curated bottles from our urban cellar. Discover the wines that define our tasting experiences.',
+                'shop.etna.title': 'Etna Rosso',
+                'shop.etna.text': 'Aged Nero d\'Avola from the volcanic slopes of Etna, bright with red fruit and volcanic minerality.',
+                'shop.etna.price': '€32 / bottle',
+                'shop.coastal.title': 'Coastal Bianco',
+                'shop.coastal.text': 'A crisp Grillo blend with saline notes, citrus peel, and a cool Mediterranean finish.',
+                'shop.coastal.price': '€28 / bottle',
+                'shop.heritage.title': 'Heritage Nero',
+                'shop.heritage.text': 'Sun-soaked Nero d\'Avola with dark cherry intensity, leather spice, and a structured palate.',
+                'shop.heritage.price': '€35 / bottle',
+                'shop.zibibbo.title': 'Zibibbo & Friends',
+                'shop.zibibbo.text': 'A fragrant blend of Zibibbo and local aromatics, ripe with orange blossom and seaside freshness.',
+                'shop.zibibbo.price': '€30 / bottle',
+                'reviews.eyebrow': 'Google Reviews',
+                'reviews.title': 'Trusted by Visitors from Around the World',
+                'reviews.intro': 'Real feedback from guests who stopped by Divino Urban Cellar for wine, tasting and a warm Sicilian welcome.',
+                'owner.eyebrow': 'Meet the Owner',
+                'owner.title': 'Massimo: the spirit behind Divino',
+                'owner.text': 'Massimo brings Sicilian hospitality, wine expertise, and a storyteller\'s eye to every tasting. His passion for local growers and volcanic wines has shaped Divino into a place where every sip feels personal.',
+                'owner.quote': 'From carefully selected Etna reds to coastal whites and rare olive oils, Massimo curates a menu built on authenticity, warmth and unforgettable moments. He welcomes both seasoned wine lovers and first-time visitors with equal care.',
+                'map.eyebrow': 'Local Vineyards',
+                'map.title': 'Cefalù\'s Nearby Vineyards',
+                'map.text': 'Explore an open-source interactive map centered on Cefalù, Sicily, with a marker at the town center.',
+                'newsletter.eyebrow': 'Join the Circle',
+                'newsletter.title': 'Newsletter',
+                'newsletter.text': 'Receive the latest news from Divino and Ambrosia, along with exclusive updates, invitations, and stories from Sicily.',
+                'newsletter.button': 'Join the Newsletter',
+                'newsletter.placeholder': 'Your Email Address',
+                'ambrosia.eyebrow': 'Ambrosia Membership',
+                'ambrosia.title': 'The Ambrosia Membership',
+                'ambrosia.text': 'Members will receive privileged access to a curated world of Sicilian products, experiences, and traditions rooted in hospitality, craft, and seasonality.',
+                'ambrosia.exclusive.title': 'Exclusive Access',
+                'ambrosia.exclusive.text': 'Limited products and early releases reserved for members.',
+                'ambrosia.seasonal.title': 'Seasonal Boxes',
+                'ambrosia.seasonal.text': 'Curated seasonal product boxes delivered throughout the year.',
+                'ambrosia.harvest.title': 'Harvest Gifts',
+                'ambrosia.harvest.text': 'Olive oil from the annual harvest and carefully selected wines.',
+                'ambrosia.cosmetics.title': 'Natural Cosmetics',
+                'ambrosia.cosmetics.text': 'Handmade natural cosmetics inspired by local ingredients and traditions.',
+                'ambrosia.specialties.title': 'Mediterranean Specialties',
+                'ambrosia.specialties.text': 'Preserves and other authentic Mediterranean delicacies.',
+                'ambrosia.events.title': 'Festivals & Events',
+                'ambrosia.events.text': 'Invitations to harvest festivals, online cooking classes, and virtual wine tastings.',
+                'ambrosia.cta': 'Become a Member',
+                'calendar.eyebrow': 'Mediterranean Rhythm',
+                'calendar.title': 'The Mediterranean Seasonal Calendar',
+                'calendar.text': 'Nature will dictate our calendar. Rather than organising random events, every month should celebrate one of the Mediterranean\'s traditional crops.',
+                'calendar.motive': 'Annual tradition',
+                'calendar.motiveTitle': 'One major event each month, from April to October',
+                'calendar.motiveText': 'These gatherings are designed to become annual traditions that people actively look forward to attending, shaped by the season and the land.',
+                'calendar.feature1': 'Season-led',
+                'calendar.feature1Text': 'Each month follows a single crop or ritual rooted in the Mediterranean.',
+                'calendar.feature2': 'Community-driven',
+                'calendar.feature2Text': 'The events gather growers, cooks, musicians, and guests into one shared celebration.',
+                'booking.eyebrow': 'Book Your Experience',
+                'booking.title': 'Book wine tastings, cooking classes or unique events',
+                'booking.text': 'Reserve your place for an event experience that explores tastings, memberships, and the Ambrosia experience.',
+                'booking.badge': 'Event experience',
+                'booking.card.title': 'Reserve a time that fits your journey',
+                'booking.card.text': 'Whether you are planning a tasting, exploring memberships, or learning more about Ambrosia, this is the fastest way to connect directly with the team.',
+                'booking.button': 'Book your slot',
+                'booking.modal.eyebrow': 'Choose an experience',
+                'booking.modal.title': 'Book your Divino experience',
+                'booking.modal.text': 'Select the experience you\'d like to explore and we\'ll open the booking page for you.',
+                'booking.modal.back': 'Back',
+                'booking.option.wine': 'Wine Tasting Experience',
+                'booking.option.cooking': 'Cooking Classes',
+                'booking.option.farm': 'Farm Experiences',
+                'booking.option.events': 'Seasonal Events',
+                'booking.list.title': 'What you can discuss',
+                'booking.list.item1': '• Wine tasting experiences and private visits',
+                'booking.list.item2': '• Cooking classes',
+                'booking.list.item3': '• Farm experiences',
+                'booking.list.item4': '• Seasonal events and special occasions',
+                'visit.title': 'Plan Your Visit',
+                'visit.location': 'Location',
+                'visit.contact': 'Contact',
+                'visit.hours': 'Hours',
+                'visit.getDirections': 'Get Directions',
+                'visit.namePlaceholder': 'Your Name',
+                'visit.emailPlaceholder': 'Your Email',
+                'visit.messagePlaceholder': 'Special Requests',
+                'visit.submit': 'Request Information',
+                'footer': '© 2026 Divino Urban Cellar Cefalù. Designed by HR STUDIOS.',
+                'ambrosia.hero.title': 'A Mediterranean Country Experience.',
+                'ambrosia.hero.text': 'An agricultural laboratory where visitors reconnect with nature, learn traditional skills, and experience authentic Sicilian rural life.',
+                'ambrosia.hero.cta': 'Discover Ambrosia',
+                'ambrosia.experience.eyebrow': 'Main Experiences',
+                'ambrosia.experience.title': 'A place to learn, live, and remember',
+                'ambrosia.experience.text1': 'Ambrosia Country House is designed as a place where visitors reconnect with nature, learn traditional skills, and experience authentic Sicilian rural life through active, memorable moments.',
+                'ambrosia.experience.text2': 'The objective is simple: to create experiences people will remember for the rest of their lives.',
+                'ambrosia.experience.list.title': 'Signature experiences',
+                'ambrosia.experience.list.item1': '• Sicilian Cooking Classes',
+                'ambrosia.experience.list.item2': '• Farm Experiences',
+                'ambrosia.experience.list.item3': '• Vegetable Garden Tours',
+                'ambrosia.experience.list.item4': '• Mediterranean Agriculture Workshops',
+                'ambrosia.experience.list.item5': '• Animal Experiences',
+                'ambrosia.experience.list.item6': '• Herb Harvesting',
+                'ambrosia.experience.list.item7': '• Olive Harvest',
+                'ambrosia.experience.list.item8': '• Grape Harvest',
+                'ambrosia.seasonal.title': 'Seasonal Experiences',
+                'ambrosia.seasonal.text': 'Outdoor dining, private events, corporate team building, and wellness in nature.',
+                'ambrosia.brand.title': 'One Brand',
+                'ambrosia.brand.text': 'Divino introduces visitors to Sicily. Ambrosia allows them to live it.',
+                'ambrosia.journey.title': 'Customer Journey',
+                'ambrosia.journey.text': 'Discover Divino, book a wine tasting, learn about Ambrosia, and return for another experience.',
+                'ambrosia.connection.title': 'Long-Term Connection',
+                'ambrosia.connection.text': 'Every experience naturally leads to the next, building a lasting relationship with Sicily.',
+                'ambrosia.future.eyebrow': 'A Vision for the Future',
+                'ambrosia.future.title': 'One brand, two experiences, one unforgettable journey',
+                'ambrosia.future.text': 'Ambrosia Country House will become a place where every visit feels personal — a living bridge between land, tradition, and human connection.',
+                'ambrosia.back': 'Back to Divino',
+                'mobile.menu': 'Open mobile menu',
+                'toggle.lang': 'Switch to Italiano',
+                'toggle.lang.back': 'Switch to English'
+            },
+            it: {
+                'nav.book': 'Prenota',
+                'nav.vision': 'Visione',
+                'nav.cellar': 'Il Wine Cellar Urbano',
+                'nav.calendar': 'Calendario',
+                'nav.about': 'Chi Siamo',
+                'nav.ambrosia': 'Ambrosia',
+                'hero.subtitle': 'Il miglior wine cellar urbano e sala degustazione di Sicilia',
+                'hero.cta': 'Inizia il tuo viaggio',
+                'philosophy.eyebrow': 'La Visione',
+                'philosophy.title': 'Dove l\'Etna incontra il mare',
+                'philosophy.text1': 'Divino non è solo un bar; è un\'interrogazione del suolo siciliano. Il nostro wine cellar urbano custodisce i segreti delle pendici vulcaniche e delle antiche vigne costiere, presentati in uno spazio pensato per una profonda contemplazione.',
+                'philosophy.text2': '"La nostra missione è unire la forza fertile dei vulcani dell\'Etna con la raffinatezza del vento salmastro del Tirreno."',
+                'vision.eyebrow': 'Visione strategica 2026–2035',
+                'vision.title': 'Divino & Ambrosia: costruire un\'eredità siciliana viva',
+                'vision.intro': 'Da un primo incontro con il nostro wine cellar a una relazione duratura con la Sicilia stessa, la nostra ambizione a lungo termine è creare un\'esperienza più profonda e significativa per ogni ospite.',
+                'vision.ecosystem.title': 'Costruzione di un ecosistema',
+                'vision.ecosystem.text': 'Creare un\'esperienza siciliana unica e autentica in cui Divino funge da introduzione e Ambrosia da esperienza centrale.',
+                'vision.community.title': 'Comunità internazionale',
+                'vision.community.text': 'Trasformare i visitatori in membri a lungo termine e "ambasciatori della Sicilia" che restano connessi alla nostra terra e ai nostri progetti tutto l\'anno.',
+                'vision.growth.title': 'Crescita orientata ai valori',
+                'vision.growth.text': 'Andare oltre il semplice commercio per concentrarsi sui valori dello stile di vita mediterraneo: ospitalità, sostenibilità, educazione e comunità.',
+                'vision.legacy.title': 'Eredità culturale',
+                'vision.legacy.text': 'Diventare una meta di riferimento in cui vino, agricoltura, cibo e connessione umana creano ricordi indimenticabili e duraturi per i nostri ospiti.',
+                'tasting.eyebrow': 'Itinerari di degustazione',
+                'tasting.subtitle': 'Volate curate per il palato più raffinato.',
+                'tasting.volcanic.title': 'Anima vulcanica',
+                'tasting.volcanic.text': 'Un\'analisi approfondita dei terroir dell\'Etna. Assaggia cenere, altezza e antichità.',
+                'tasting.volcanic.price': '85 € / persona',
+                'tasting.heritage.title': 'Rossi di patrimonio',
+                'tasting.heritage.text': 'Nero d\'Avola e Cerasuolo solati, che onorano le antiche tradizioni mediterranee.',
+                'tasting.heritage.price': '65 € / persona',
+                'tasting.coastal.title': 'Crispura costiera',
+                'tasting.coastal.text': 'Rinfrescante, con Grillo, Zibibbo e note salmastre della costa settentrionale.',
+                'tasting.coastal.price': '55 € / persona',
+                'faq.eyebrow': 'FAQ degustazione',
+                'faq.title': 'Domande sul vino e sulla degustazione',
+                'faq.intro': 'Scopri le domande più comuni sull\'esperienza di degustazione, sui vini che serviamo e su come i terroir siciliani plasmino ogni bicchiere.',
+                'faq.q1.title': 'Cosa mi aspetto durante una degustazione?',
+                'faq.q1.text': 'Ti aspetta un viaggio curato attraverso i terroir siciliani. Le nostre degustazioni si concentrano sui rossi vulcanici dell\'Etna, sul Nero d\'Avola di patrimonio e sui bianchi costieri fragranti con forte senso del luogo.',
+                'faq.q2.title': 'Come scegliete i vini di ogni degustazione?',
+                'faq.q2.text': 'Selezioniamo vini che raccontano una storia: la cenere e la mineralità dell\'Etna, la frutta calda delle vallate interne e la freschezza salina delle coste di Cefalù.',
+                'faq.q3.title': 'Posso assaggiare vini rossi e bianchi?',
+                'faq.q3.text': 'Sì. Le nostre esperienze di degustazione sono pensate per l\'equilibrio, permettendoti di confrontare l\'intensità dei rossi con la freschezza dei bianchi costieri e dei rosati siciliani aromatici.',
+                'faq.q4.title': 'Cosa rende unico il vino siciliano?',
+                'faq.q4.text': 'Il vino siciliano unisce energia vulcanica, luce mediterranea e vitigni antichi. A Divino assaggerai il contrasto tra la profondità minerale dell\'Etna e la brillantezza salmastra della costa.',
+                'cellar.title': 'Il wine cellar urbano',
+                'cellar.text': 'Entra nel nostro santuario nel cuore di Cefalù. Disegnato con basalto grezzo e rovere mediterraneo caldo, il nostro wine cellar offre l\'atmosfera perfetta per la scoperta.',
+                'shop.eyebrow': 'Negozio del wine cellar',
+                'shop.title': 'Vini disponibili per l\'acquisto',
+                'shop.intro': 'Porta a casa i sapori di Divino con bottiglie curate dal nostro wine cellar urbano. Scopri i vini che definiscono le nostre esperienze di degustazione.',
+                'shop.etna.title': 'Etna Rosso',
+                'shop.etna.text': 'Nero d\'Avola invecchiato dalle pendici vulcaniche dell\'Etna, brillante con frutta rossa e mineralità vulcanica.',
+                'shop.etna.price': '32 € / bottiglia',
+                'shop.coastal.title': 'Coastal Bianco',
+                'shop.coastal.text': 'Un croccante blend di Grillo con note salmastre, scorza di agrumi e una fine mediterranea fresca.',
+                'shop.coastal.price': '28 € / bottiglia',
+                'shop.heritage.title': 'Heritage Nero',
+                'shop.heritage.text': 'Nero d\'Avola soleggiato con intensa ciliegia scura, spezie di cuoio e una bocca strutturata.',
+                'shop.heritage.price': '35 € / bottiglia',
+                'shop.zibibbo.title': 'Zibibbo & Friends',
+                'shop.zibibbo.text': 'Un blend fragrante di Zibibbo e aromi locali, ricco di fior di arancio e freschezza marittima.',
+                'shop.zibibbo.price': '30 € / bottiglia',
+                'reviews.eyebrow': 'Recensioni Google',
+                'reviews.title': 'Apprezzato da visitatori di tutto il mondo',
+                'reviews.intro': 'Feedback reali di ospiti che hanno visitato il Divino Urban Cellar per vino, degustazione e un caldo benvenuto siciliano.',
+                'owner.eyebrow': 'Incontra il proprietario',
+                'owner.title': 'Massimo: lo spirito dietro Divino',
+                'owner.text': 'Massimo porta ospitalità siciliana, competenza enologica e lo sguardo di uno storyteller in ogni degustazione. La sua passione per i produttori locali e i vini vulcanici ha plasmato Divino in un luogo in cui ogni sorso sembra personale.',
+                'owner.quote': 'Dai rossi dell\'Etna selezionati con cura ai bianchi costieri e agli oli d\'oliva rari, Massimo cura un menu costruito su autenticità, calore e momenti indimenticabili. Accoglie sia gli amanti del vino esperti sia i primi visitatori con pari attenzione.',
+                'map.eyebrow': 'Vigne locali',
+                'map.title': 'Le vigne vicine di Cefalù',
+                'map.text': 'Esplora una mappa interattiva open-source centrata su Cefalù, in Sicilia, con un marcatore al centro del paese.',
+                'newsletter.eyebrow': 'Unisciti al cerchio',
+                'newsletter.title': 'Newsletter',
+                'newsletter.text': 'Ricevi le ultime novità da Divino e Ambrosia, insieme ad aggiornamenti esclusivi, inviti e storie dalla Sicilia.',
+                'newsletter.button': 'Iscriviti alla newsletter',
+                'newsletter.placeholder': 'Il tuo indirizzo email',
+                'ambrosia.eyebrow': 'Iscrizione Ambrosia',
+                'ambrosia.title': 'L\'Iscrizione Ambrosia',
+                'ambrosia.text': 'I membri riceveranno accesso privilegiato a un mondo curato di prodotti, esperienze e tradizioni siciliane radicate nell\'ospitalità, nell\'artigianato e nella stagionalità.',
+                'ambrosia.exclusive.title': 'Accesso esclusivo',
+                'ambrosia.exclusive.text': 'Prodotti limitati e uscite anticipate riservate ai membri.',
+                'ambrosia.seasonal.title': 'Box stagionali',
+                'ambrosia.seasonal.text': 'Box stagionali di prodotti curati consegnati durante l\'anno.',
+                'ambrosia.harvest.title': 'Regali di raccolta',
+                'ambrosia.harvest.text': 'Olio d\'oliva dalla raccolta annuale e vini selezionati con cura.',
+                'ambrosia.cosmetics.title': 'Cosmetici naturali',
+                'ambrosia.cosmetics.text': 'Cosmetici naturali fatti a mano ispirati agli ingredienti e alle tradizioni locali.',
+                'ambrosia.specialties.title': 'Specialità mediterranee',
+                'ambrosia.specialties.text': 'Conserve e altre prelibatezze mediterranee autentiche.',
+                'ambrosia.events.title': 'Festival ed eventi',
+                'ambrosia.events.text': 'Inviti a festival di raccolta, lezioni di cucina online e degustazioni di vino virtuali.',
+                'ambrosia.cta': 'Diventa membro',
+                'calendar.eyebrow': 'Ritmo mediterraneo',
+                'calendar.title': 'Il calendario stagionale mediterraneo',
+                'calendar.text': 'La natura detterà il nostro calendario. Piuttosto che organizzare eventi casuali, ogni mese dovrebbe celebrare uno dei raccolti tradizionali del Mediterraneo.',
+                'calendar.motive': 'Tradizione annuale',
+                'calendar.motiveTitle': 'Un grande evento ogni mese, da aprile a ottobre',
+                'calendar.motiveText': 'Queste iniziative sono pensate per diventare tradizioni annuali che le persone attendono con entusiasmo, in sintonia con la stagione e la terra.',
+                'calendar.feature1': 'Guidato dalla stagione',
+                'calendar.feature1Text': 'Ogni mese segue un unico raccolto o rituale radicato nel Mediterraneo.',
+                'calendar.feature2': 'Guidato dalla comunità',
+                'calendar.feature2Text': 'Gli eventi riuniscono coltivatori, cuochi, musicisti e ospiti in una celebrazione condivisa.',
+                'booking.eyebrow': 'Prenota la tua esperienza',
+                'booking.title': 'Prenota degustazioni, corsi di cucina o eventi unici',
+                'booking.text': 'Prenota il tuo posto per un\'esperienza da evento che esplora degustazioni, membership e l\'esperienza Ambrosia.',
+                'booking.badge': 'Esperienza evento',
+                'booking.card.title': 'Prenota un momento adatto al tuo viaggio',
+                'booking.card.text': 'Sia che tu stia pianificando una degustazione, esplorando i membri o scoprendo di più su Ambrosia, questo è il modo più rapido per connetterti direttamente con il team.',
+                'booking.button': 'Prenota il tuo slot',
+                'booking.modal.eyebrow': 'Scegli un\'esperienza',
+                'booking.modal.title': 'Prenota la tua esperienza Divino',
+                'booking.modal.text': 'Seleziona l\'esperienza che desideri esplorare e apriremo la pagina di prenotazione per te.',
+                'booking.modal.back': 'Indietro',
+                'booking.option.wine': 'Esperienza di degustazione dei vini',
+                'booking.option.cooking': 'Lezioni di cucina',
+                'booking.option.farm': 'Esperienze in azienda',
+                'booking.option.events': 'Eventi stagionali',
+                'booking.list.title': 'Di cosa puoi parlare',
+                'booking.list.item1': '• Esperienze di degustazione e visite private',
+                'booking.list.item2': '• Lezioni di cucina',
+                'booking.list.item3': '• Esperienze in azienda',
+                'booking.list.item4': '• Eventi stagionali e occasioni speciali',
+                'visit.title': 'Pianifica la tua visita',
+                'visit.location': 'Luogo',
+                'visit.contact': 'Contatti',
+                'visit.hours': 'Orari',
+                'visit.getDirections': 'Ottieni indicazioni',
+                'visit.namePlaceholder': 'Il tuo nome',
+                'visit.emailPlaceholder': 'La tua email',
+                'visit.messagePlaceholder': 'Richieste speciali',
+                'visit.submit': 'Richiedi informazioni',
+                'footer': '© 2026 Divino Urban Cellar Cefalù. Progettato da HR STUDIOS.',
+                'ambrosia.hero.title': 'Un\'esperienza mediterranea in campagna.',
+                'ambrosia.hero.text': 'Un laboratorio agricolo in cui i visitatori si riconnettono con la natura, imparano competenze tradizionali e vivono una vita rurale autenticamente siciliana.',
+                'ambrosia.hero.cta': 'Scopri Ambrosia',
+                'ambrosia.experience.eyebrow': 'Esperienze principali',
+                'ambrosia.experience.title': 'Un luogo per imparare, vivere e ricordare',
+                'ambrosia.experience.text1': 'Ambrosia Country House è pensata come un luogo in cui i visitatori si riconnettono con la natura, imparano competenze tradizionali e sperimentano la vita rurale autentica siciliana attraverso momenti attivi e memorabili.',
+                'ambrosia.experience.text2': 'L\'obiettivo è semplice: creare esperienze che le persone ricorderanno per il resto della vita.',
+                'ambrosia.experience.list.title': 'Esperienze di firma',
+                'ambrosia.experience.list.item1': '• Lezioni di cucina siciliana',
+                'ambrosia.experience.list.item2': '• Esperienze in azienda agricola',
+                'ambrosia.experience.list.item3': '• Tour di orti',
+                'ambrosia.experience.list.item4': '• Workshop di agricoltura mediterranea',
+                'ambrosia.experience.list.item5': '• Esperienze con animali',
+                'ambrosia.experience.list.item6': '• Raccolta di erbe',
+                'ambrosia.experience.list.item7': '• Raccolta di olive',
+                'ambrosia.experience.list.item8': '• Raccolta di uve',
+                'ambrosia.seasonal.title': 'Esperienze stagionali',
+                'ambrosia.seasonal.text': 'Pranzi all\'aperto, eventi privati, team building aziendale e benessere in natura.',
+                'ambrosia.brand.title': 'Un unico brand',
+                'ambrosia.brand.text': 'Divino introduce i visitatori alla Sicilia. Ambrosia permette loro di viverla.',
+                'ambrosia.journey.title': 'Percorso del cliente',
+                'ambrosia.journey.text': 'Scopri Divino, prenota una degustazione, scopri Ambrosia e torna per un\'altra esperienza.',
+                'ambrosia.connection.title': 'Connessione a lungo termine',
+                'ambrosia.connection.text': 'Ogni esperienza conduce naturalmente alla successiva, creando una relazione duratura con la Sicilia.',
+                'ambrosia.future.eyebrow': 'Una visione per il futuro',
+                'ambrosia.future.title': 'Un brand, due esperienze, un viaggio indimenticabile',
+                'ambrosia.future.text': 'Ambrosia Country House diventerà un luogo in cui ogni visita appare personale — un ponte vivente tra terra, tradizione e connessione umana.',
+                'ambrosia.back': 'Torna a Divino',
+                'mobile.menu': 'Apri il menu mobile',
+                'toggle.lang': 'Switch to English',
+                'toggle.lang.back': 'Passa all\'italiano'
+            }
+        };
+
+        function getStoredLanguage() {
+            const stored = localStorage.getItem('divino-language');
+            return stored === 'it' ? 'it' : 'en';
+        }
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang === 'it' ? 'it' : 'en';
+            localStorage.setItem('divino-language', lang);
+            applyLanguage(lang);
+        }
+
+        function applyLanguage(lang) {
+            const current = lang === 'it' ? 'it' : 'en';
+            document.querySelectorAll('[data-i18n]').forEach((element) => {
+                const key = element.getAttribute('data-i18n');
+                const translation = translations[current][key];
+                if (translation) {
+                    element.textContent = translation;
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                const translation = translations[current][key];
+                if (translation) {
+                    element.placeholder = translation;
+                }
+            });
+
+            document.querySelectorAll('[data-lang-toggle]').forEach((button) => {
+                const label = button.querySelector('[data-lang-label]');
+                if (label) {
+                    label.textContent = current === 'it' ? 'EN' : 'IT';
+                }
+                button.setAttribute('aria-label', current === 'it' ? 'Switch to English' : 'Switch to Italiano');
+            });
+        }
+
+        function initializeLanguageToggle() {
+            document.querySelectorAll('[data-lang-toggle]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const nextLang = document.documentElement.lang === 'it' ? 'en' : 'it';
+                    setLanguage(nextLang);
+                });
+            });
+
+            const initialLang = getStoredLanguage();
+            setLanguage(initialLang);
+        }
+
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const calendarMonths = document.querySelectorAll('.month-chip');
+        const calendarTitle = document.getElementById('calendar-title');
+        const calendarSubtitle = document.getElementById('calendar-subtitle');
+        const calendarList = document.getElementById('calendar-list');
+        const calendarContent = {
+            april: {
+                title: 'Spring Festival',
+                subtitle: 'Wild herbs',
+                items: ['Botanical walks', 'Garden workshops', 'Seasonal herb tastings']
+            },
+            may: {
+                title: 'Vegetable Garden Festival',
+                subtitle: 'Planting experiences',
+                items: ['Farm-to-table workshops', 'Garden storytelling', 'Hands-on planting rituals']
+            },
+            june: {
+                title: 'Lavender Festival',
+                subtitle: 'Lavender harvest',
+                items: ['Essential oil demonstrations', 'Picnics among the lavender', 'Sunset concerts']
+            },
+            july: {
+                title: 'Mediterranean Summer',
+                subtitle: 'Outdoor dinners',
+                items: ['Cooking classes', 'Music evenings', 'Wine nights']
+            },
+            august: {
+                title: 'Summer Harvest Festival',
+                subtitle: 'Family experiences',
+                items: ['Garden dinners', 'Traditional Sicilian food', 'Shared summer feasts']
+            },
+            september: {
+                title: 'Grape Harvest Festival',
+                subtitle: 'Harvest experiences',
+                items: ['Traditional grape pressing', 'Wine celebrations', 'Farmer\'s lunch']
+            },
+            october: {
+                title: 'Olive Festival',
+                subtitle: 'Olive harvesting',
+                items: ['Olive oil production', 'Olive oil tastings', 'Local farmers market']
+            }
+        };
+
+        const renderCalendarDetail = (month) => {
+            const content = calendarContent[month];
+            if (!content) return;
+            calendarTitle.textContent = content.title;
+            calendarSubtitle.textContent = content.subtitle;
+            calendarList.innerHTML = content.items.map((item) => `<li class="flex items-start gap-2"><span class="mt-2 h-2 w-2 rounded-full bg-[#A6AD8A]"></span><span>${item}</span></li>`).join('');
+        };
+        const lightboxOverlay = document.getElementById('lightbox-overlay');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const bookingChoiceModal = document.getElementById('booking-choice-modal');
+        const bookingCalendlyModal = document.getElementById('booking-calendly-modal');
+        const openBookingModalButton = document.getElementById('open-booking-modal');
+        const closeBookingChoiceModalButton = document.getElementById('close-booking-choice-modal');
+        const closeBookingCalendlyModalButton = document.getElementById('close-booking-calendly-modal');
+        const backToBookingChoiceButton = document.getElementById('back-to-booking-choice');
+
+        const closeBookingModals = () => {
+            bookingChoiceModal?.classList.remove('open');
+            bookingCalendlyModal?.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        const openBookingChoiceModal = () => {
+            bookingChoiceModal?.classList.add('open');
+            bookingCalendlyModal?.classList.remove('open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const openBookingCalendlyModal = () => {
+            bookingChoiceModal?.classList.remove('open');
+            bookingCalendlyModal?.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const openLightbox = (src, caption) => {
+            lightboxImage.src = src;
+            lightboxImage.alt = caption || 'Cellar image preview';
+            lightboxCaption.textContent = caption || '';
+            lightboxOverlay.classList.add('open');
+            lightboxOverlay.setAttribute('aria-hidden', 'false');
+        };
+
+        const closeLightbox = () => {
+            lightboxOverlay.classList.remove('open');
+            lightboxOverlay.setAttribute('aria-hidden', 'true');
+            lightboxImage.src = '';
+            lightboxCaption.textContent = '';
+        };
+
+        document.querySelectorAll('.lightbox-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                openLightbox(trigger.dataset.src, trigger.dataset.caption);
+            });
+        });
+
+        calendarMonths.forEach((button) => {
+            button.addEventListener('click', () => {
+                calendarMonths.forEach((chip) => chip.classList.remove('active'));
+                button.classList.add('active');
+                renderCalendarDetail(button.dataset.month);
+            });
+        });
+
+        renderCalendarDetail('april');
+
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightboxOverlay?.addEventListener('click', (event) => {
+            if (event.target === lightboxOverlay) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                if (lightboxOverlay.classList.contains('open')) {
+                    closeLightbox();
+                }
+                if (bookingChoiceModal?.classList.contains('open') || bookingCalendlyModal?.classList.contains('open')) {
+                    closeBookingModals();
+                }
+            }
+        });
+
+        document.querySelectorAll('[data-booking-choice]').forEach((button) => {
+            button.addEventListener('click', openBookingCalendlyModal);
+        });
+
+        openBookingModalButton?.addEventListener('click', openBookingChoiceModal);
+        closeBookingChoiceModalButton?.addEventListener('click', closeBookingModals);
+        closeBookingCalendlyModalButton?.addEventListener('click', closeBookingModals);
+        backToBookingChoiceButton?.addEventListener('click', openBookingChoiceModal);
+
+        bookingChoiceModal?.addEventListener('click', (event) => {
+            if (event.target === bookingChoiceModal) {
+                closeBookingModals();
+            }
+        });
+
+        bookingCalendlyModal?.addEventListener('click', (event) => {
+            if (event.target === bookingCalendlyModal) {
+                closeBookingModals();
+            }
+        });
+
+        mobileMenuButton?.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
+        });
+
+        window.addEventListener('load', () => {
+            const loaderBar = document.getElementById('loader-bar');
+            if (loaderBar) {
+                loaderBar.style.width = '100%';
+            }
+
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000);
+            }, 600);
+
+            if (!isMobile) {
+                const map = L.map('leaflet-map').setView([38.0341, 14.0170], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                console.clear();
+                gsap.registerPlugin(EasePack);
+
+                const divinoIcon = L.divIcon({
+                    html: '<div class="custom-leaflet-icon"><div class="pin-label">Divino</div><div class="pin"></div></div>',
+                    className: '',
+                    iconSize: [160, 110],
+                    iconAnchor: [80, 100],
+                    popupAnchor: [0, -110]
+                });
+
+                const partnerIcon = L.divIcon({
+                    html: '<div class="custom-leaflet-icon-alt"><div class="pin"></div></div>',
+                    className: '',
+                    iconSize: [160, 110],
+                    iconAnchor: [80, 100],
+                    popupAnchor: [0, -110]
+                });
+
+                L.marker([38.0341, 14.0170], { icon: divinoIcon }).addTo(map)
+                    .bindPopup('<strong>Divino</strong><br>Via Gibilmanna, 16<br>90015 Cefalù')
+                    .openPopup();
+
+                const partnerLocations = [
+                    {
+                        coords: [38.0368, 14.0234],
+                        title: 'Relais Santa Anastasia',
+                        description: 'Farm · Open',
+                        address: 'Contrada Santa Anastasia, 90013 Castelbuono PA, Italy'
+                    },
+                    {
+                        coords: [37.6620, 14.0510],
+                        title: 'Tasca D\'Almerita - Regaleali Estate',
+                        description: 'Winery · Closed · Opens 8:30 AM Tue',
+                        address: 'Contrada Regaleali, 90020 Sclafani Bagni PA, Italy'
+                    },
+                    {
+                        coords: [37.6020, 14.9780],
+                        title: 'TENUTA PAPALE',
+                        description: 'Winery · Open',
+                        address: 'SP160, 95032 Belpasso CT, Italy'
+                    },
+                    {
+                        coords: [38.0345, 14.0195],
+                        title: 'Le Petit Tonneau - Winery & Putia',
+                        description: 'Pizza restaurant · Open · Closes 2:00 AM Tue',
+                        address: 'fronte Club Med, Via della Calagrande, 90015 Cefalù PA, Italy'
+                    },
+                    {
+                        coords: [38.0336, 14.0190],
+                        title: 'Enoteca Le Petit Tonneau',
+                        description: 'Wine bar · Open · Closes 12:00 AM Tue',
+                        address: 'Via Vittorio Emanuele, 49, 90015 Cefalù PA, Italy'
+                    }
+                ];
+
+                partnerLocations.forEach(location => {
+                    L.marker(location.coords, { icon: partnerIcon }).addTo(map)
+                        .bindPopup(`<strong>${location.title}</strong><br>${location.description}<br>${location.address}`);
+                });
+
+                setTimeout(() => { map.invalidateSize(); }, 100);
+            }
+        });
+
+        // Section-level scroll reveals are disabled.
+        initializeLanguageToggle();
+    </script>
+    <script>
+        window.addEventListener('load', () => {
+            const header = document.getElementById('header');
+            if (!header) return;
+            
+            let lastScrollTop = 0;
+            let isHidden = false;
+
+            if (!isMobile) {
+                const centerPath = "M0,0 L2278,0 L2278,200 C2278,200, 1814,200, 1139,200 C464,200, 0,200, 0,200 Z";
+                const wiggleAmountInput = { value: 240 };
+                const dropSpeedInput = { value: 1.8 };
+
+                function playEntranceAnimation() {
+                    const wiggleVal = wiggleAmountInput.value;
+                    const speedVal = dropSpeedInput.value;
+                    const dynamicDownPath = `M0,0 L2278,0 L2278,200 C2278,200, 1814,${wiggleVal}, 1139,${wiggleVal} C464,${wiggleVal}, 0,200, 0,200 Z`;
+
+                    gsap.to(header, {
+                        duration: speedVal * 0.44,
+                        yPercent: 0,
+                        ease: "power3.out"
+                    });
+
+                    gsap.fromTo(".wiggle-path", 
+                        { attr: { d: dynamicDownPath } },
+                        { 
+                            duration: speedVal, 
+                            attr: { d: centerPath }, 
+                            ease: "elastic.out(1.2, 0.3)",
+                            overwrite: "auto"
+                        }
+                    );
+                }
+
+                gsap.set(header, { yPercent: -100 });
+                setTimeout(playEntranceAnimation, 300);
+
+                window.addEventListener("scroll", () => {
+                    let st = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (st > lastScrollTop && st > 100) {
+                        if (!isHidden) {
+                            isHidden = true;
+                            gsap.to(header, { 
+                                duration: 0.5, 
+                                yPercent: -100, 
+                                ease: "power2.inOut" 
+                            });
+                        }
+                    } 
+                    else if (st < lastScrollTop) {
+                        if (isHidden) {
+                            isHidden = false;
+                            playEntranceAnimation();
+                        }
+                    }
+                    
+                    lastScrollTop = st <= 0 ? 0 : st; 
+                });
+            } else {
+                header.style.transform = 'translateY(0)';
+                header.style.opacity = '1';
+            }
+        });
+    </script>
+</body>
+</html>
