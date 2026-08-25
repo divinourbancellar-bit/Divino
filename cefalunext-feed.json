@@ -1,0 +1,48 @@
+{
+  "publication": {
+    "title": "CefalùNext",
+    "link": "https://cefalunext.substack.com"
+  },
+  "source": "archive API",
+  "total": 4,
+  "shown": 4,
+  "fetchedAt": "2026-08-25T20:52:28.547Z",
+  "items": [
+    {
+      "title": "UNA GIORNATA DETOX PER CEFALU",
+      "link": "https://cefalunext.substack.com/p/una-giornata-detox-per-cefalu",
+      "author": "CefalùNext",
+      "date": "2026-08-25T20:49:34.250Z",
+      "image": "https://substackcdn.com/image/fetch/$s_!BAeX!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14725185-4b05-4d24-8963-fef4191d82a1_1656x950.jpeg",
+      "excerpt": "Come noi esseri umani, che ogni tanto abbiamo bisogno di fermarci, respirare e liberarci dallo stress, anche le città hanno bisogno di una giornata detox.",
+      "dateISO": "2026-08-25"
+    },
+    {
+      "title": "La Rocca: da salita panoramica a grande esperienza di Cefalù",
+      "link": "https://cefalunext.substack.com/p/la-rocca-da-salita-panoramica-a-grande",
+      "author": "CefalùNext",
+      "date": "2026-08-25T20:46:46.895Z",
+      "image": "https://substackcdn.com/image/fetch/$s_!Yrn_!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4b6e0c74-309f-41c5-ad96-02ac74a5a735_810x540.jpeg",
+      "excerpt": "In molte importanti destinazioni europee un patrimonio naturale o archeologico non viene semplicemente “aperto al pubblico”: viene raccontato, organizzato e trasformato in un’esperienza.",
+      "dateISO": "2026-08-25"
+    },
+    {
+      "title": "IL MERCATO NEL CUORE DI CEFALÙ",
+      "link": "https://cefalunext.substack.com/p/il-mercato-nel-cuore-di-cefalu",
+      "author": "CefalùNext",
+      "date": "2026-08-25T20:44:31.287Z",
+      "image": "https://substackcdn.com/image/fetch/$s_!BlMR!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb072eb33-59f7-4d20-9d75-3a2878bc8dab_1043x540.jpeg",
+      "excerpt": "Piazza San Francesco potrebbe trasformarsi, due volte alla settimana, in uno spazio bello, ordinato e facilmente raggiungibile a piedi, dedicato al mercato del contadino: un luogo dove…",
+      "dateISO": "2026-08-25"
+    },
+    {
+      "title": "LA SPIAGGIA NON È TERRA DI NESSUNO",
+      "link": "https://cefalunext.substack.com/p/la-spiaggia-non-e-terra-di-nessuno",
+      "author": "CefalùNext",
+      "date": "2026-08-25T15:58:44.948Z",
+      "image": "https://substackcdn.com/image/fetch/$s_!JLv_!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8b92cadb-1d48-4e9a-8000-2ab3fa24428c_1710x920.jpeg",
+      "excerpt": "Nelle ultime settimane ho ascoltato numerosi turisti, molti dei quali scontenti dell’organizzazione della spiaggia e delle difficoltà incontrate per raggiungere il mare.",
+      "dateISO": "2026-08-25"
+    }
+  ]
+}

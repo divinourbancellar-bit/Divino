@@ -1,0 +1,38 @@
+# ── Secrets: never commit ────────────────────────────────────────────────
+stripe_backup_code.txt
+*.secret
+.env
+.env.*
+
+# ── Internal / personal documents ────────────────────────────────────────
+*.pdf
+
+# ── Large source media not referenced by the site ────────────────────────
+v1.mp4
+v2.mp4
+oak-wood-texture-design-background.jpg
+gray-texture-stucco.svg
+divino logo august.png
+divino logo august_upscayl_4x_upscayl-standard-4x.png
+Gemini_Generated_Image_*.png
+henrique-ferreira-*.jpg
+Terra cotta stucco.png
+burgundy stucco.png
+charcoal stucco.png
+green stucco.png
+cefalu1.png
+16.jpg
+Untitled-1.txt
+WhatsApp Image *.jpeg
+
+# ── Stock icon-set archives (EPS + licence files) ────────────────────────
+botanical-seamless-pattern/
+olive-icons-set/
+wine-black-doodle-icons-set/
+
+# ── Scratch ──────────────────────────────────────────────────────────────
+_*.txt
+_*.png
+_*.xml
+_*.json
+_*.js

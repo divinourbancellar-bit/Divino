@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="lavTitle lavDesc" preserveAspectRatio="xMidYMid slice">
+  <title id="lavTitle">Rows of lavender in a Sicilian field at dusk</title>
+  <desc id="lavDesc">An illustrated banner showing rows of lavender sprigs against warm hills, drawn in the Divino palette of burgundy, olive and limestone.</desc>
+
+  <defs>
+    <linearGradient id="lavSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#E4D9BE"/>
+      <stop offset="55%"  stop-color="#EFE8D4"/>
+      <stop offset="100%" stop-color="#e9decc"/>
+    </linearGradient>
+    <linearGradient id="lavGround" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#C9BB98"/>
+      <stop offset="100%" stop-color="#B8945A"/>
+    </linearGradient>
+    <linearGradient id="lavBud" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#8E6484"/>
+      <stop offset="100%" stop-color="#6E2A34"/>
+    </linearGradient>
+
+    <!-- One lavender sprig: stem plus a spike of buds -->
+    <g id="sprig">
+      <path d="M0,0 C -2,-34 -3,-62 -1,-96" stroke="#8B9770" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+      <path d="M-1,-52 C -12,-60 -18,-70 -20,-80" stroke="#8B9770" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M-1,-44 C 10,-52 15,-62 17,-72"   stroke="#8B9770" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <g fill="url(#lavBud)">
+        <ellipse cx="-1"   cy="-104" rx="4.4" ry="6.6"/>
+        <ellipse cx="-6.5" cy="-114" rx="4"   ry="6"/>
+        <ellipse cx="4.5"  cy="-116" rx="4"   ry="6"/>
+        <ellipse cx="-2"   cy="-126" rx="4.2" ry="6.4"/>
+        <ellipse cx="-8"   cy="-137" rx="3.6" ry="5.6"/>
+        <ellipse cx="5"    cy="-139" rx="3.6" ry="5.6"/>
+        <ellipse cx="-1.5" cy="-150" rx="3.4" ry="5.4"/>
+        <ellipse cx="-1"   cy="-163" rx="2.8" ry="4.6"/>
+      </g>
+    </g>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#lavSky)"/>
+
+  <!-- Distant Madonie ridgeline -->
+  <path d="M0,392 L150,332 L268,376 L402,300 L520,368 L648,318 L790,382 L916,326 L1054,384 L1190,330 L1320,380 L1452,340 L1600,392 L1600,470 L0,470 Z"
+        fill="#A6AD8A" opacity="0.42"/>
+  <path d="M0,438 L188,398 L340,436 L494,392 L660,440 L822,400 L988,444 L1150,404 L1318,446 L1470,412 L1600,444 L1600,520 L0,520 Z"
+        fill="#8B9770" opacity="0.5"/>
+
+  <!-- A pale sun low over the ridge -->
+  <circle cx="1198" cy="286" r="52" fill="#F5F3ED" opacity="0.7"/>
+
+  <!-- Field -->
+  <rect y="470" width="1600" height="430" fill="url(#lavGround)" opacity="0.55"/>
+
+  <!-- Furrow lines receding toward the ridge -->
+  <g stroke="#8B9770" stroke-width="2" opacity="0.32" fill="none">
+    <path d="M-60,900 C 240,700 470,560 700,486"/>
+    <path d="M300,900 C 500,700 640,566 780,486"/>
+    <path d="M700,900 C 780,720 820,570 850,486"/>
+    <path d="M1100,900 C 1060,720 990,570 930,486"/>
+    <path d="M1560,900 C 1360,700 1140,560 1010,486"/>
+  </g>
+
+  <!-- Back row: small, faded -->
+  <g opacity="0.45">
+    <use href="#sprig" transform="translate(120,566) scale(0.5)"/>
+    <use href="#sprig" transform="translate(268,572) scale(0.46)"/>
+    <use href="#sprig" transform="translate(410,564) scale(0.52)"/>
+    <use href="#sprig" transform="translate(556,574) scale(0.47)"/>
+    <use href="#sprig" transform="translate(700,566) scale(0.5)"/>
+    <use href="#sprig" transform="translate(848,572) scale(0.46)"/>
+    <use href="#sprig" transform="translate(990,564) scale(0.52)"/>
+    <use href="#sprig" transform="translate(1136,574) scale(0.47)"/>
+    <use href="#sprig" transform="translate(1280,566) scale(0.5)"/>
+    <use href="#sprig" transform="translate(1428,572) scale(0.46)"/>
+  </g>
+
+  <!-- Middle row -->
+  <g opacity="0.72">
+    <use href="#sprig" transform="translate(64,690)  scale(0.76) rotate(-4)"/>
+    <use href="#sprig" transform="translate(236,700) scale(0.7)  rotate(3)"/>
+    <use href="#sprig" transform="translate(404,686) scale(0.8)  rotate(-2)"/>
+    <use href="#sprig" transform="translate(578,702) scale(0.72) rotate(4)"/>
+    <use href="#sprig" transform="translate(748,690) scale(0.78) rotate(-3)"/>
+    <use href="#sprig" transform="translate(922,700) scale(0.7)  rotate(2)"/>
+    <use href="#sprig" transform="translate(1092,686) scale(0.8) rotate(-4)"/>
+    <use href="#sprig" transform="translate(1266,702) scale(0.72) rotate(3)"/>
+    <use href="#sprig" transform="translate(1436,690) scale(0.78) rotate(-2)"/>
+    <use href="#sprig" transform="translate(1580,700) scale(0.7) rotate(4)"/>
+  </g>
+
+  <!-- Front row: largest, fully saturated -->
+  <g>
+    <use href="#sprig" transform="translate(30,880)   scale(1.12) rotate(-5)"/>
+    <use href="#sprig" transform="translate(196,896)  scale(1.02) rotate(4)"/>
+    <use href="#sprig" transform="translate(368,876)  scale(1.16) rotate(-3)"/>
+    <use href="#sprig" transform="translate(540,898)  scale(1.05) rotate(5)"/>
+    <use href="#sprig" transform="translate(712,880)  scale(1.1)  rotate(-4)"/>
+    <use href="#sprig" transform="translate(884,896)  scale(1.0)  rotate(3)"/>
+    <use href="#sprig" transform="translate(1056,876) scale(1.16) rotate(-5)"/>
+    <use href="#sprig" transform="translate(1228,898) scale(1.04) rotate(4)"/>
+    <use href="#sprig" transform="translate(1400,880) scale(1.1)  rotate(-3)"/>
+    <use href="#sprig" transform="translate(1566,896) scale(1.02) rotate(5)"/>
+  </g>
+</svg>

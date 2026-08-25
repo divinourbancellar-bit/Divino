@@ -1,0 +1,13 @@
+# robots.txt — Divino Urban Cellar, Cefalù
+# https://divino-urbancellar.com
+
+User-agent: *
+Allow: /
+
+# Working files and source assets that add nothing to search results.
+Disallow: /*.pdf$
+Disallow: /botanical-seamless-pattern/
+Disallow: /olive-icons-set/
+Disallow: /wine-black-doodle-icons-set/
+
+Sitemap: https://divino-urbancellar.com/sitemap.xml
