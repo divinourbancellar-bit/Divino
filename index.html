@@ -128,7 +128,6 @@
     </script>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-31NB1K438E"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -139,10 +138,31 @@
       gtag('js', new Date());
 
       gtag('config', 'G-31NB1K438E');
+      // Load the GA library only once the page is idle / the user interacts,
+      // so it never competes with the critical render path on mobile.
+      (function () {
+        var loaded = false;
+        function loadGtag() {
+          if (loaded) return;
+          loaded = true;
+          var t = document.createElement('script');
+          t.async = true;
+          t.src = 'https://www.googletagmanager.com/gtag/js?id=G-31NB1K438E';
+          document.head.appendChild(t);
+        }
+        ['pointerdown', 'keydown', 'scroll'].forEach(function (evt) {
+          window.addEventListener(evt, loadGtag, { once: true, passive: true });
+        });
+        if ('requestIdleCallback' in window) requestIdleCallback(loadGtag, { timeout: 6000 });
+        else setTimeout(loadGtag, 5000);
+      })();
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="assets/tailwind.css">
+    <link rel="preload" as="image" href="optimized/logo-hero.webp" fetchpriority="high">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"></noscript>
     <style>
         :root {
             --burgundy: #6E2A34;
@@ -176,7 +196,20 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         
         .scroll-reveal { opacity: 1; transform: none; transition: none; }
 
+        @media (min-width: 768px) {
+            #owner.textured {
+                background-image: linear-gradient(rgba(30, 19, 21,0.45), rgba(30, 19, 21,0.45)), url('seamless.svg');
+            }
+            #owner.textured .seamless-texture {
+                background-image: url('seamless.svg');
+            }
+        }
+        /* Placeholder tone for gallery tiles until their image is swapped in. */
+        .cellar-gallery-wrap .item { background-color: #2E1B1F; }
         @media (max-width: 767px) {
+            section[style*="background-attachment"] {
+                background-attachment: scroll !important;
+            }
             .glass {
                 backdrop-filter: none;
                 -webkit-backdrop-filter: none;
@@ -219,7 +252,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             isolation: isolate;
             background-color: #1E1315;
             overflow: hidden;
-            background-image: linear-gradient(rgba(30, 19, 21,0.45), rgba(30, 19, 21,0.45)), url('seamless.svg');
+            background-image: linear-gradient(rgba(30, 19, 21,0.45), rgba(30, 19, 21,0.45));
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
@@ -244,7 +277,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         #owner .seamless-texture .s1 { fill: #B8945A; }
         #owner .seamless-texture .s2 { fill: #E4D9BE; }
         #owner .seamless-texture {
-            background-image: url('seamless.svg');
+            background-image: none;
             background-size: 1200px 1200px;
             background-repeat: no-repeat;
             background-position: center;
@@ -391,7 +424,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         }
         .cookie-consent-banner__header {
             margin-bottom: 8px;
-            font-family: 'Inter', sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
             font-weight: 700;
             font-size: 16px;
             line-height: 24px;
@@ -404,6 +437,20 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             color: #6B5D55;
             font-size: 14px;
             line-height: 22px;
+        }
+        /* On phones the full policy text filled most of the viewport, which made
+           the banner the largest contentful paint. Condense it to a few lines. */
+        @media (max-width: 767px) {
+            .cookie-consent-banner__inner { padding: 18px 18px 20px; }
+            .cookie-consent-banner__copy { margin-bottom: 12px; }
+            .cookie-consent-banner__header { font-size: 14px; line-height: 20px; }
+            .cookie-consent-banner__description {
+                font-size: 12px;
+                line-height: 18px;
+                max-height: 90px;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
         }
         .cookie-consent-banner__actions {
             display: flex;
@@ -450,7 +497,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
 
     <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#1E1315] transition-opacity duration-1000">
         <div class="text-center">
-            <img src="animation1.svg" alt="Divino animation" class="mx-auto mb-6 h-40 md:h-52 w-auto" />
+            <img src="animation1.svg" alt="" width="400" height="300" fetchpriority="high" class="mx-auto mb-6 h-40 md:h-52 w-auto" />
             <div class="text-[#A6AD8A] text-2xl tracking-[0.3em] uppercase mb-4">Divino</div>
             <div class="h-2 w-64 mx-auto rounded-full bg-[#3F2B21]/40 overflow-hidden shadow-inner">
                 <div id="loader-bar" class="h-full w-0 bg-[#A6AD8A] transition-all duration-300"></div>
@@ -474,7 +521,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         </div>
         <div class="relative z-10 w-full px-6 header-inner flex justify-center items-center text-[#1E1315]">
             <div class="inline-flex items-center gap-8">
-                <img src="divino logo black and red.svg" alt="Divino" class="h-16 md:h-20 lg:h-24">
+                <img src="optimized/logo-dark.webp" alt="Divino" width="600" height="263" class="h-16 md:h-20 lg:h-24 w-auto">
                 <div class="hidden md:flex items-center gap-8 lg:gap-12 text-xs uppercase tracking-[0.2em] text-[#1E1315]">
                     <a href="#booking" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.book">Book</a>
                     <a href="#vision" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.vision">Vision</a>
@@ -511,12 +558,13 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
 
     <header class="relative min-h-screen flex items-center justify-center px-4 sm:px-6">
         <div class="absolute inset-0 bg-[#4C1D24] overflow-hidden">
-            <video src="optimized/v3-web.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Wine being poured at the Divino cellar in Cefalù" class="w-full h-full object-cover opacity-40"></video>
+            <img id="hero-poster" src="optimized/hero-poster.webp" alt="Wine being poured at the Divino cellar in Cefalù" width="960" height="540" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-40">
+            <video id="hero-video" muted loop playsinline preload="none" aria-hidden="true" poster="optimized/hero-poster.webp" class="w-full h-full object-cover opacity-40 absolute inset-0 hidden"></video>
         </div>
         <div class="relative z-10 text-center animate-reveal hero-stack max-w-xl mx-auto">
-              <img src="divino logo white and black.svg"
+              <img src="optimized/logo-hero.webp"
                   alt="Divino Urban Cellar, Cefalù"
-                  width="384" height="192"
+                  width="768" height="336" fetchpriority="high" decoding="async"
                   class="w-64 md:w-96 max-w-full mx-auto drop-shadow-[0_0_15px_rgba(245, 243, 237,0.3)] hero-logo-glow">
             <h1 class="text-[#E4D9BE] italic text-base sm:text-xl tracking-widest font-normal" style="font-family: 'Montserrat', sans-serif;" data-i18n="hero.subtitle">Sicily's Premier Urban Cellar &amp; Wine Tasting Room in Cefalù</h1>
             <a href="#booking" class="inline-block w-full sm:w-auto px-8 py-4 bg-transparent border border-[#F5F3ED] text-[#F5F3ED] font-semibold uppercase tracking-widest hover:bg-[#F5F3ED] hover:text-[#1E1315] transition-all" data-i18n="hero.cta">Begin your journey</a>
@@ -526,7 +574,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
     <section id="booking" class="py-32 px-6 scroll-reveal" style="background-color: #e9decc;">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-10">
-                <img src="grapes.svg" class="section-icon corkscrew-icon" alt="">
+                <img src="grapes.svg" class="section-icon corkscrew-icon" alt="" width="140" height="140" loading="lazy" decoding="async">
                 <span class="text-[#6E2A34] uppercase text-xs tracking-[0.3em]" data-i18n="booking.eyebrow">Book Your Experience</span>
                 <h2 class="text-4xl md:text-5xl mt-4 text-[#1E1315]" data-i18n="booking.title">Book wine tastings, cooking classes or unique events</h2>
                 <p class="text-[#4A3730] max-w-2xl mx-auto mt-4" data-i18n="booking.text">Reserve your place for an event experience that explores tastings, memberships, and the Ambrosia experience.</p>
@@ -567,7 +615,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 <p class="leading-relaxed text-[#59202A] italic" data-i18n="philosophy.text2">"Our mission is to bridge the gap between the rugged, fertile volcanic peaks of Mount Etna and the refined, salty breeze of the Tyrrhenian coast."</p>
             </div>
             <div class="h-[500px] bg-[#4C1D24] rounded-lg overflow-hidden shadow-2xl relative group">
-                <img src="gallery1.jpeg" alt="Sicilian vineyard on the slopes between Mount Etna and the Tyrrhenian coast" width="1080" height="1440" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" style="filter: saturate(0.5);">
+                <img src="optimized/gallery1.webp" alt="Sicilian vineyard on the slopes between Mount Etna and the Tyrrhenian coast" width="800" height="1067" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" style="filter: saturate(0.5);">
             </div>
         </div>
     </section>
@@ -575,7 +623,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
     <section id="vision" class="py-32 px-6 scroll-reveal" style="background-image: url('optimized/walnut-stucco.webp'); background-size: cover; background-position: center;">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <img src="wineglass1.svg" class="section-icon corkscrew-icon" alt="">
+                <img src="wineglass1.svg" class="section-icon corkscrew-icon" alt="" width="140" height="140" loading="lazy" decoding="async">
                 <span class="text-[#A6AD8A] uppercase text-xs tracking-[0.3em]" data-i18n="vision.eyebrow">2026–2035 Strategic Vision</span>
                 <h2 class="text-5xl mt-4" data-i18n="vision.title">Divino & Ambrosia: Building a Living Sicilian Legacy</h2>
                 <p class="text-[#E4D9BE] max-w-3xl mx-auto mt-4" data-i18n="vision.intro">From a first encounter with our cellar to a lasting relationship with Sicily itself, our long-term ambition is to create a deeper, more meaningful experience for every guest.</p>
@@ -601,30 +649,30 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         </div>
     </section>
 
-    <section id="cellar" class="py-32 px-6 scroll-reveal" style="background-image: url('optimized/wood-dark.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
+    <section id="cellar" class="py-32 px-6 scroll-reveal" style="background-image: url('optimized/wood-dark-1280.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
         <div class="mb-16 text-center">
-            <img src="winejug.svg" class="section-icon" alt="">
+            <img src="winejug.svg" class="section-icon" alt="" width="80" height="80" loading="lazy" decoding="async">
             <h2 class="text-5xl mb-4" data-i18n="cellar.title">The Urban Cellar</h2>
             <p class="text-[#C9BB98] max-w-2xl mx-auto" data-i18n="cellar.text">Step inside our sanctuary in the heart of Cefalù. Designed with raw basalt and warm Mediterranean oak, our cellar provides the perfect quiet atmosphere for discovery.</p>
         </div>
         <div class="cellar-gallery-wrap" aria-label="Urban cellar gallery">
-            <button type="button" class="item item-1 lightbox-trigger" style="background-image:url('d1.avif');" data-src="d1.avif" data-caption="Main cellar view" aria-label="View main cellar image">
+            <button type="button" class="item item-1 lightbox-trigger" data-bg="d1.avif" data-src="d1.avif" data-caption="Main cellar view" aria-label="View main cellar image">
                 <div class="gallery-cover"></div>
                 <span class="gallery-label">Main cellar view</span>
             </button>
-            <button type="button" class="item item-2 lightbox-trigger" style="background-image:url('d2.avif');" data-src="d2.avif" data-caption="Cellar tasting corner" aria-label="View tasting corner image">
+            <button type="button" class="item item-2 lightbox-trigger" data-bg="d2.avif" data-src="d2.avif" data-caption="Cellar tasting corner" aria-label="View tasting corner image">
                 <div class="gallery-cover"></div>
                 <span class="gallery-label">Tasting corner</span>
             </button>
-            <button type="button" class="item item-3 lightbox-trigger" style="background-image:url('d3.avif');" data-src="d3.avif" data-caption="Stone and glass cellar" aria-label="View stone and glass cellar image">
+            <button type="button" class="item item-3 lightbox-trigger" data-bg="d3.avif" data-src="d3.avif" data-caption="Stone and glass cellar" aria-label="View stone and glass cellar image">
                 <div class="gallery-cover"></div>
                 <span class="gallery-label">Stone & glass cellar</span>
             </button>
-            <button type="button" class="item item-4 lightbox-trigger" style="background-image:url('14.webp');" data-src="14.webp" data-caption="Rustic tasting alcove" aria-label="View rustic tasting alcove image">
+            <button type="button" class="item item-4 lightbox-trigger" data-bg="optimized/14-gallery.webp" data-src="14.webp" data-caption="Rustic tasting alcove" aria-label="View rustic tasting alcove image">
                 <div class="gallery-cover"></div>
                 <span class="gallery-label">Rustic alcove</span>
             </button>
-            <button type="button" class="item item-5 lightbox-trigger" style="background-image:url('13.webp');" data-src="13.webp" data-caption="Curated wine displays" aria-label="View curated wine displays image">
+            <button type="button" class="item item-5 lightbox-trigger" data-bg="optimized/13-gallery.webp" data-src="13.webp" data-caption="Curated wine displays" aria-label="View curated wine displays image">
                 <div class="gallery-cover"></div>
                 <span class="gallery-label">Wine display</span>
             </button>
@@ -680,7 +728,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
 
     <section id="faq" class="py-32 scroll-reveal" style="background-color: #e9decc;">
         <div class="max-w-6xl mx-auto px-6 mb-16 text-center">
-            <img src="barrel.svg" class="section-icon" style="width: 160px; height: 160px;" alt="">
+            <img src="barrel.svg" class="section-icon" style="width: 160px; height: 160px;" alt="" width="160" height="160" loading="lazy" decoding="async">
             <span class="text-[#6E2A34] uppercase text-xs tracking-[0.3em]" data-i18n="faq.eyebrow">Tasting FAQ</span>
             <h2 class="text-5xl mt-4 text-[#1E1315]" data-i18n="faq.title">Questions About Tasting & Wine</h2>
             <p class="text-[#4A3730] max-w-3xl mx-auto mt-4" data-i18n="faq.intro">Explore our most common questions about the tasting experience, the wines we serve, and how Sicily's terroirs shape every glass.</p>
@@ -705,7 +753,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         </div>
     </section>
 
-    <section id="reviews" class="py-32 px-6 scroll-reveal" style="background-image: url('optimized/natural-wooden-background.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.3);">
+    <section id="reviews" class="py-32 px-6 scroll-reveal" style="background-image: url('optimized/natural-wooden-background-1280.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.3);">
         <div class="max-w-6xl mx-auto mb-16 text-center">
             <img src="optimized/grape-leaf.webp" class="w-40 h-40 object-contain mx-auto mb-6" width="480" height="262" loading="lazy" decoding="async" style="filter: grayscale(1) brightness(0) invert(1);" alt="">
             <span class="text-[#A6AD8A] uppercase text-xs tracking-[0.3em]" data-i18n="reviews.eyebrow">Google Reviews</span>
@@ -777,15 +825,15 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 </div>
             </div>
             <div class="overflow-hidden rounded-[1.5rem] border border-[#CBA96C]/25 shadow-2xl bg-[#4C1D24]/30">
-                <img src="optimized/massimo.webp" alt="Massimo, owner of Divino Urban Cellar, in the tasting room in Cefalù" width="896" height="1195" loading="lazy" decoding="async" class="w-full h-full object-cover min-h-[420px]">
+                <img src="optimized/massimo-800.webp" alt="Massimo, owner of Divino Urban Cellar, in the tasting room in Cefalù" width="800" height="1068" loading="lazy" decoding="async" class="w-full h-full object-cover min-h-[420px]">
             </div>
         </div>
     </section>
 
-    <section id="membership" class="py-32 px-6 scroll-reveal" style="background-image: url('optimized/natural-wooden-background.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.3);">
+    <section id="membership" class="py-32 px-6 scroll-reveal" style="background-image: url('optimized/natural-wooden-background-1280.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.3);">
         <div class="max-w-5xl mx-auto">
             <div class="glass p-10 md:p-14 border border-[#CBA96C]/25 rounded-[2rem] text-center">
-                <img src="wineglass1.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="">
+                <img src="wineglass1.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="" width="80" height="80" loading="lazy" decoding="async">
                 <span class="text-[#A6AD8A] uppercase text-xs tracking-[0.3em]" data-i18n="newsletter.eyebrow">Join the Circle</span>
                 <h2 class="text-4xl md:text-5xl mt-4" data-i18n="newsletter.title">Newsletter</h2>
                 <p class="text-[#E4D9BE] max-w-2xl mx-auto mt-4" data-i18n="newsletter.text">Receive the latest news from Divino and Ambrosia, along with exclusive updates, invitations, and stories from Sicily.</p>
@@ -800,7 +848,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
     <section id="ambrosia-membership" class="py-32 px-6 scroll-reveal relative" style="background-color: #e9decc;">
         <div class="max-w-6xl mx-auto relative z-10">
             <div class="text-center mb-12">
-                <img src="corkscrew2.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="">
+                <img src="corkscrew2.svg" class="w-20 h-20 mx-auto mb-6 opacity-80" alt="" width="80" height="80" loading="lazy" decoding="async">
                 <span class="text-[#6E2A34] uppercase text-xs tracking-[0.3em]" data-i18n="ambrosia.eyebrow">Ambrosia Membership</span>
                 <h2 class="text-4xl md:text-5xl mt-4 text-[#1E1315]" data-i18n="ambrosia.title">The Ambrosia Membership</h2>
                 <p class="text-[#4A3730] max-w-3xl mx-auto mt-4" data-i18n="ambrosia.text">Members will receive privileged access to a curated world of Sicilian products, experiences, and traditions rooted in hospitality, craft, and seasonality.</p>
@@ -839,7 +887,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
 
     <section id="visit" class="relative py-32 scroll-reveal" style="background-color: #e9decc;">
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-            <img src="divino logo black and red.svg" alt="Divino" class="mx-auto mb-10" style="height:240px; width:auto;">
+            <img src="optimized/logo-dark.webp" alt="Divino" width="600" height="263" loading="lazy" decoding="async" class="mx-auto mb-10" style="height:240px; width:auto;">
             <h2 class="text-5xl mb-12 text-[#1E1315]" data-i18n="visit.title">Plan Your Visit</h2>
             <div class="glass p-12 text-left grid md:grid-cols-2 gap-12 border border-[#CBA96C]/40">
                 <div class="space-y-4">
@@ -881,7 +929,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
 
             <div class="grid gap-6 md:grid-cols-3">
                 <a href="blog-how-to-taste-wine.html" data-href-it="blog-how-to-taste-wine-it.html" class="block rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED] overflow-hidden hover:shadow-2xl transition-shadow">
-                    <img src="12.webp" alt="Guests around the long tasting table at Divino Urban Cellar in Cefalù" width="1280" height="720" loading="lazy" decoding="async" class="w-full h-48 object-cover">
+                    <img src="optimized/12-card.webp" alt="Guests around the long tasting table at Divino Urban Cellar in Cefalù" width="800" height="600" loading="lazy" decoding="async" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <p class="text-[#6E2A34] uppercase text-[11px] tracking-[0.2em] font-semibold">Wine</p>
                         <h3 class="text-xl mt-3 text-[#1E1315]">How to Taste Wine Without Becoming Insufferable</h3>
@@ -889,7 +937,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 </a>
 
                 <a href="blog-cefalu-stories.html" data-href-it="blog-cefalu-stories-it.html" class="block rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED] overflow-hidden hover:shadow-2xl transition-shadow">
-                    <img src="optimized/cefalu.webp" alt="Cefalù old town, the Norman cathedral and the cliff of La Rocca seen from above" width="1400" height="763" loading="lazy" decoding="async" class="w-full h-48 object-cover">
+                    <img src="optimized/cefalu-card.webp" alt="Cefalù old town, the Norman cathedral and the cliff of La Rocca seen from above" width="1400" height="763" loading="lazy" decoding="async" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <p class="text-[#6E2A34] uppercase text-[11px] tracking-[0.2em] font-semibold">Cefalù</p>
                         <h3 class="text-xl mt-3 text-[#1E1315]">Notes From a Town Beneath a Very Large Rock</h3>
@@ -897,7 +945,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 </a>
 
                 <a href="blog-sicilian-countryside.html" data-href-it="blog-sicilian-countryside-it.html" class="block rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED] overflow-hidden hover:shadow-2xl transition-shadow">
-                    <img src="optimized/vineyard.webp" alt="Vine rows running over dry hills toward a stone farmhouse in the Sicilian countryside" width="1400" height="763" loading="lazy" decoding="async" class="w-full h-48 object-cover">
+                    <img src="optimized/vineyard-card.webp" alt="Vine rows running over dry hills toward a stone farmhouse in the Sicilian countryside" width="1400" height="763" loading="lazy" decoding="async" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <p class="text-[#6E2A34] uppercase text-[11px] tracking-[0.2em] font-semibold">Country Life</p>
                         <h3 class="text-xl mt-3 text-[#1E1315]">What Nobody Tells You About Living in the Sicilian Countryside</h3>
@@ -952,22 +1000,57 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         </div>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-    <script src="https://unpkg.com/gsap@3/dist/EasePack.min.js"></script>
-    <!-- Cal element-click embed code begins -->
+    <!-- Cal element-click embed code begins (deferred off the critical path) -->
     <script type="text/javascript">
-      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-      Cal("init", "seasonal-events", {origin:"https://app.cal.com"});
-      Cal.config = Cal.config || {};
-      Cal.config.forwardQueryParams = true;
+      (function () {
+        var initialised = false;
 
-      // Important: Please add the following attributes to the element that should trigger the calendar to open upon clicking.
-      // `data-cal-link="divino-urban-cellar-gcpvix/seasonal-events"`
-      // data-cal-namespace="seasonal-events"
-      // `data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}'`
+        function initCal() {
+          if (initialised) return;
+          initialised = true;
+          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+          Cal("init", "seasonal-events", {origin:"https://app.cal.com"});
+          Cal.config = Cal.config || {};
+          Cal.config.forwardQueryParams = true;
+          Cal.ns["seasonal-events"]("ui", {"theme":"light","hideEventTypeDetails":false,"layout":"month_view"});
+        }
 
-      Cal.ns["seasonal-events"]("ui", {"theme":"light","hideEventTypeDetails":false,"layout":"month_view"});
+        // Warm the embed up as soon as the booking section is anywhere near view,
+        // or on the first user interaction — but never during the initial render.
+        var booking = document.getElementById('booking');
+        if (booking && 'IntersectionObserver' in window) {
+          var obs = new IntersectionObserver(function (entries, o) {
+            if (entries.some(function (e) { return e.isIntersecting; })) { o.disconnect(); initCal(); }
+          }, { rootMargin: '600px' });
+          obs.observe(booking);
+        }
+        ['pointerdown', 'keydown'].forEach(function (evt) {
+          window.addEventListener(evt, initCal, { once: true, passive: true });
+        });
+
+        // If someone clicks a booking button before the embed script has arrived,
+        // replay that click once it is ready.
+        var replayed = false;
+        document.addEventListener('click', function (event) {
+          var trigger = event.target.closest && event.target.closest('[data-cal-link]');
+          if (!trigger || replayed) return;
+          var wasReady = initialised && document.querySelector('cal-modal-box');
+          initCal();
+          if (wasReady) return;
+          var attempts = 0;
+          var replay = setInterval(function () {
+            attempts++;
+            if (attempts > 40) { clearInterval(replay); return; }
+            if (document.querySelector('cal-modal-box')) { clearInterval(replay); return; }
+            if (window.Cal && window.Cal.ns && window.Cal.ns['seasonal-events']) {
+              clearInterval(replay);
+              replayed = true;
+              trigger.click();
+              setTimeout(function () { replayed = false; }, 1000);
+            }
+          }, 150);
+        });
+      })();
     </script>
     <!-- Cal element-click embed code ends -->
     <script>
@@ -1511,26 +1594,84 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
         });
 
-        window.addEventListener('load', () => {
-            const loaderBar = document.getElementById('loader-bar');
-            if (loaderBar) {
-                loaderBar.style.width = '100%';
+        (() => {
+            const dismissLoader = () => {
+                const loaderBar = document.getElementById('loader-bar');
+                if (loaderBar) loaderBar.style.width = '100%';
+                const loader = document.getElementById('loader');
+                if (!loader) return;
+                loader.style.opacity = '0';
+                setTimeout(() => loader.classList.add('hidden'), 700);
+            };
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => setTimeout(dismissLoader, 250), { once: true });
+            } else {
+                setTimeout(dismissLoader, 250);
             }
+        })();
 
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000);
-            }, 600);
+        // Attach the hero video only on larger screens and non-metered connections.
+        (() => {
+            const video = document.getElementById('hero-video');
+            const poster = document.getElementById('hero-poster');
+            if (!video || isMobile) return;
+            const conn = navigator.connection;
+            if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const start = () => {
+                video.src = 'optimized/v3-web.mp4';
+                video.classList.remove('hidden');
+                video.play().then(() => { if (poster) poster.style.opacity = '0'; }).catch(() => {});
+            };
+            if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 3000 });
+            else setTimeout(start, 1200);
+        })();
 
-            if (!isMobile) {
+        // Decorative backgrounds (gallery tiles, the owner texture) are CSS
+        // backgrounds, which browsers fetch eagerly regardless of position.
+        // Swap them in only as they approach the viewport.
+        (() => {
+            const targets = [...document.querySelectorAll('[data-bg]')];
+            const owner = document.getElementById('owner');
+            const applyOwner = () => { if (owner && !isMobile) owner.classList.add('textured'); };
+            if (!('IntersectionObserver' in window)) {
+                targets.forEach(el => { el.style.backgroundImage = `url('${el.dataset.bg}')`; });
+                applyOwner();
+                return;
+            }
+            const obs = new IntersectionObserver((entries, o) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    o.unobserve(entry.target);
+                    if (entry.target === owner) { applyOwner(); return; }
+                    entry.target.style.backgroundImage = `url('${entry.target.dataset.bg}')`;
+                });
+            }, { rootMargin: '300px' });
+            targets.forEach(el => obs.observe(el));
+            if (owner) obs.observe(owner);
+        })();
+
+        // Leaflet + GSAP are desktop-only features, so they are fetched on demand
+        // instead of being loaded up front for every visitor.
+        const loadScript = (src) => new Promise((resolve, reject) => {
+            const el = document.createElement('script');
+            el.src = src; el.async = true;
+            el.onload = resolve; el.onerror = reject;
+            document.head.appendChild(el);
+        });
+        const loadStyle = (href) => {
+            const el = document.createElement('link');
+            el.rel = 'stylesheet'; el.href = href;
+            document.head.appendChild(el);
+        };
+
+        const initMap = () => {
+            {
                 const map = L.map('leaflet-map').setView([38.0341, 14.0170], 15);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
-
-                console.clear();
-                gsap.registerPlugin(EasePack);
 
                 const divinoIcon = L.divIcon({
                     html: '<div class="custom-leaflet-icon"><div class="pin-label">Divino</div><div class="pin"></div></div>',
@@ -1592,20 +1733,35 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
 
                 setTimeout(() => { map.invalidateSize(); }, 100);
             }
-        });
+        };
+
+        if (!isMobile) {
+            const mapEl = document.getElementById('leaflet-map');
+            if (mapEl) {
+                const startMap = () => {
+                    loadStyle('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+                    loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js').then(initMap).catch(() => {});
+                };
+                const io = new IntersectionObserver((entries, obs) => {
+                    if (entries.some(e => e.isIntersecting)) { obs.disconnect(); startMap(); }
+                }, { rootMargin: '400px' });
+                io.observe(mapEl);
+            }
+        }
 
         // Section-level scroll reveals are disabled.
         initializeLanguageToggle();
     </script>
     <script>
-        window.addEventListener('load', () => {
+        (() => {
             const header = document.getElementById('header');
             if (!header) return;
             
             let lastScrollTop = 0;
             let isHidden = false;
 
-            if (!isMobile) {
+            const initHeaderMotion = () => {
+                gsap.registerPlugin(EasePack);
                 const centerPath = "M0,0 L2278,0 L2278,200 C2278,200, 1814,200, 1139,200 C464,200, 0,200, 0,200 Z";
                 const wiggleAmountInput = { value: 240 };
                 const dropSpeedInput = { value: 1.8 };
@@ -1657,11 +1813,21 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                     
                     lastScrollTop = st <= 0 ? 0 : st; 
                 });
-            } else {
+            };
+
+            if (isMobile) {
                 header.style.transform = 'translateY(0)';
                 header.style.opacity = '1';
+            } else {
+                Promise.all([
+                    loadScript('https://unpkg.com/gsap@3/dist/gsap.min.js'),
+                    loadScript('https://unpkg.com/gsap@3/dist/EasePack.min.js')
+                ]).then(initHeaderMotion).catch(() => {
+                    header.style.transform = 'translateY(0)';
+                    header.style.opacity = '1';
+                });
             }
-        });
+        })();
     </script>
 
     <div id="cookie-consent-banner" class="cookie-consent-banner" role="dialog" aria-label="Cookie consent">
