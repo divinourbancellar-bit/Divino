@@ -159,6 +159,9 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- The booking modal loads app.cal.com in an iframe; get DNS + TLS out of the way early. -->
+    <link rel="preconnect" href="https://app.cal.com" crossorigin>
+    <link rel="dns-prefetch" href="https://app.cal.com">
     <link rel="stylesheet" href="assets/tailwind.css">
     <link rel="preload" as="image" href="optimized/logo-hero.webp" fetchpriority="high">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -1017,6 +1020,54 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
           CAL_NAMESPACES.forEach(function (ns) {
             Cal("init", ns, {origin:"https://app.cal.com"});
             Cal.ns[ns]("ui", {"theme":"light","hideEventTypeDetails":false,"layout":"month_view"});
+          });
+        }
+
+        // Cal only starts loading the booker iframe on click, which is the slow
+        // part. Preload a namespace the moment intent shows (hover, focus, or
+        // touch), so the iframe is usually warm by the time the click lands.
+        var preloaded = {};
+        function preload(trigger) {
+          if (!trigger) return;
+          var ns = trigger.getAttribute('data-cal-namespace');
+          var calLink = trigger.getAttribute('data-cal-link');
+          if (!ns || !calLink || preloaded[ns]) return;
+          initCal();
+          if (!(window.Cal && window.Cal.ns && window.Cal.ns[ns])) return;
+          preloaded[ns] = true;
+          window.Cal.ns[ns]('preload', { calLink: calLink });
+        }
+
+        // Require a short dwell on hover, so a pointer sweeping down the list
+        // does not fire off four iframes at once. Focus and touch are deliberate
+        // enough to preload straight away.
+        var hoverTimer = null;
+        document.addEventListener('pointerover', function (event) {
+          var t = event.target.closest && event.target.closest('[data-cal-link]');
+          if (!t) return;
+          clearTimeout(hoverTimer);
+          hoverTimer = setTimeout(function () { preload(t); }, 120);
+        }, { passive: true });
+        document.addEventListener('pointerout', function () {
+          clearTimeout(hoverTimer);
+        }, { passive: true });
+
+        ['focusin', 'touchstart'].forEach(function (evt) {
+          document.addEventListener(evt, function (event) {
+            var t = event.target.closest && event.target.closest('[data-cal-link]');
+            if (t) preload(t);
+          }, { passive: true });
+        });
+
+        // Opening the chooser is a strong signal that one of these is about to be
+        // clicked — warm the first option while the user reads the list.
+        var openBooking = document.getElementById('open-booking-modal');
+        if (openBooking) {
+          openBooking.addEventListener('click', function () {
+            initCal();
+            setTimeout(function () {
+              preload(document.querySelector('[data-booking-choice][data-cal-link]'));
+            }, 150);
           });
         }
 
