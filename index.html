@@ -967,9 +967,9 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 <h3 class="text-3xl md:text-4xl text-[#F5F3ED]" data-i18n="booking.modal.title">Book your Divino experience</h3>
                 <p class="text-[#E4D9BE] mt-3 leading-relaxed" data-i18n="booking.modal.text">Select the experience you'd like to explore and we'll open the booking page for you.</p>
                 <div class="mt-8 grid gap-3">
-                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/seasonal-events" data-cal-namespace="seasonal-events" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.wine">Wine Tasting Experience</button>
-                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/seasonal-events" data-cal-namespace="seasonal-events" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.cooking">Cooking Classes</button>
-                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/seasonal-events" data-cal-namespace="seasonal-events" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.farm">Farm Experiences</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.wine">Wine Tasting Experience</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/cooking-classes" data-cal-namespace="cooking-classes" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.cooking">Cooking Classes</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/farm-experiences" data-cal-namespace="farm-experiences" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.farm">Farm Experiences</button>
                     <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/seasonal-events" data-cal-namespace="seasonal-events" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.events">Seasonal Events</button>
                 </div>
             </div>
@@ -1004,15 +1004,20 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
     <script type="text/javascript">
       (function () {
         var initialised = false;
+        // One Cal namespace per bookable experience; each button carries its own
+        // via data-cal-namespace.
+        var CAL_NAMESPACES = ['wine-tasting', 'cooking-classes', 'farm-experiences', 'seasonal-events'];
 
         function initCal() {
           if (initialised) return;
           initialised = true;
           (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-          Cal("init", "seasonal-events", {origin:"https://app.cal.com"});
           Cal.config = Cal.config || {};
           Cal.config.forwardQueryParams = true;
-          Cal.ns["seasonal-events"]("ui", {"theme":"light","hideEventTypeDetails":false,"layout":"month_view"});
+          CAL_NAMESPACES.forEach(function (ns) {
+            Cal("init", ns, {origin:"https://app.cal.com"});
+            Cal.ns[ns]("ui", {"theme":"light","hideEventTypeDetails":false,"layout":"month_view"});
+          });
         }
 
         // Warm the embed up as soon as the booking section is anywhere near view,
@@ -1034,6 +1039,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         document.addEventListener('click', function (event) {
           var trigger = event.target.closest && event.target.closest('[data-cal-link]');
           if (!trigger || replayed) return;
+          var ns = trigger.getAttribute('data-cal-namespace') || CAL_NAMESPACES[0];
           var wasReady = initialised && document.querySelector('cal-modal-box');
           initCal();
           if (wasReady) return;
@@ -1042,7 +1048,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             attempts++;
             if (attempts > 40) { clearInterval(replay); return; }
             if (document.querySelector('cal-modal-box')) { clearInterval(replay); return; }
-            if (window.Cal && window.Cal.ns && window.Cal.ns['seasonal-events']) {
+            if (window.Cal && window.Cal.ns && window.Cal.ns[ns]) {
               clearInterval(replay);
               replayed = true;
               trigger.click();
