@@ -329,16 +329,8 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         .lightbox-close { position: absolute; top: -1rem; right: -1rem; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 9999px; border: 1px solid rgba(203, 169, 108, 0.3); background: rgba(30, 19, 21, 0.7); color: var(--warm-cream); cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
         .lightbox-close:hover { transform: scale(1.05); background: rgba(203, 169, 108, 0.25); }
         @keyframes logoGlow { from { filter: drop-shadow(0 0 12px rgba(245, 243, 237, 0.25)); } to { filter: drop-shadow(0 0 26px rgba(245, 243, 237, 0.45)); } }
-        .booking-tab { border: 1px solid rgba(110, 42, 52, 0.3); background: rgba(245, 243, 237, 0.6); color: #6E2A34; padding: 0.7rem 1.35rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
-        .booking-tab:hover { background: rgba(110, 42, 52, 0.12); }
-        .booking-tab[aria-selected="true"] { background: #6E2A34; border-color: #6E2A34; color: #F5F3ED; }
-        /* Panes are stacked and absolutely filled rather than display:none, so an
-           inactive Cal iframe still has real dimensions and renders correctly
-           before it is ever shown. */
-        .booking-calendar { position: relative; height: 720px; }
-        .booking-cal-pane { position: absolute; inset: 0; width: 100%; height: 100%; overflow: auto; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.25s ease; }
-        .booking-cal-pane.active { opacity: 1; visibility: visible; pointer-events: auto; }
-        @media (max-width: 640px) { .booking-calendar { height: 620px; } }
+        .booking-modal { display: none; }
+        .booking-modal.open { display: flex; }
         .calendar-shell::before {
             content: '';
             position: absolute;
@@ -598,6 +590,9 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                         </div>
                         <h3 class="text-3xl md:text-4xl text-[#1E1315]" data-i18n="booking.card.title">Reserve a time that fits your journey</h3>
                         <p class="text-[#4A3730] leading-relaxed" data-i18n="booking.card.text">Whether you are planning a tasting, exploring memberships, or learning more about Ambrosia, this is the fastest way to connect directly with the team.</p>
+                        <button type="button" id="open-booking-modal" class="inline-flex items-center justify-center px-8 py-4 bg-[#6E2A34] hover:bg-[#59202A] text-[#F5F3ED] uppercase tracking-[0.2em] font-semibold transition-all" data-i18n="booking.button">
+                            Book your slot
+                        </button>
                     </div>
             <div class="rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED]/70 p-8">
                         <h4 class="text-xl mb-4 text-[#6E2A34]" data-i18n="booking.list.title">What you can discuss</h4>
@@ -607,22 +602,6 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                             <li data-i18n="booking.list.item3">• Farm experiences</li>
                             <li data-i18n="booking.list.item4">• Seasonal events and special occasions</li>
                         </ul>
-                    </div>
-                </div>
-
-                <div class="mt-10 border-t border-[#CBA96C]/30 pt-10">
-                    <p class="text-[#6E2A34] uppercase tracking-[0.3em] text-xs mb-5 text-center" data-i18n="booking.modal.eyebrow">Choose an experience</p>
-                    <div class="flex flex-wrap justify-center gap-3" role="tablist" aria-label="Booking experiences">
-                        <button type="button" role="tab" id="booking-tab-wine-tasting" aria-controls="booking-pane-wine-tasting" aria-selected="true" class="booking-tab" data-booking-tab data-cal-namespace="wine-tasting" data-i18n="booking.option.wine">Wine Tasting Experience</button>
-                        <button type="button" role="tab" id="booking-tab-cooking-classes" aria-controls="booking-pane-cooking-classes" aria-selected="false" class="booking-tab" data-booking-tab data-cal-namespace="cooking-classes" data-i18n="booking.option.cooking">Cooking Classes</button>
-                        <button type="button" role="tab" id="booking-tab-farm-experiences" aria-controls="booking-pane-farm-experiences" aria-selected="false" class="booking-tab" data-booking-tab data-cal-namespace="farm-experiences" data-i18n="booking.option.farm">Farm Experiences</button>
-                        <button type="button" role="tab" id="booking-tab-seasonal-events" aria-controls="booking-pane-seasonal-events" aria-selected="false" class="booking-tab" data-booking-tab data-cal-namespace="seasonal-events" data-i18n="booking.option.events">Seasonal Events</button>
-                    </div>
-                    <div class="booking-calendar mt-8 rounded-[1.5rem] border border-[#CBA96C]/40 bg-[#F5F3ED] overflow-hidden">
-                    <div class="booking-cal-pane active" id="booking-pane-wine-tasting" role="tabpanel" aria-labelledby="booking-tab-wine-tasting" data-cal-pane="wine-tasting"></div>
-                    <div class="booking-cal-pane" id="booking-pane-cooking-classes" role="tabpanel" aria-labelledby="booking-tab-cooking-classes" data-cal-pane="cooking-classes"></div>
-                    <div class="booking-cal-pane" id="booking-pane-farm-experiences" role="tabpanel" aria-labelledby="booking-tab-farm-experiences" data-cal-pane="farm-experiences"></div>
-                    <div class="booking-cal-pane" id="booking-pane-seasonal-events" role="tabpanel" aria-labelledby="booking-tab-seasonal-events" data-cal-pane="seasonal-events"></div>
                     </div>
                 </div>
             </div>
@@ -983,6 +962,23 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         </div>
     </section>
 
+    <div id="booking-choice-modal" class="booking-modal fixed inset-0 z-[80] items-center justify-center bg-[#4C1D24]/90 px-4 py-6">
+        <div class="relative w-full max-w-2xl rounded-[2rem] border border-[#CBA96C]/25 bg-[#4C1D24] shadow-2xl overflow-hidden">
+            <button id="close-booking-choice-modal" type="button" class="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#CBA96C]/20 bg-[#4C1D24]/70 text-[#F5F3ED] hover:bg-[#CBA96C]/15" aria-label="Close booking modal">×</button>
+            <div class="p-8 md:p-10">
+                <p class="text-[#A6AD8A] uppercase tracking-[0.3em] text-xs mb-3" data-i18n="booking.modal.eyebrow">Choose an experience</p>
+                <h3 class="text-3xl md:text-4xl text-[#F5F3ED]" data-i18n="booking.modal.title">Book your Divino experience</h3>
+                <p class="text-[#E4D9BE] mt-3 leading-relaxed" data-i18n="booking.modal.text">Select the experience you'd like to explore and we'll open the booking page for you.</p>
+                <div class="mt-8 grid gap-3">
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.wine">Wine Tasting Experience</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/cooking-classes" data-cal-namespace="cooking-classes" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.cooking">Cooking Classes</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/farm-experiences" data-cal-namespace="farm-experiences" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.farm">Farm Experiences</button>
+                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/seasonal-events" data-cal-namespace="seasonal-events" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.events">Seasonal Events</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="py-12 text-center bg-[#F5F3ED] text-[#1E1315] text-xs uppercase tracking-widest">
         <nav aria-label="Footer" class="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-6 px-6">
             <a href="#booking" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.book">Book</a>
@@ -1007,13 +1003,13 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         </div>
     </div>
 
-    <!-- Cal inline embed code begins (one pane per experience, mounted on demand) -->
+    <!-- Cal element-click embed code begins (deferred off the critical path) -->
     <script type="text/javascript">
       (function () {
-        var CAL_BASE = 'divino-urban-cellar-gcpvix/';
-        var NAMESPACES = ['wine-tasting', 'cooking-classes', 'farm-experiences', 'seasonal-events'];
         var initialised = false;
-        var mounted = {};
+        // One Cal namespace per bookable experience; each button carries its own
+        // via data-cal-namespace.
+        var CAL_NAMESPACES = ['wine-tasting', 'cooking-classes', 'farm-experiences', 'seasonal-events'];
 
         function initCal() {
           if (initialised) return;
@@ -1021,69 +1017,99 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
           (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
           Cal.config = Cal.config || {};
           Cal.config.forwardQueryParams = true;
-          NAMESPACES.forEach(function (ns) {
-            Cal("init", ns, {origin: "https://app.cal.com"});
-            Cal.ns[ns]("ui", {"theme": "light", "hideEventTypeDetails": false, "layout": "month_view"});
+          CAL_NAMESPACES.forEach(function (ns) {
+            Cal("init", ns, {origin:"https://app.cal.com"});
+            Cal.ns[ns]("ui", {"theme":"light","hideEventTypeDetails":false,"layout":"month_view"});
           });
         }
 
-        // Mounting is what starts the iframe loading, so it is the thing worth
-        // doing early. Panes keep their dimensions while hidden, so one mounted
-        // ahead of time renders correctly before it is ever shown.
-        function mount(ns) {
-          if (!ns || mounted[ns]) return;
-          if (!document.querySelector('[data-cal-pane="' + ns + '"]')) return;
+        // Cal only starts loading the booker iframe on click, which is the slow
+        // part. Preload a namespace the moment intent shows (hover, focus, or
+        // touch), so the iframe is usually warm by the time the click lands.
+        var preloaded = {};
+        function preload(trigger) {
+          if (!trigger) return;
+          var ns = trigger.getAttribute('data-cal-namespace');
+          var calLink = trigger.getAttribute('data-cal-link');
+          if (!ns || !calLink || preloaded[ns]) return;
           initCal();
-          mounted[ns] = true;
-          Cal.ns[ns]("inline", {
-            elementOrSelector: '[data-cal-pane="' + ns + '"]',
-            config: {"layout": "month_view", "useSlotsViewOnSmallScreen": "true", "theme": "light"},
-            calLink: CAL_BASE + ns
-          });
+          if (!(window.Cal && window.Cal.ns && window.Cal.ns[ns])) return;
+          preloaded[ns] = true;
+          window.Cal.ns[ns]('preload', { calLink: calLink });
         }
 
-        var tabs = [].slice.call(document.querySelectorAll('[data-booking-tab]'));
-        var panes = [].slice.call(document.querySelectorAll('[data-cal-pane]'));
-
-        function select(ns) {
-          tabs.forEach(function (t) {
-            t.setAttribute('aria-selected', t.getAttribute('data-cal-namespace') === ns ? 'true' : 'false');
-          });
-          panes.forEach(function (pane) {
-            pane.classList.toggle('active', pane.getAttribute('data-cal-pane') === ns);
-          });
-          mount(ns);
-        }
-
+        // Require a short dwell on hover, so a pointer sweeping down the list
+        // does not fire off four iframes at once. Focus and touch are deliberate
+        // enough to preload straight away.
         var hoverTimer = null;
-        tabs.forEach(function (tab) {
-          var ns = tab.getAttribute('data-cal-namespace');
-          tab.addEventListener('click', function () { select(ns); });
-          // Warm a tab on hover, with a short dwell so a pointer sweeping the row
-          // does not load all four at once.
-          tab.addEventListener('pointerenter', function () {
-            clearTimeout(hoverTimer);
-            hoverTimer = setTimeout(function () { mount(ns); }, 150);
-          });
-          tab.addEventListener('pointerleave', function () { clearTimeout(hoverTimer); });
-          tab.addEventListener('focus', function () { mount(ns); });
+        document.addEventListener('pointerover', function (event) {
+          var t = event.target.closest && event.target.closest('[data-cal-link]');
+          if (!t) return;
+          clearTimeout(hoverTimer);
+          hoverTimer = setTimeout(function () { preload(t); }, 120);
+        }, { passive: true });
+        document.addEventListener('pointerout', function () {
+          clearTimeout(hoverTimer);
+        }, { passive: true });
+
+        ['focusin', 'touchstart'].forEach(function (evt) {
+          document.addEventListener(evt, function (event) {
+            var t = event.target.closest && event.target.closest('[data-cal-link]');
+            if (t) preload(t);
+          }, { passive: true });
         });
 
-        // Mount the default experience while the booking section is still well
-        // below the fold, so the calendar is loaded by the time it is reached.
-        function mountDefault() { mount(NAMESPACES[0]); }
+        // Opening the chooser is a strong signal that one of these is about to be
+        // clicked — warm the first option while the user reads the list.
+        var openBooking = document.getElementById('open-booking-modal');
+        if (openBooking) {
+          openBooking.addEventListener('click', function () {
+            initCal();
+            setTimeout(function () {
+              preload(document.querySelector('[data-booking-choice][data-cal-link]'));
+            }, 150);
+          });
+        }
+
+        // Warm the embed up as soon as the booking section is anywhere near view,
+        // or on the first user interaction — but never during the initial render.
         var booking = document.getElementById('booking');
         if (booking && 'IntersectionObserver' in window) {
           var obs = new IntersectionObserver(function (entries, o) {
-            if (entries.some(function (en) { return en.isIntersecting; })) { o.disconnect(); mountDefault(); }
-          }, { rootMargin: '1200px' });
+            if (entries.some(function (e) { return e.isIntersecting; })) { o.disconnect(); initCal(); }
+          }, { rootMargin: '600px' });
           obs.observe(booking);
-        } else {
-          mountDefault();
         }
+        ['pointerdown', 'keydown'].forEach(function (evt) {
+          window.addEventListener(evt, initCal, { once: true, passive: true });
+        });
+
+        // If someone clicks a booking button before the embed script has arrived,
+        // replay that click once it is ready.
+        var replayed = false;
+        document.addEventListener('click', function (event) {
+          var trigger = event.target.closest && event.target.closest('[data-cal-link]');
+          if (!trigger || replayed) return;
+          var ns = trigger.getAttribute('data-cal-namespace') || CAL_NAMESPACES[0];
+          var wasReady = initialised && document.querySelector('cal-modal-box');
+          initCal();
+          if (wasReady) return;
+          var attempts = 0;
+          var replay = setInterval(function () {
+            attempts++;
+            if (attempts > 40) { clearInterval(replay); return; }
+            if (document.querySelector('cal-modal-box')) { clearInterval(replay); return; }
+            if (window.Cal && window.Cal.ns && window.Cal.ns[ns]) {
+              clearInterval(replay);
+              replayed = true;
+              trigger.click();
+              setTimeout(function () { replayed = false; }, 1000);
+            }
+          }, 150);
+        });
       })();
     </script>
-    <!-- Cal inline embed code ends -->
+    <!-- Cal element-click embed code ends -->
     <script>
         const translations = {
             en: {
@@ -1546,6 +1572,20 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         const lightboxImage = document.getElementById('lightbox-image');
         const lightboxCaption = document.getElementById('lightbox-caption');
         const lightboxClose = document.getElementById('lightbox-close');
+        const bookingChoiceModal = document.getElementById('booking-choice-modal');
+        const openBookingModalButton = document.getElementById('open-booking-modal');
+        const closeBookingChoiceModalButton = document.getElementById('close-booking-choice-modal');
+
+        const closeBookingModals = () => {
+            bookingChoiceModal?.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        const openBookingChoiceModal = () => {
+            bookingChoiceModal?.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        };
+
         const openLightbox = (src, caption) => {
             lightboxImage.src = src;
             lightboxImage.alt = caption || 'Cellar image preview';
@@ -1587,6 +1627,22 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 if (lightboxOverlay.classList.contains('open')) {
                     closeLightbox();
                 }
+                if (bookingChoiceModal?.classList.contains('open')) {
+                    closeBookingModals();
+                }
+            }
+        });
+
+        document.querySelectorAll('[data-booking-choice]').forEach((button) => {
+            button.addEventListener('click', closeBookingModals);
+        });
+
+        openBookingModalButton?.addEventListener('click', openBookingChoiceModal);
+        closeBookingChoiceModalButton?.addEventListener('click', closeBookingModals);
+
+        bookingChoiceModal?.addEventListener('click', (event) => {
+            if (event.target === bookingChoiceModal) {
+                closeBookingModals();
             }
         });
 
