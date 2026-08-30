@@ -36,3 +36,8 @@ _*.png
 _*.xml
 _*.json
 _*.js
+
+# Scratch from the Facebook import (safe to delete)
+_fb_photos/_to_delete/
+_fb_photos/fbgrab_*.jpg
+_index.bak.html

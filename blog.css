@@ -305,7 +305,8 @@ main { padding-top: var(--header-h); }
 }
 
 /* ================================================================ Magazine  */
-/* Two-part magazine page: the Divino journal, then the CefalùNext Substack.  */
+/* Three-part magazine page: the CefalùNext Substack, the Divino journal, and  */
+/* the Facebook page feed.                                                     */
 
 .section-head { text-align: center; max-width: 680px; margin: 0 auto 3rem; }
 .section-head h2 { font-size: clamp(1.9rem, 4.2vw, 2.9rem); margin-top: 1rem; }
@@ -396,6 +397,85 @@ main { padding-top: var(--header-h); }
 .button--sage:hover { background: var(--sage); color: var(--deep-charcoal); }
 
 .cta-band--burgundy { background: var(--burgundy); }
+
+/* ------------------------------------------------------- Facebook page feed */
+/* A light band, so it does not compete with the dark CefalùNext block above.  */
+
+.magazine-section--social { background: var(--limestone); }
+.magazine-section--social .feed-empty { border-color: rgba(110, 42, 52, 0.3); }
+
+/* align-items: start keeps each card at its natural height. Stretching them to
+   the tallest in the row leaves a dead void inside every short post.          */
+.fb-grid { display: grid; gap: 1.75rem; align-items: start; }
+@media (min-width: 640px) { .fb-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .fb-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.fb-card {
+    display: flex; flex-direction: column;
+    background: var(--warm-cream);
+    border: 1px solid rgba(203, 169, 108, 0.45);
+    border-radius: 1.15rem; overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.fb-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(76, 29, 36, 0.14); }
+
+.fb-card__media {
+    position: relative; display: block;
+    aspect-ratio: 4 / 3; overflow: hidden;
+    background: var(--walnut);
+}
+.fb-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+.fb-card:hover .fb-card__media img { transform: scale(1.03); }
+
+/* Multi-photo posts get the same mosaic Facebook itself uses. */
+.fb-card__media--grid { display: grid; gap: 2px; }
+.fb-card__media--n2 { grid-template-columns: 1fr 1fr; }
+.fb-card__media--n3 { grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; }
+.fb-card__media--n3 img:first-child { grid-row: span 2; }
+.fb-card__media--n4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+
+.fb-card__count, .fb-card__play { position: absolute; pointer-events: none; }
+.fb-card__count {
+    right: 0.7rem; bottom: 0.7rem;
+    background: rgba(30, 19, 21, 0.78); color: var(--warm-cream);
+    border-radius: 9999px; padding: 0.3rem 0.75rem;
+    font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600;
+}
+.fb-card__play {
+    left: 50%; top: 50%; width: 54px; height: 54px; transform: translate(-50%, -50%);
+    border-radius: 50%; background: rgba(30, 19, 21, 0.62);
+    border: 1px solid rgba(245, 243, 237, 0.7);
+}
+.fb-card__play::after {
+    content: ''; position: absolute; left: 54%; top: 50%; transform: translate(-50%, -50%);
+    border-left: 15px solid var(--warm-cream);
+    border-top: 9px solid transparent; border-bottom: 9px solid transparent;
+}
+
+.fb-card__body { padding: 1.4rem 1.5rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
+.fb-card__meta {
+    margin: 0; font-size: 0.64rem; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--burgundy); font-weight: 600;
+}
+/* Posts run to any length, so clamp the text to keep the grid even; the full  */
+/* post is one click away on Facebook.                                         */
+.fb-card__text {
+    margin-top: 0.85rem;
+    display: -webkit-box; -webkit-box-orient: vertical;
+    -webkit-line-clamp: 9; line-clamp: 9; overflow: hidden;
+}
+.fb-card__text p { margin: 0 0 0.75rem; font-size: 0.92rem; line-height: 1.65; }
+.fb-card__text p:last-child { margin-bottom: 0; }
+
+.fb-card__more {
+    margin-top: auto; padding-top: 1.3rem;
+    font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.2em;
+    font-weight: 600; text-decoration: none; color: var(--burgundy);
+}
+.fb-card__more:hover { text-decoration: underline; }
+
+.button--burgundy { border-color: var(--burgundy); color: var(--burgundy); }
+.button--burgundy:hover { background: var(--burgundy); color: var(--warm-cream); }
 
 /* ---------------------------------------------------------- Language toggle */
 
