@@ -305,8 +305,7 @@ main { padding-top: var(--header-h); }
 }
 
 /* ================================================================ Magazine  */
-/* Three-part magazine page: the CefalùNext Substack, the Divino journal, and  */
-/* the Facebook page feed.                                                     */
+/* The magazine page: the Divino journal.                                      */
 
 .section-head { text-align: center; max-width: 680px; margin: 0 auto 3rem; }
 .section-head h2 { font-size: clamp(1.9rem, 4.2vw, 2.9rem); margin-top: 1rem; }
@@ -314,168 +313,7 @@ main { padding-top: var(--header-h); }
 
 .magazine-section { padding: 4.5rem 0 5rem; }
 
-/* The Substack band sits on dark walnut so it reads as a separate publication */
-.magazine-section--feed {
-    background: var(--walnut);
-    color: var(--warm-limestone);
-    padding: 5rem 0 5.5rem;
-}
-.magazine-section--feed h2,
-.magazine-section--feed h3 { color: var(--warm-cream); }
-.magazine-section--feed .eyebrow { color: var(--sage); }
-.magazine-section--feed .rule { background: var(--sage); }
-.magazine-section--feed a { color: var(--sage); }
-.magazine-section--feed a:hover { color: var(--warm-cream); }
-
-.feed-masthead {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.75rem; margin-bottom: 0.5rem;
-}
-.feed-masthead__badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    border: 1px solid rgba(166, 173, 138, 0.45);
-    border-radius: 9999px; padding: 0.4rem 1rem;
-    font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.22em;
-    color: var(--sage);
-}
-.feed-masthead__badge::before {
-    content: ''; width: 7px; height: 7px; border-radius: 50%;
-    background: var(--sage);
-}
-
-.feed-lang-note {
-    margin-top: 1rem; font-size: 0.78rem; font-style: italic;
-    color: var(--muted-warm);
-}
-
-.feed-grid { display: grid; gap: 1.75rem; }
-@media (min-width: 760px) { .feed-grid { grid-template-columns: repeat(2, 1fr); } }
-
-.feed-card {
-    display: flex; flex-direction: column;
-    background: rgba(245, 243, 237, 0.055);
-    border: 1px solid rgba(203, 169, 108, 0.3);
-    border-radius: 1.15rem; overflow: hidden;
-    transition: transform 0.35s ease, border-color 0.35s ease;
-}
-.feed-card:hover { transform: translateY(-4px); border-color: rgba(166, 173, 138, 0.75); }
-@media (min-width: 760px) { .feed-card--lead { grid-column: 1 / -1; } }
-
-.feed-card__media { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--deep-charcoal); }
-.feed-card--lead .feed-card__media { aspect-ratio: 2 / 1; }
-.feed-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
-.feed-card:hover .feed-card__media img { transform: scale(1.04); }
-
-.feed-card__body { padding: 1.6rem 1.7rem 1.9rem; display: flex; flex-direction: column; flex: 1; }
-.feed-card__meta {
-    margin: 0; font-size: 0.66rem; text-transform: uppercase;
-    letter-spacing: 0.2em; color: var(--sage); font-weight: 600;
-}
-.feed-card__body h3 { margin: 0.8rem 0 0; font-size: clamp(1.15rem, 2.2vw, 1.5rem); line-height: 1.3; }
-.feed-card--lead .feed-card__body h3 { font-size: clamp(1.35rem, 3vw, 1.95rem); }
-.feed-card__body h3 a { color: inherit; text-decoration: none; }
-.feed-card__body h3 a:hover { color: var(--sage); }
-.feed-card__body > p:not(.feed-card__meta) {
-    margin: 0.9rem 0 0; font-size: 0.92rem; color: var(--warm-limestone);
-}
-.feed-card__more {
-    margin-top: auto; padding-top: 1.4rem;
-    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em;
-    font-weight: 600; text-decoration: none;
-}
-.feed-card__more:hover { text-decoration: underline; }
-
-.feed-empty {
-    text-align: center; padding: 2.5rem 1.5rem;
-    border: 1px dashed rgba(203, 169, 108, 0.4);
-    border-radius: 1.15rem;
-}
-
-.feed-footer { text-align: center; margin-top: 3rem; }
-
-.button--sage { border-color: var(--sage); color: var(--sage); }
-.button--sage:hover { background: var(--sage); color: var(--deep-charcoal); }
-
 .cta-band--burgundy { background: var(--burgundy); }
-
-/* ------------------------------------------------------- Facebook page feed */
-/* A light band, so it does not compete with the dark CefalùNext block above.  */
-
-.magazine-section--social { background: var(--limestone); }
-.magazine-section--social .feed-empty { border-color: rgba(110, 42, 52, 0.3); }
-
-/* align-items: start keeps each card at its natural height. Stretching them to
-   the tallest in the row leaves a dead void inside every short post.          */
-.fb-grid { display: grid; gap: 1.75rem; align-items: start; }
-@media (min-width: 640px) { .fb-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1040px) { .fb-grid { grid-template-columns: repeat(3, 1fr); } }
-
-.fb-card {
-    display: flex; flex-direction: column;
-    background: var(--warm-cream);
-    border: 1px solid rgba(203, 169, 108, 0.45);
-    border-radius: 1.15rem; overflow: hidden;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-.fb-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(76, 29, 36, 0.14); }
-
-.fb-card__media {
-    position: relative; display: block;
-    aspect-ratio: 4 / 3; overflow: hidden;
-    background: var(--walnut);
-}
-.fb-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
-.fb-card:hover .fb-card__media img { transform: scale(1.03); }
-
-/* Multi-photo posts get the same mosaic Facebook itself uses. */
-.fb-card__media--grid { display: grid; gap: 2px; }
-.fb-card__media--n2 { grid-template-columns: 1fr 1fr; }
-.fb-card__media--n3 { grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; }
-.fb-card__media--n3 img:first-child { grid-row: span 2; }
-.fb-card__media--n4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
-
-.fb-card__count, .fb-card__play { position: absolute; pointer-events: none; }
-.fb-card__count {
-    right: 0.7rem; bottom: 0.7rem;
-    background: rgba(30, 19, 21, 0.78); color: var(--warm-cream);
-    border-radius: 9999px; padding: 0.3rem 0.75rem;
-    font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600;
-}
-.fb-card__play {
-    left: 50%; top: 50%; width: 54px; height: 54px; transform: translate(-50%, -50%);
-    border-radius: 50%; background: rgba(30, 19, 21, 0.62);
-    border: 1px solid rgba(245, 243, 237, 0.7);
-}
-.fb-card__play::after {
-    content: ''; position: absolute; left: 54%; top: 50%; transform: translate(-50%, -50%);
-    border-left: 15px solid var(--warm-cream);
-    border-top: 9px solid transparent; border-bottom: 9px solid transparent;
-}
-
-.fb-card__body { padding: 1.4rem 1.5rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
-.fb-card__meta {
-    margin: 0; font-size: 0.64rem; text-transform: uppercase;
-    letter-spacing: 0.2em; color: var(--burgundy); font-weight: 600;
-}
-/* Posts run to any length, so clamp the text to keep the grid even; the full  */
-/* post is one click away on Facebook.                                         */
-.fb-card__text {
-    margin-top: 0.85rem;
-    display: -webkit-box; -webkit-box-orient: vertical;
-    -webkit-line-clamp: 9; line-clamp: 9; overflow: hidden;
-}
-.fb-card__text p { margin: 0 0 0.75rem; font-size: 0.92rem; line-height: 1.65; }
-.fb-card__text p:last-child { margin-bottom: 0; }
-
-.fb-card__more {
-    margin-top: auto; padding-top: 1.3rem;
-    font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.2em;
-    font-weight: 600; text-decoration: none; color: var(--burgundy);
-}
-.fb-card__more:hover { text-decoration: underline; }
-
-.button--burgundy { border-color: var(--burgundy); color: var(--burgundy); }
-.button--burgundy:hover { background: var(--burgundy); color: var(--warm-cream); }
 
 /* ---------------------------------------------------------- Language toggle */
 
@@ -491,13 +329,6 @@ main { padding-top: var(--header-h); }
 }
 .lang-toggle:hover { background: rgba(203, 169, 108, 0.18); color: var(--burgundy); }
 .mobile-nav .lang-toggle { align-self: flex-start; }
-
-/* An even number of feed cards leaves the last one orphaned in a half-width
-   slot; let it span instead, mirroring the lead card at the top. */
-@media (min-width: 760px) {
-    .feed-grid .feed-card:last-child:nth-child(even) { grid-column: 1 / -1; }
-    .feed-grid .feed-card:last-child:nth-child(even) .feed-card__media { aspect-ratio: 3 / 1; }
-}
 
 /* ------------------------------------------------------------ Social links */
 
