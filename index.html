@@ -969,6 +969,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 <p class="text-[#A6AD8A] uppercase tracking-[0.3em] text-xs mb-3" data-i18n="booking.modal.eyebrow">Choose an experience</p>
                 <h3 class="text-3xl md:text-4xl text-[#F5F3ED]" data-i18n="booking.modal.title">Book your Divino experience</h3>
                 <p class="text-[#E4D9BE] mt-3 leading-relaxed" data-i18n="booking.modal.text">Select the experience you'd like to explore and we'll open the booking page for you.</p>
+                <p id="booking-unavailable-notice" class="hidden mt-4 rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-4 py-3 text-sm text-[#F5F3ED]" role="status" aria-live="polite"></p>
                 <div class="mt-8 grid gap-3">
                     <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.wine">Wine Tasting Experience</button>
                     <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/cooking-classes" data-cal-namespace="cooking-classes" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.cooking">Cooking Classes</button>
@@ -1020,6 +1021,14 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
           CAL_NAMESPACES.forEach(function (ns) {
             Cal("init", ns, {origin:"https://app.cal.com"});
             Cal.ns[ns]("ui", {"theme":"light","hideEventTypeDetails":false,"layout":"month_view"});
+            // Cal.com has no event type on file for this namespace (e.g. a 404) —
+            // let the rest of the page show a friendly "not available" message.
+            Cal.ns[ns]("on", {
+              action: "linkFailed",
+              callback: function () {
+                window.dispatchEvent(new CustomEvent('cal:link-failed', { detail: { namespace: ns } }));
+              }
+            });
           });
         }
 
@@ -1241,6 +1250,10 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'booking.list.item2': '• Cooking classes',
                 'booking.list.item3': '• Farm experiences',
                 'booking.list.item4': '• Seasonal events and special occasions',
+                'booking.error.wine': 'No wine tasting experiences currently available.',
+                'booking.error.cooking': 'No cooking classes currently available.',
+                'booking.error.farm': 'No farm experiences currently available.',
+                'booking.error.events': 'No seasonal events currently available.',
                 'visit.title': 'Plan Your Visit',
                 'visit.location': 'Location',
                 'visit.contact': 'Contact',
@@ -1412,6 +1425,10 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'booking.list.item2': '• Lezioni di cucina',
                 'booking.list.item3': '• Esperienze in azienda',
                 'booking.list.item4': '• Eventi stagionali e occasioni speciali',
+                'booking.error.wine': 'Nessuna degustazione di vini attualmente disponibile.',
+                'booking.error.cooking': 'Nessun corso di cucina attualmente disponibile.',
+                'booking.error.farm': 'Nessuna esperienza in azienda attualmente disponibile.',
+                'booking.error.events': 'Nessun evento stagionale attualmente disponibile.',
                 'visit.title': 'Pianifica la tua visita',
                 'visit.location': 'Luogo',
                 'visit.contact': 'Contatti',
@@ -1575,10 +1592,40 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         const bookingChoiceModal = document.getElementById('booking-choice-modal');
         const openBookingModalButton = document.getElementById('open-booking-modal');
         const closeBookingChoiceModalButton = document.getElementById('close-booking-choice-modal');
+        const bookingUnavailableNotice = document.getElementById('booking-unavailable-notice');
+        const BOOKING_ERROR_KEYS = {
+            'wine-tasting': 'booking.error.wine',
+            'cooking-classes': 'booking.error.cooking',
+            'farm-experiences': 'booking.error.farm',
+            'seasonal-events': 'booking.error.events'
+        };
+
+        const hideBookingUnavailable = () => {
+            bookingUnavailableNotice?.classList.add('hidden');
+        };
+
+        // Cal.com reported that this experience has no event type on file
+        // (e.g. it was deleted or never published) — surface that instead of
+        // leaving the visitor staring at a broken booking iframe.
+        const showBookingUnavailable = (namespace) => {
+            const key = BOOKING_ERROR_KEYS[namespace];
+            if (!bookingUnavailableNotice || !key) return;
+            document.querySelector('cal-modal-box')?.remove();
+            const current = document.documentElement.lang === 'it' ? 'it' : 'en';
+            bookingUnavailableNotice.setAttribute('data-i18n', key);
+            bookingUnavailableNotice.textContent = translations[current][key] || '';
+            openBookingChoiceModal();
+            bookingUnavailableNotice.classList.remove('hidden');
+        };
+
+        window.addEventListener('cal:link-failed', (event) => {
+            showBookingUnavailable(event.detail && event.detail.namespace);
+        });
 
         const closeBookingModals = () => {
             bookingChoiceModal?.classList.remove('open');
             document.body.style.overflow = '';
+            hideBookingUnavailable();
         };
 
         const openBookingChoiceModal = () => {
@@ -1637,7 +1684,10 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             button.addEventListener('click', closeBookingModals);
         });
 
-        openBookingModalButton?.addEventListener('click', openBookingChoiceModal);
+        openBookingModalButton?.addEventListener('click', () => {
+            hideBookingUnavailable();
+            openBookingChoiceModal();
+        });
         closeBookingChoiceModalButton?.addEventListener('click', closeBookingModals);
 
         bookingChoiceModal?.addEventListener('click', (event) => {
