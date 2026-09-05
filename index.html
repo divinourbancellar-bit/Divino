@@ -977,9 +977,18 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 <p id="booking-unavailable-notice" class="hidden mt-4 rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-4 py-3 text-sm text-[#F5F3ED]" role="status" aria-live="polite"></p>
                 <div class="mt-8 grid gap-3">
                     <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.wine">Wine Tasting Experience</button>
-                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/cooking-classes" data-cal-namespace="cooking-classes" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.cooking">Cooking Classes</button>
-                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/farm-experiences" data-cal-namespace="farm-experiences" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.farm">Farm Experiences</button>
-                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/seasonal-events" data-cal-namespace="seasonal-events" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.events">Seasonal Events</button>
+                    <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
+                        <span data-i18n="booking.option.cooking">Cooking Classes</span>
+                        <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
+                    </button>
+                    <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
+                        <span data-i18n="booking.option.farm">Farm Experiences</span>
+                        <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
+                    </button>
+                    <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
+                        <span data-i18n="booking.option.events">Seasonal Events</span>
+                        <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1015,8 +1024,10 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
       (function () {
         var initialised = false;
         // One Cal namespace per bookable experience; each button carries its own
-        // via data-cal-namespace.
-        var CAL_NAMESPACES = ['wine-tasting', 'cooking-classes', 'farm-experiences', 'seasonal-events'];
+        // via data-cal-namespace. Cooking classes, farm experiences and seasonal
+        // events aren't bookable yet, so they carry no Cal attributes and are
+        // left out here — Cal.com is never contacted for them.
+        var CAL_NAMESPACES = ['wine-tasting'];
 
         function initCal() {
           if (initialised) return;
@@ -1254,6 +1265,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'booking.option.cooking': 'Cooking Classes',
                 'booking.option.farm': 'Farm Experiences',
                 'booking.option.events': 'Seasonal Events',
+                'booking.option.soon': 'Coming soon',
                 'booking.list.title': 'What you can discuss',
                 'booking.list.item1': '• Wine tasting experiences and private visits',
                 'booking.list.item2': '• Cooking classes',
@@ -1432,6 +1444,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'booking.option.cooking': 'Lezioni di cucina',
                 'booking.option.farm': 'Esperienze in azienda',
                 'booking.option.events': 'Eventi stagionali',
+                'booking.option.soon': 'Prossimamente',
                 'booking.list.title': 'Di cosa puoi parlare',
                 'booking.list.item1': '• Esperienze di degustazione e visite private',
                 'booking.list.item2': '• Lezioni di cucina',
@@ -1606,10 +1619,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         const closeBookingChoiceModalButton = document.getElementById('close-booking-choice-modal');
         const bookingUnavailableNotice = document.getElementById('booking-unavailable-notice');
         const BOOKING_ERROR_KEYS = {
-            'wine-tasting': 'booking.error.wine',
-            'cooking-classes': 'booking.error.cooking',
-            'farm-experiences': 'booking.error.farm',
-            'seasonal-events': 'booking.error.events'
+            'wine-tasting': 'booking.error.wine'
         };
 
         const hideBookingUnavailable = () => {
