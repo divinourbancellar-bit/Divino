@@ -968,25 +968,47 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
     <div id="booking-choice-modal" class="booking-modal fixed inset-0 z-[80] items-center justify-center bg-[#4C1D24]/90 px-4 py-6">
         <div class="relative w-full max-w-2xl rounded-[2rem] border border-[#CBA96C]/25 bg-[#4C1D24] shadow-2xl overflow-hidden">
             <button id="close-booking-choice-modal" type="button" class="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#CBA96C]/20 bg-[#4C1D24]/70 text-[#F5F3ED] hover:bg-[#CBA96C]/15" aria-label="Close booking modal">×</button>
-            <div class="p-8 md:p-10">
-                <p class="text-[#A6AD8A] uppercase tracking-[0.3em] text-xs mb-3" data-i18n="booking.modal.eyebrow">Choose an experience</p>
-                <h3 class="text-3xl md:text-4xl text-[#F5F3ED]" data-i18n="booking.modal.title">Book your Divino experience</h3>
-                <p class="text-[#E4D9BE] mt-3 leading-relaxed" data-i18n="booking.modal.text">Select the experience you'd like to explore and we'll open the booking page for you.</p>
-                <p id="booking-unavailable-notice" class="hidden mt-4 rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-4 py-3 text-sm text-[#F5F3ED]" role="status" aria-live="polite"></p>
-                <div class="mt-8 grid gap-3">
-                    <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.option.wine">Wine Tasting Experience</button>
-                    <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
-                        <span data-i18n="booking.option.cooking">Cooking Classes</span>
-                        <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
-                    </button>
-                    <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
-                        <span data-i18n="booking.option.farm">Farm Experiences</span>
-                        <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
-                    </button>
-                    <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
-                        <span data-i18n="booking.option.events">Seasonal Events</span>
-                        <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
-                    </button>
+            <div id="booking-modal-track" class="flex items-start" style="width: 200%; transform: translateX(0%); transition: transform 400ms ease-in-out;">
+                <div class="w-1/2 shrink-0 p-8 md:p-10">
+                    <p class="text-[#A6AD8A] uppercase tracking-[0.3em] text-xs mb-3" data-i18n="booking.modal.eyebrow">Choose an experience</p>
+                    <h3 class="text-3xl md:text-4xl text-[#F5F3ED]" data-i18n="booking.modal.title">Book your Divino experience</h3>
+                    <p class="text-[#E4D9BE] mt-3 leading-relaxed" data-i18n="booking.modal.text">Select the experience you'd like to explore and we'll open the booking page for you.</p>
+                    <p id="booking-unavailable-notice" class="hidden mt-4 rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-4 py-3 text-sm text-[#F5F3ED]" role="status" aria-live="polite"></p>
+                    <div class="mt-8 grid gap-3">
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-5 py-4 text-left text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-open-guest-count data-i18n="booking.option.wine">Wine Tasting Experience</button>
+                        <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
+                            <span data-i18n="booking.option.cooking">Cooking Classes</span>
+                            <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
+                        </button>
+                        <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
+                            <span data-i18n="booking.option.farm">Farm Experiences</span>
+                            <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
+                        </button>
+                        <button type="button" disabled aria-disabled="true" class="flex items-center justify-between gap-3 rounded-[1rem] border border-[#CBA96C]/10 bg-[#4C1D24]/40 px-5 py-4 text-left text-[#F5F3ED]/40 cursor-not-allowed">
+                            <span data-i18n="booking.option.events">Seasonal Events</span>
+                            <span class="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#CBA96C]/50" data-i18n="booking.option.soon">Coming soon</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="w-1/2 shrink-0 p-8 md:p-10">
+                    <button id="booking-guests-back" type="button" class="text-[#A6AD8A] uppercase tracking-[0.3em] text-xs mb-3 hover:text-[#F5F3ED] transition-colors" data-i18n="booking.modal.back">Back</button>
+                    <p class="text-[#A6AD8A] uppercase tracking-[0.3em] text-xs mb-3" data-i18n="booking.guests.eyebrow">How many guests?</p>
+                    <h3 class="text-3xl md:text-4xl text-[#F5F3ED]" data-i18n="booking.guests.title">Select your party size</h3>
+                    <p class="text-[#E4D9BE] mt-3 leading-relaxed" data-i18n="booking.guests.text">Choose the number of guests joining your wine tasting — pricing adjusts automatically.</p>
+                    <div class="mt-8 grid grid-cols-3 sm:grid-cols-4 gap-3">
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.1">1 Person — €30</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-2-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.2">2 People — €60</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-3-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.3">3 People — €90</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-4-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.4">4 People — €120</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-5-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.5">5 People — €150</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-6-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.6">6 People — €180</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-7-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.7">7 People — €210</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-8-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.8">8 People — €240</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-9-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.9">9 People — €270</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-10-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.10">10 People — €300</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-11-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.11">11 People — €330</button>
+                        <button type="button" class="booking-choice-button rounded-[1rem] border border-[#CBA96C]/25 bg-[#4C1D24]/80 px-3 py-4 text-center text-sm text-[#F5F3ED] hover:border-[#A6AD8A] hover:bg-[#4C1D24] transition-all" data-booking-choice data-cal-link="divino-urban-cellar-gcpvix/wine-tasting-12-people" data-cal-namespace="wine-tasting" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' data-i18n="booking.guests.12">12 People — €360</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1054,10 +1076,12 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
           if (!trigger) return;
           var ns = trigger.getAttribute('data-cal-namespace');
           var calLink = trigger.getAttribute('data-cal-link');
-          if (!ns || !calLink || preloaded[ns]) return;
+          if (!ns || !calLink) return;
+          var cacheKey = ns + '::' + calLink;
+          if (preloaded[cacheKey]) return;
           initCal();
           if (!(window.Cal && window.Cal.ns && window.Cal.ns[ns])) return;
-          preloaded[ns] = true;
+          preloaded[cacheKey] = true;
           window.Cal.ns[ns]('preload', { calLink: calLink });
         }
 
@@ -1089,7 +1113,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
           openBooking.addEventListener('click', function () {
             initCal();
             setTimeout(function () {
-              preload(document.querySelector('[data-booking-choice][data-cal-link]'));
+              preload(document.querySelector('#booking-modal-track [data-cal-link]'));
             }, 150);
           });
         }
@@ -1258,6 +1282,21 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'booking.modal.title': 'Book your Divino experience',
                 'booking.modal.text': 'Select the experience you\'d like to explore and we\'ll open the booking page for you.',
                 'booking.modal.back': 'Back',
+                'booking.guests.eyebrow': 'How many guests?',
+                'booking.guests.title': 'Select your party size',
+                'booking.guests.text': 'Choose the number of guests joining your wine tasting — pricing adjusts automatically.',
+                'booking.guests.1': '1 Person — €30',
+                'booking.guests.2': '2 People — €60',
+                'booking.guests.3': '3 People — €90',
+                'booking.guests.4': '4 People — €120',
+                'booking.guests.5': '5 People — €150',
+                'booking.guests.6': '6 People — €180',
+                'booking.guests.7': '7 People — €210',
+                'booking.guests.8': '8 People — €240',
+                'booking.guests.9': '9 People — €270',
+                'booking.guests.10': '10 People — €300',
+                'booking.guests.11': '11 People — €330',
+                'booking.guests.12': '12 People — €360',
                 'booking.option.wine': 'Wine Tasting Experience',
                 'booking.option.cooking': 'Cooking Classes',
                 'booking.option.farm': 'Farm Experiences',
@@ -1437,6 +1476,21 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'booking.modal.title': 'Prenota la tua esperienza Divino',
                 'booking.modal.text': 'Seleziona l\'esperienza che desideri esplorare e apriremo la pagina di prenotazione per te.',
                 'booking.modal.back': 'Indietro',
+                'booking.guests.eyebrow': 'Quante persone?',
+                'booking.guests.title': 'Scegli il numero di partecipanti',
+                'booking.guests.text': 'Scegli il numero di ospiti per la tua degustazione di vini: il prezzo si adatta automaticamente.',
+                'booking.guests.1': '1 Persona — €30',
+                'booking.guests.2': '2 Persone — €60',
+                'booking.guests.3': '3 Persone — €90',
+                'booking.guests.4': '4 Persone — €120',
+                'booking.guests.5': '5 Persone — €150',
+                'booking.guests.6': '6 Persone — €180',
+                'booking.guests.7': '7 Persone — €210',
+                'booking.guests.8': '8 Persone — €240',
+                'booking.guests.9': '9 Persone — €270',
+                'booking.guests.10': '10 Persone — €300',
+                'booking.guests.11': '11 Persone — €330',
+                'booking.guests.12': '12 Persone — €360',
                 'booking.option.wine': 'Esperienza di degustazione dei vini',
                 'booking.option.cooking': 'Lezioni di cucina',
                 'booking.option.farm': 'Esperienze in azienda',
@@ -1615,12 +1669,23 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         const openBookingModalButton = document.getElementById('open-booking-modal');
         const closeBookingChoiceModalButton = document.getElementById('close-booking-choice-modal');
         const bookingUnavailableNotice = document.getElementById('booking-unavailable-notice');
+        const bookingModalTrack = document.getElementById('booking-modal-track');
+        const openGuestCountButton = document.querySelector('[data-open-guest-count]');
+        const bookingGuestsBackButton = document.getElementById('booking-guests-back');
         const BOOKING_ERROR_KEYS = {
             'wine-tasting': 'booking.error.wine'
         };
 
         const hideBookingUnavailable = () => {
             bookingUnavailableNotice?.classList.add('hidden');
+        };
+
+        // The booking modal holds both steps side by side on one sliding track;
+        // switching steps just translates the track instead of swapping modals,
+        // so the "how many people" step visibly slides in from the choice step.
+        const setBookingStep = (step) => {
+            if (!bookingModalTrack) return;
+            bookingModalTrack.style.transform = step === 'guests' ? 'translateX(-50%)' : 'translateX(0%)';
         };
 
         // Cal.com reported that this experience has no event type on file
@@ -1633,6 +1698,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             const current = document.documentElement.lang === 'it' ? 'it' : 'en';
             bookingUnavailableNotice.setAttribute('data-i18n', key);
             bookingUnavailableNotice.textContent = translations[current][key] || '';
+            setBookingStep('choice');
             openBookingChoiceModal();
             bookingUnavailableNotice.classList.remove('hidden');
         };
@@ -1645,11 +1711,22 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             bookingChoiceModal?.classList.remove('open');
             document.body.style.overflow = '';
             hideBookingUnavailable();
+            // Reset to step one after the close transition so it doesn't flash
+            // straight to "how many people" the next time the modal opens.
+            setTimeout(() => setBookingStep('choice'), 400);
         };
 
         const openBookingChoiceModal = () => {
             bookingChoiceModal?.classList.add('open');
             document.body.style.overflow = 'hidden';
+        };
+
+        const openGuestCountModal = () => {
+            setBookingStep('guests');
+        };
+
+        const backToBookingChoice = () => {
+            setBookingStep('choice');
         };
 
         const openLightbox = (src, caption) => {
@@ -1708,6 +1785,12 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             openBookingChoiceModal();
         });
         closeBookingChoiceModalButton?.addEventListener('click', closeBookingModals);
+
+        openGuestCountButton?.addEventListener('click', () => {
+            hideBookingUnavailable();
+            openGuestCountModal();
+        });
+        bookingGuestsBackButton?.addEventListener('click', backToBookingChoice);
 
         bookingChoiceModal?.addEventListener('click', (event) => {
             if (event.target === bookingChoiceModal) {
