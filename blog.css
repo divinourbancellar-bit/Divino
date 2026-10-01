@@ -195,6 +195,8 @@ main { padding-top: var(--header-h); }
 
 .article-figure { margin: 0 0 3rem; }
 .article-figure img { width: 100%; border-radius: 1.25rem; aspect-ratio: 16 / 9; object-fit: cover; }
+/* Tall images (e.g. the delivery flyer) show whole instead of being cropped to 16:9. */
+.article-figure--portrait img { aspect-ratio: auto; height: auto; max-width: 440px; display: block; margin: 0 auto; }
 .article-figure figcaption { margin-top: 0.85rem; font-size: 0.8rem; font-style: italic; text-align: center; color: #6b5546; }
 
 .prose { font-size: 1.06rem; }
