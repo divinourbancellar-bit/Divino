@@ -1,0 +1,33 @@
+/* Delivery strip — thin fixed bar above the menu on every page. */
+:root { --strip-h: 34px; }
+
+.delivery-strip {
+    position: fixed; top: 0; left: 0; width: 100%; height: var(--strip-h); z-index: 60;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 12px; box-sizing: border-box;
+    background: #6E2A34; color: #F5F3ED;
+    font: 600 10px/1.25 'Montserrat', system-ui, sans-serif;
+    letter-spacing: 0.14em; text-transform: uppercase; text-align: center;
+    text-decoration: none; text-wrap: balance;
+    transition: background-color 0.2s;
+}
+.delivery-strip:hover, .delivery-strip:focus-visible { background: #59202A; }
+.delivery-strip:focus-visible { outline: 2px solid #CBA96C; outline-offset: -4px; }
+
+/* The text wraps to two lines on narrow phones, so the strip grows with it. */
+@media (max-width: 520px) {
+    :root { --strip-h: 44px; }
+    .delivery-strip { font-size: 9.5px; letter-spacing: 0.1em; }
+}
+
+/* Push each page's fixed menu (and the blog's content) below the strip. */
+#header, .site-header, .strip-offset { top: var(--strip-h); }
+.site-header + main { padding-top: calc(var(--header-h) + var(--strip-h)); }
+
+/* Small text link to the Delivery page, used inline in page sections. */
+.delivery-link {
+    display: inline-block; font-size: 0.875rem; letter-spacing: 0.04em;
+    color: #CBA96C; text-decoration: underline; text-underline-offset: 4px;
+    text-decoration-color: rgba(203, 169, 108, 0.5); transition: color 0.2s;
+}
+.delivery-link:hover, .delivery-link:focus-visible { color: #F5F3ED; }

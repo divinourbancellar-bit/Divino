@@ -163,6 +163,7 @@
     <link rel="preconnect" href="https://app.cal.com" crossorigin>
     <link rel="dns-prefetch" href="https://app.cal.com">
     <link rel="stylesheet" href="assets/tailwind.css">
+    <link rel="stylesheet" href="delivery-strip.css">
     <link rel="preload" as="image" href="optimized/logo-hero.webp" fetchpriority="high">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"></noscript>
@@ -497,6 +498,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
     </style>
 </head>
 <body class="bg-[#4C1D24]">
+    <a class="delivery-strip" href="delivery.html" data-href-it="delivery-it.html" data-i18n="strip.delivery">Free same-day delivery within 7 km &middot; Order by WhatsApp</a>
 
     <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#1E1315] transition-opacity duration-1000">
         <div class="text-center">
@@ -829,6 +831,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 <div class="glass p-8 border border-[#CBA96C]/25 shadow-2xl">
                     <p class="text-[#EFE8D4] leading-relaxed" data-i18n="owner.quote">From carefully selected Etna reds to coastal whites and rare olive oils, Massimo curates a menu built on authenticity, warmth and unforgettable moments. He welcomes both seasoned wine lovers and first-time visitors with equal care.</p>
                 </div>
+                <p><a href="delivery.html" data-href-it="delivery-it.html" class="delivery-link" data-i18n="owner.delivery">Same-day delivery, free within 7 km</a></p>
             </div>
             <div class="overflow-hidden rounded-[1.5rem] border border-[#CBA96C]/25 shadow-2xl bg-[#4C1D24]/30">
                 <img src="optimized/massimo-800.webp" alt="Massimo, owner of Divino Urban Cellar, in the tasting room in Cefalù" width="800" height="1068" loading="lazy" decoding="async" class="w-full h-full object-cover min-h-[420px]">
@@ -1018,6 +1021,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             <a href="#calendar" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.calendar">Calendar</a>
             <a href="magazine.html" data-href-it="magazine-it.html" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.blog">Magazine</a>
             <a href="ambrosia.html" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.ambrosia">Ambrosia</a>
+            <a href="delivery.html" data-href-it="delivery-it.html" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.delivery">Delivery</a>
             <a href="#visit" class="hover:text-[#6E2A34] transition-colors" data-i18n="visit.title">Plan Your Visit</a>
         </nav>
         <div class="flex justify-center gap-3 mb-6">
@@ -1163,6 +1167,9 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'nav.calendar': 'Calendar',
                 'nav.about': 'About',
                 'nav.ambrosia': 'Ambrosia',
+                'nav.delivery': 'Delivery',
+                'strip.delivery': 'Free same-day delivery within 7 km · Order by WhatsApp',
+                'owner.delivery': 'Same-day delivery, free within 7 km',
                 'nav.blog': 'Magazine',
                 'journal.eyebrow': 'From the Journal',
                 'journal.title': 'Wine, Cefalù and the Long Sicilian Afternoon',
@@ -1348,6 +1355,9 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'nav.calendar': 'Calendario',
                 'nav.about': 'Chi Siamo',
                 'nav.ambrosia': 'Ambrosia',
+                'nav.delivery': 'Consegna',
+                'strip.delivery': 'Consegna gratuita in giornata entro 7 km · Ordina su WhatsApp',
+                'owner.delivery': 'Consegna in giornata, gratuita entro 7 km',
                 'nav.blog': 'Magazine',
                 'journal.eyebrow': 'Dal Diario',
                 'journal.title': 'Vino, Cefalù e il lungo pomeriggio siciliano',

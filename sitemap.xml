@@ -17,6 +17,26 @@
   </url>
 
   <url>
+    <loc>https://divino-urbancellar.com/delivery.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/delivery.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/delivery-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/delivery.html"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/delivery-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/delivery.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/delivery-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/delivery.html"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://divino-urbancellar.com/magazine.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/magazine.html"/>
     <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/magazine-it.html"/>

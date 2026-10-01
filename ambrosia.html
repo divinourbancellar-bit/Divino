@@ -27,6 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="assets/tailwind.css">
+    <link rel="stylesheet" href="delivery-strip.css">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:wght@400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display:wght@400;600;700&display=swap"></noscript>
     <style>
@@ -66,12 +67,13 @@
     </style>
 </head>
 <body class="bg-[#1E1315] text-[#F5F3ED]">
+    <a class="delivery-strip" href="delivery.html" data-href-it="delivery-it.html" data-i18n="strip.delivery">Free same-day delivery within 7 km &middot; Order by WhatsApp</a>
 
     <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#1E1315] transition-opacity duration-1000">
         <div class="text-[#CBA96C] text-2xl tracking-[0.3em] uppercase animate-pulse">Divino</div>
     </div>
 
-    <nav class="fixed w-full z-50 px-4 sm:px-6 py-6 sm:py-8 bg-[#1E1315]">
+    <nav class="strip-offset fixed w-full z-50 px-4 sm:px-6 py-6 sm:py-8 bg-[#1E1315]">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <a href="index.html">
@@ -370,6 +372,7 @@
             <a href="index.html#cellar" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.cellar">The Urban Cellar</a>
             <a href="index.html#calendar" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.calendar">Calendar</a>
             <a href="magazine.html" data-href-it="magazine-it.html" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.blog">Magazine</a>
+            <a href="delivery.html" data-href-it="delivery-it.html" class="hover:text-[#6E2A34] transition-colors" data-i18n="nav.delivery">Delivery</a>
             <a href="index.html#visit" class="hover:text-[#6E2A34] transition-colors" data-i18n="visit.title">Plan Your Visit</a>
         </nav>
         <div class="flex justify-center gap-3 mb-6">
@@ -388,6 +391,8 @@
                 'nav.experiences': 'Experiences',
                 'nav.space': 'Our Space',
                 'nav.ambrosia': 'Divino',
+                'nav.delivery': 'Delivery',
+                'strip.delivery': 'Free same-day delivery within 7 km · Order by WhatsApp',
                 'nav.visit': 'Visit',
                 'ambrosia.hero.title': 'A Mediterranean Country Experience.',
                 'ambrosia.hero.text': 'An agricultural laboratory where visitors reconnect with nature, learn traditional skills, and experience authentic Sicilian rural life.',
@@ -476,6 +481,8 @@
                 'nav.experiences': 'Esperienze',
                 'nav.space': 'Il Nostro Spazio',
                 'nav.ambrosia': 'Divino',
+                'nav.delivery': 'Consegna',
+                'strip.delivery': 'Consegna gratuita in giornata entro 7 km · Ordina su WhatsApp',
                 'nav.visit': 'Visita',
                 'ambrosia.hero.title': 'Un\'esperienza mediterranea in campagna.',
                 'ambrosia.hero.text': 'Un laboratorio agricolo in cui i visitatori si riconnettono con la natura, imparano competenze tradizionali e vivono una vita rurale autenticamente siciliana.',
