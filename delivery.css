@@ -71,3 +71,20 @@ body { background: var(--dl-cream); }
 }
 
 .dl-hero .eyebrow, .dl-center .eyebrow { color: var(--dl-green); }
+
+/* wine list */
+.dl-list { max-width: 820px; margin: 2.5rem auto 0; }
+.dl-group { font-size: clamp(1.5rem, 3vw, 2rem); margin: 3rem 0 0.4rem; color: var(--dl-green); border-bottom: 1px solid var(--dl-line); padding-bottom: 0.6rem; }
+.dl-group:first-child { margin-top: 0; }
+.dl-sub-group { font-family: 'Montserrat', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin: 1.6rem 0 0; color: var(--dl-green); }
+.dl-wines { list-style: none; margin: 0; padding: 0; }
+.dl-wine { padding: 1.25rem 0; border-bottom: 1px solid var(--dl-line); }
+.dl-wine__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.dl-wine h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; margin: 0; }
+.dl-wine__price { font-family: 'Montserrat', sans-serif; font-weight: 600; color: #6E2A34; white-space: nowrap; }
+.dl-wine__meta { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dl-green); margin: 0.35rem 0 0; }
+.dl-wine p:last-child { margin: 0.5rem 0 0; font-size: 0.95rem; }
+.dl-vats { margin: 2.5rem 0 0; text-align: center; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+.dl-per { text-align: center; font-size: 0.82rem; margin: 0.5rem 0 0; opacity: 0.85; }
+.dl-avail { text-align: center; font-style: italic; margin: 1.5rem auto 0; max-width: 620px; }
+.dl-band .dl-actions { margin-top: 2.5rem; }
