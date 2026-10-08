@@ -1051,6 +1051,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
         <a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener" aria-label="Divino on YouTube" class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-[#CBA96C]/55 text-[#1E1315] hover:bg-[#6E2A34] hover:text-[#F5F3ED] hover:border-[#6E2A34] transition-all"><svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
         </div>
         <span data-i18n="footer">&copy; 2026 Divino Urban Cellar Cefalù. Designed by HR STUDIOS.</span>
+        <span aria-hidden="true"> &middot; </span><button type="button" id="cookie-settings" class="underline hover:text-[#6E2A34] transition-colors" data-i18n="cookie.settings">Cookie settings</button>
     </footer>
 
     <div id="lightbox-overlay" class="lightbox-overlay" aria-hidden="true">
@@ -1340,6 +1341,11 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'visit.messagePlaceholder': 'Special Requests',
                 'visit.submit': 'Request Information',
                 'footer': '© 2026 Divino Urban Cellar Cefalù. Designed by HR STUDIOS.',
+                'cookie.title': 'THIS WEBSITE USES COOKIES',
+                'cookie.text': 'We use Google Analytics, only if you accept, to understand how visitors use our site. We do not use advertising or social media tracking cookies. Booking and map services may set their own cookies when you use them. You can change your choice at any time from “Cookie settings” in the footer.',
+                'cookie.accept': 'Accept',
+                'cookie.decline': 'Decline',
+                'cookie.settings': 'Cookie settings',
                 'ambrosia.hero.title': 'A Mediterranean Country Experience.',
                 'ambrosia.hero.text': 'An agricultural laboratory where visitors reconnect with nature, learn traditional skills, and experience authentic Sicilian rural life.',
                 'ambrosia.hero.cta': 'Discover Ambrosia',
@@ -1530,6 +1536,11 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 'visit.messagePlaceholder': 'Richieste speciali',
                 'visit.submit': 'Richiedi informazioni',
                 'footer': '© 2026 Divino Urban Cellar Cefalù. Progettato da HR STUDIOS.',
+                'cookie.title': 'QUESTO SITO USA I COOKIE',
+                'cookie.text': 'Usiamo Google Analytics, solo se acconsenti, per capire come i visitatori usano il sito. Non usiamo cookie pubblicitari né di tracciamento dei social media. I servizi di prenotazione e di mappa possono impostare propri cookie quando li usi. Puoi cambiare la tua scelta in qualsiasi momento da “Impostazioni cookie” nel footer.',
+                'cookie.accept': 'Accetta',
+                'cookie.decline': 'Rifiuta',
+                'cookie.settings': 'Impostazioni cookie',
                 'ambrosia.hero.title': 'Un\'esperienza mediterranea in campagna.',
                 'ambrosia.hero.text': 'Un laboratorio agricolo in cui i visitatori si riconnettono con la natura, imparano competenze tradizionali e vivono una vita rurale autenticamente siciliana.',
                 'ambrosia.hero.cta': 'Scopri Ambrosia',
@@ -2131,12 +2142,12 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
     <div id="cookie-consent-banner" class="cookie-consent-banner" role="dialog" aria-label="Cookie consent">
         <div class="cookie-consent-banner__inner">
             <div class="cookie-consent-banner__copy">
-                <div class="cookie-consent-banner__header">THIS WEBSITE USES COOKIES</div>
-                <div class="cookie-consent-banner__description">We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you've provided to them or that they've collected from your use of their services. You consent to our cookies if you continue to use our website.</div>
+                <div class="cookie-consent-banner__header" data-i18n="cookie.title">THIS WEBSITE USES COOKIES</div>
+                <div class="cookie-consent-banner__description" data-i18n="cookie.text">We use Google Analytics, only if you accept, to understand how visitors use our site. We do not use advertising or social media tracking cookies. Booking and map services may set their own cookies when you use them. You can change your choice at any time from &ldquo;Cookie settings&rdquo; in the footer.</div>
             </div>
             <div class="cookie-consent-banner__actions">
-                <button type="button" class="cookie-consent-banner__cta" id="cookie-consent-accept">OK</button>
-                <button type="button" class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary" id="cookie-consent-decline">Decline</button>
+                <button type="button" class="cookie-consent-banner__cta" id="cookie-consent-accept" data-i18n="cookie.accept">Accept</button>
+                <button type="button" class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary" id="cookie-consent-decline" data-i18n="cookie.decline">Decline</button>
             </div>
         </div>
     </div>
@@ -2152,7 +2163,7 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
                 if (typeof gtag === 'function') {
                     gtag('consent', 'update', {
                         'analytics_storage': value === 'accepted' ? 'granted' : 'denied',
-                        'ad_storage': value === 'accepted' ? 'granted' : 'denied'
+                        'ad_storage': 'denied'
                     });
                 }
             };
@@ -2187,6 +2198,11 @@ body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-
             } else {
                 banner.style.display = 'none';
             }
+
+            document.getElementById('cookie-settings')?.addEventListener('click', () => {
+                banner.style.display = 'block';
+                requestAnimationFrame(() => banner.classList.add('visible'));
+            });
 
             acceptBtn?.addEventListener('click', () => setConsent('accepted'));
             declineBtn?.addEventListener('click', () => setConsent('declined'));
