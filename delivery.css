@@ -90,3 +90,12 @@ body { background: var(--dl-cream); }
 .dl-band .dl-actions { margin-top: 2.5rem; }
 
 .dl-rules--one { grid-template-columns: 1fr; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+/* "Read more" wine notes */
+.dl-more { margin: 0.6rem 0 0; }
+.dl-more summary { display: inline-block; cursor: pointer; list-style: none; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--dl-green); padding: 0.35rem 0; border-bottom: 1px solid var(--dl-soft); }
+.dl-more summary::-webkit-details-marker { display: none; }
+.dl-more summary::after { content: ' +'; }
+.dl-more[open] summary::after { content: ' \2212'; }
+.dl-more summary:hover, .dl-more summary:focus-visible { border-bottom-color: var(--dl-green); }
+.dl-wine .dl-more p { margin: 0.8rem 0 0; font-size: 0.95rem; line-height: 1.7; }
