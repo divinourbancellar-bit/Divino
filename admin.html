@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" data-no-track>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.ico" sizes="any">
+<meta name="theme-color" content="#4B5320">
+<title>Divino Admin</title>
+<link rel="stylesheet" href="chrome.css">
+<style>
+*,*:before,*:after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ivory);color:var(--cocoa);font:17px/1.55 var(--body)}
+a{color:var(--wine)}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:var(--cocoa);background:#fff;border:1px solid var(--line);border-radius:2px;padding:10px 12px;width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--sage);outline-offset:0}
+label{display:block;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+h1,h2,h3{font-family:var(--display);font-weight:500;color:var(--wine)}
+[hidden]{display:none!important}
+.top{background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 28px;flex-wrap:wrap}
+.top .who{font-size:15px;color:var(--muted)}
+.top .who button{background:none;border:0;color:var(--wine);text-decoration:underline;margin-left:10px}
+.tabs{display:flex;gap:4px;padding:0 28px;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:14px 16px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cocoa);white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--wine);border-bottom-color:var(--wine)}
+main{max-width:1200px;margin:0 auto;padding:34px 28px 80px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.head h2{font-size:38px;line-height:1.1}
+.head p{color:var(--muted);font-size:15.5px}
+.period{display:flex;gap:6px}
+.period button{border:1px solid var(--line);background:#fff;padding:8px 14px;font-size:13px;letter-spacing:.1em}
+.period button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.kpi{background:#fff;border:1px solid var(--line);border-top:3px solid var(--sage);padding:18px 18px 16px}
+.kpi b,.funnel b{font-variant-numeric:lining-nums}
+.kpi b{display:block;font:500 38px/1 var(--display);color:var(--wine)}
+.kpi span{display:block;font-size:14px;color:var(--muted);margin-top:8px;line-height:1.35}
+.panel{background:#fff;border:1px solid var(--line);padding:22px 24px;margin-top:22px}
+.panel h3{font-size:25px;margin-bottom:12px}
+.panel .note{font-size:14.5px;color:var(--muted);margin-top:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid2 .panel{margin-top:22px}
+.chart{display:flex;align-items:flex-end;gap:3px;height:180px;padding-top:10px;border-bottom:1px solid var(--line)}
+.chart div{flex:1;background:var(--sage);min-height:2px;position:relative;border-radius:2px 2px 0 0}
+.chart div:hover{background:var(--green)}
+.chart div i{position:absolute;left:0;right:0;bottom:0;background:var(--wine);border-radius:2px 2px 0 0}
+.axis{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:6px}
+.legend{display:flex;gap:18px;font-size:13.5px;color:var(--muted);margin-top:8px}
+.legend span:before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px;background:var(--sage);vertical-align:-1px}
+.legend span.w:before{background:var(--wine)}
+.bars{list-style:none}
+.bars li{display:grid;grid-template-columns:1fr auto;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:15.5px;position:relative}
+.bars li:last-child{border-bottom:0}
+.bars li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;position:relative;z-index:1}
+.bars li b{font-weight:500;color:var(--wine);position:relative;z-index:1}
+.bars li em{position:absolute;left:0;top:4px;bottom:4px;background:var(--ivory);z-index:0}
+.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.links a{display:block;background:var(--ivory);border:1px solid var(--line);padding:14px 16px;text-decoration:none;color:var(--cocoa)}
+.links a b{display:block;font:500 21px var(--display);color:var(--wine)}
+.links a small{font-size:14px;color:var(--muted)}
+.links a:hover{border-color:var(--sage);background:#fff}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tools input,.tools select{width:auto;min-width:200px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:15.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:500;background:var(--ivory)}
+td .muted{color:var(--muted)}
+.tbl{overflow-x:auto;border:1px solid var(--line)}
+.pill{display:inline-block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--sage);color:var(--green)}
+.pill.off{border-color:var(--line);color:var(--muted)}
+.lnk{background:none;border:0;color:var(--wine);text-decoration:underline;font-size:14.5px;padding:0;margin-right:12px}
+.lnk.danger{color:#9b2c2c}
+.form{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.form .w2{grid-column:span 2} .form .w4{grid-column:1/-1}
+.form .row{display:flex;gap:10px;align-items:center;grid-column:1/-1}
+.form .row label{margin:0;display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:16px;color:var(--cocoa)}
+.form .row input[type=checkbox]{width:auto}
+.msg{margin-top:10px;font:italic 19px var(--display);color:var(--green);min-height:1em}
+.msg.err{color:#9b2c2c}
+.login{max-width:420px;margin:9vh auto;background:#fff;border:1px solid var(--line);border-top:3px solid var(--sage);padding:38px 34px;text-align:center}
+.login h1{font-size:34px;margin-top:18px}
+.login p{color:var(--muted);font-size:15.5px;margin-top:6px}
+.login form{text-align:left;margin-top:24px;display:grid;gap:14px}
+.login .btn{width:100%}
+.empty{padding:26px;text-align:center;color:var(--muted);font:italic 20px var(--display)}
+.funnel{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+.funnel div{flex:1;min-width:160px;background:var(--ivory);border:1px solid var(--line);padding:16px;text-align:center}
+.funnel b{display:block;font:500 34px var(--display);color:var(--wine)}
+.funnel span{font-size:14px;color:var(--muted)}
+.funnel i{align-self:center;color:var(--sage);font-style:normal;font-size:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid3 .panel{margin-top:22px}
+.svgc{width:100%;height:auto;display:block;overflow:visible}
+.svgc text{font:12px var(--body);fill:var(--muted)}
+.svgc .gl{stroke:var(--line);stroke-width:1}
+.svgc rect.hv{fill:transparent}
+.svgc rect.hv:hover{fill:rgba(75,83,32,.07)}
+.lg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;color:var(--muted);margin-top:10px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.donut{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.donut svg{width:150px;height:150px;flex:0 0 auto}
+.donut ul{list-style:none;font-size:15px;flex:1;min-width:160px}
+.donut li{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--line)}
+.donut li:last-child{border-bottom:0}
+.donut li i{width:11px;height:11px;border-radius:2px;flex:0 0 auto}
+.donut li span{flex:1}
+.donut li b{font-weight:500;color:var(--wine)}
+.donut li small{color:var(--muted);margin-left:6px}
+.donut .mid{font:500 30px var(--display);fill:var(--wine);text-anchor:middle}
+.donut .sm{font:12px var(--body);fill:var(--muted);text-anchor:middle}
+.mini{width:100%;font-size:15px}
+.mini th,.mini td{padding:8px 6px}
+.mini td.n,.mini th.n{text-align:right;font-variant-numeric:lining-nums}
+.mini td.r{color:var(--green)}
+.upgrade{background:#F3E9C9;border:1px solid #E4D39A;color:var(--cocoa);padding:12px 16px;font-size:15px;margin-bottom:18px}
+.upgrade code{background:#fff;padding:1px 6px;border-radius:2px}
+@media (max-width:860px){.grid3{grid-template-columns:1fr}}
+@media (max-width:860px){.grid2{grid-template-columns:1fr}.form{grid-template-columns:1fr 1fr}.form .w2{grid-column:1/-1}main{padding:24px 16px 60px}.top,.tabs{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<section class="login" id="login" hidden>
+ <span class="wm" style="--s:38px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span>
+ <h1>Admin</h1>
+ <p>Enter the admin password.</p>
+ <form id="login-form">
+  <div><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+  <button class="btn" type="submit">Sign in</button>
+  <p class="msg" id="login-msg" aria-live="polite"></p>
+ </form>
+</section>
+
+<!-- App -->
+<div id="app" hidden>
+ <div class="top">
+  <a href="./" aria-label="Divino website"><span class="wm" style="--s:28px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span></a>
+  <div class="who"><span id="who"></span><button type="button" id="signout">Lock</button></div>
+ </div>
+ <nav class="tabs" role="tablist">
+  <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+  <button role="tab" data-tab="subscribers" aria-selected="false">Subscribers</button>
+  <button role="tab" data-tab="events" aria-selected="false">Events</button>
+  <button role="tab" data-tab="analytics" aria-selected="false">Analytics</button>
+  <button role="tab" data-tab="bookings" aria-selected="false">Bookings</button>
+ </nav>
+
+ <main>
+  <!-- Overview -->
+  <section data-panel="overview">
+   <div class="head"><div><h2>Good to see you</h2><p>How the website is doing, at a glance.</p></div>
+    <div class="period" data-period><button data-days="7">7 days</button><button data-days="30" aria-pressed="true">30 days</button><button data-days="90">90 days</button></div></div>
+   <div class="kpis" id="kpis"></div>
+   <div class="panel"><h3>Visits per day</h3><div class="chart" id="chart-ov"></div><div class="axis" id="axis-ov"></div><div class="legend"><span>Page views</span><span class="w">Enquiries (booking window, WhatsApp, calls, email)</span></div></div>
+   <div class="grid2">
+    <div class="panel"><h3>What visitors did</h3><div class="donut" id="ov-donut"></div><p class="note">Booking windows, WhatsApp taps, calls and emails count as enquiries.</p></div>
+    <div class="panel"><h3>Where visitors come from</h3><ul class="bars" id="ov-refs"></ul></div>
+   </div>
+   <div class="panel"><h3>Quick links</h3>
+    <div class="links">
+     <a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener"><b>Bookings</b><small>Upcoming tastings on Cal.com</small></a>
+     <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener"><b>Google Analytics</b><small>Full reports (property G-31NB1K438E)</small></a>
+     <a href="https://business.google.com/" target="_blank" rel="noopener"><b>Google Business</b><small>Opening hours, photos, replies</small></a>
+     <a href="https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU" target="_blank" rel="noopener"><b>Google reviews</b><small>Read and answer reviews</small></a>
+     <a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener"><b>Instagram</b><small>@divino_cantinaurbana</small></a>
+     <a href="https://web.whatsapp.com/" target="_blank" rel="noopener"><b>WhatsApp</b><small>Orders and questions</small></a>
+    </div>
+   </div>
+  </section>
+
+  <!-- Subscribers -->
+  <section data-panel="subscribers" hidden>
+   <div class="head"><div><h2>Subscribers</h2><p>Everyone who signed up for Letters from Sicily or opening news.</p></div></div>
+   <div class="tools">
+    <input type="search" id="sub-q" placeholder="Search email" aria-label="Search email">
+    <select id="sub-list" aria-label="List"><option value="">All lists</option></select>
+    <select id="sub-status" aria-label="Status"><option value="active">Subscribed</option><option value="">Everyone</option><option value="off">Unsubscribed</option></select>
+    <button class="btn sm" type="button" id="sub-csv">Export CSV</button>
+    <button class="btn sm o" type="button" id="sub-copy">Copy emails</button>
+   </div>
+   <p class="msg" id="sub-msg" aria-live="polite"></p>
+   <div class="tbl"><table><thead><tr><th>Email</th><th>List</th><th>Language</th><th>Signed up</th><th>Status</th><th></th></tr></thead><tbody id="sub-rows"></tbody></table></div>
+  </section>
+
+  <!-- Events -->
+  <section data-panel="events" hidden>
+   <div class="head"><div><h2>Events</h2><p>Evenings shown on the Events page. Past dates hide themselves.</p></div><a class="btn sm o" href="events.html" target="_blank">View Events page</a></div>
+   <div class="panel" style="margin-top:0">
+    <h3 id="ev-title">Add an event</h3>
+    <form class="form" id="ev-form">
+     <input type="hidden" id="ev-id">
+     <div><label for="ev-date">Date</label><input id="ev-date" type="date" required></div>
+     <div><label for="ev-time">Time</label><input id="ev-time" placeholder="19:00" maxlength="20"></div>
+     <div class="w2"><label for="ev-name">Name</label><input id="ev-name" required maxlength="160" placeholder="An evening with…"></div>
+     <div class="w4"><label for="ev-desc">One-line description</label><input id="ev-desc" maxlength="400"></div>
+     <div><label for="ev-price">Price (€)</label><input id="ev-price" maxlength="20" placeholder="25"></div>
+     <div class="w2"><label for="ev-booking">Booking link (optional)</label><input id="ev-booking" type="url" maxlength="500" placeholder="https://… (leave empty for WhatsApp)"></div>
+     <div><label for="ev-photo">Photo (optional)</label><input id="ev-photo" maxlength="300" placeholder="photos/long-table-900.webp"></div>
+     <div class="row"><label><input type="checkbox" id="ev-pub" checked> Show on the website</label>
+      <button class="btn sm" type="submit" id="ev-save">Save event</button><button class="lnk" type="button" id="ev-cancel" hidden>Cancel editing</button></div>
+    </form>
+    <p class="msg" id="ev-msg" aria-live="polite"></p>
+   </div>
+   <div class="tbl" style="margin-top:22px"><table><thead><tr><th>Date</th><th>Event</th><th>Price</th><th>Status</th><th></th></tr></thead><tbody id="ev-rows"></tbody></table></div>
+  </section>
+
+  <!-- Analytics -->
+  <section data-panel="analytics" hidden>
+   <div class="head"><div><h2>Analytics</h2><p>Divino’s own visit counter. Unique and returning visitors only count people who accepted cookies.</p></div>
+    <div class="period" data-period><button data-days="7">7 days</button><button data-days="30" aria-pressed="true">30 days</button><button data-days="90">90 days</button></div></div>
+   <div class="upgrade" id="an-upgrade" hidden>To also see email and Instagram taps, tracking-link campaigns and the busiest hours, run <code>supabase/analytics-v2.sql</code> once in the Divino Supabase project (SQL Editor). Everything else works already.</div>
+   <div class="panel" style="margin-top:0"><h3>Visits and enquiries per day</h3><div id="ch-line"></div><div class="lg" id="lg-line"></div></div>
+   <div class="grid2">
+    <div class="panel"><h3>What visitors did, per day</h3><div id="ch-stack"></div><div class="lg" id="lg-stack"></div></div>
+    <div class="panel"><h3>What visitors did, in total</h3><div class="donut" id="ch-actions"></div></div>
+   </div>
+   <div class="grid2">
+    <div class="panel"><h3>Tracking links</h3><div id="an-campaigns"></div><p class="note">Visitors who arrive through your Instagram, WhatsApp, QR code or partner links (the ones with utm_source) are listed here.</p></div>
+    <div class="panel"><h3>Where visitors come from</h3><ul class="bars" id="an-refs"></ul></div>
+   </div>
+   <div class="grid2">
+    <div class="panel"><h3>Pages that bring enquiries</h3><div id="an-pages-conv"></div></div>
+    <div class="panel"><h3>Most visited pages</h3><ul class="bars" id="an-pages"></ul></div>
+   </div>
+   <div class="grid3">
+    <div class="panel"><h3>Devices</h3><div class="donut" id="ch-dev"></div></div>
+    <div class="panel"><h3>Languages</h3><div class="donut" id="ch-lang"></div></div>
+    <div class="panel"><h3>New and returning</h3><div class="donut" id="ch-ret"></div><p class="note">Only counts visitors who accepted cookies.</p></div>
+   </div>
+   <div class="grid2">
+    <div class="panel"><h3>Busiest hours (Italy time)</h3><div id="ch-hours"></div></div>
+    <div class="panel"><h3>Busiest days of the week</h3><div id="ch-days"></div></div>
+   </div>
+   <div class="panel"><h3>Google Analytics</h3><p>For deeper reports (countries, time on page, search terms), open Google Analytics. It also only counts visitors who accepted cookies.</p>
+    <div style="margin-top:14px"><a class="btn sm" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener">Open Google Analytics</a></div></div>
+  </section>
+
+  <!-- Bookings -->
+  <section data-panel="bookings" hidden>
+   <div class="head"><div><h2>Bookings</h2><p>Tastings are booked and managed in Cal.com.</p></div>
+    <div class="period" data-period><button data-days="7">7 days</button><button data-days="30" aria-pressed="true">30 days</button><button data-days="90">90 days</button></div></div>
+   <div class="panel" style="margin-top:0"><h3>From the website to the calendar</h3>
+    <div class="funnel" id="funnel"></div>
+    <p class="note">The last step happens inside Cal.com, so finished bookings are counted there.</p></div>
+   <div class="panel"><h3>Other ways guests got in touch</h3><ul class="bars" id="bk-touch"></ul><p class="note">Taps on WhatsApp, call and email buttons. Bookings made by message are confirmed by you, so they only show up here, not in Cal.com.</p></div>
+   <div class="panel"><h3>Manage bookings in Cal.com</h3>
+    <div class="links">
+     <a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener"><b>Upcoming</b><small>Confirm, reschedule or cancel</small></a>
+     <a href="https://app.cal.com/bookings/unconfirmed" target="_blank" rel="noopener"><b>Waiting for confirmation</b><small>Tastings that need a yes</small></a>
+     <a href="https://app.cal.com/bookings/past" target="_blank" rel="noopener"><b>Past</b><small>Who came, and when</small></a>
+     <a href="https://app.cal.com/event-types" target="_blank" rel="noopener"><b>Event types</b><small>Prices, times and group sizes</small></a>
+     <a href="https://app.cal.com/availability" target="_blank" rel="noopener"><b>Availability</b><small>Days off and opening times</small></a>
+    </div>
+   </div>
+  </section>
+ </main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  /* Testing setup: one shared password, checked inside the database by every
+     admin_* function. The password lives only in this tab (sessionStorage). */
+  var SB_URL = 'https://lcsitumjazsaxqwpivie.supabase.co';
+  var SB_KEY = 'sb_publishable_ywl1PdIojSf7vlrEIGC_HQ_aO3WynN_';
+  var pw = '';
+  try { pw = sessionStorage.getItem('divino-admin-pw') || ''; } catch (e) {}
+  async function rpc(name, args) {
+    try {
+      var r = await fetch(SB_URL + '/rest/v1/rpc/' + name, {
+        method: 'POST',
+        headers: { apikey: SB_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ pw: pw }, args || {}))
+      });
+      var body = r.status === 204 ? null : await r.json();
+      if (!r.ok) return { error: { message: (body && body.message) || 'Error ' + r.status } };
+      return { data: body };
+    } catch (e) { return { error: { message: 'No connection to the database.' } }; }
+  }
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var fmtDate = function (d) { return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+  var say = function (el, text, err) { el.textContent = text; el.classList.toggle('err', !!err); };
+  var days = 30, stats = null, subs = [];
+
+  /* ---------- Sign in ---------- */
+  async function start() {
+    var ok = pw && (await rpc('admin_login')).data === true;
+    if (!ok) {
+      if (pw) say($('login-msg'), 'Wrong password.', true);
+      pw = ''; try { sessionStorage.removeItem('divino-admin-pw'); } catch (e) {}
+      $('login').hidden = false; $('app').hidden = true; $('password').focus();
+      return;
+    }
+    try { sessionStorage.setItem('divino-admin-pw', pw); } catch (e) {}
+    $('who').textContent = 'Divino admin';
+    $('login').hidden = true; $('app').hidden = false;
+    loadStats(); loadSubs(); loadEvents();
+  }
+  $('login-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    say($('login-msg'), 'Checking…');
+    pw = $('password').value;
+    $('password').value = '';
+    start();
+  });
+  $('signout').addEventListener('click', function () { try { sessionStorage.removeItem('divino-admin-pw'); } catch (e) {} location.reload(); });
+
+  /* ---------- Tabs ---------- */
+  document.querySelectorAll('[data-tab]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('[data-tab]').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+      document.querySelectorAll('[data-panel]').forEach(function (p) { p.hidden = p.dataset.panel !== b.dataset.tab; });
+    });
+  });
+
+  /* ---------- Stats ---------- */
+  document.querySelectorAll('[data-period] button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      days = +b.dataset.days;
+      document.querySelectorAll('[data-period] button').forEach(function (x) { x.setAttribute('aria-pressed', String(+x.dataset.days === days)); });
+      loadStats();
+    });
+  });
+  async function loadStats() {
+    var r = await rpc('admin_stats_pw', { days: days });
+    if (r.error) { $('kpis').innerHTML = '<p class="empty">Could not load the numbers: ' + esc(r.error.message) + '</p>'; return; }
+    stats = r.data; renderStats();
+  }
+  var ZERO = { views: 0, visitors: 0, actions: 0, book: 0, calendar: 0, whatsapp: 0, call: 0, email: 0, directions: 0, instagram: 0, signup: 0 };
+  function fillDays(perDay) {
+    var map = {}; perDay.forEach(function (d) { map[d.day] = d; });
+    var out = [];
+    for (var i = days - 1; i >= 0; i--) {
+      var d = new Date(); d.setDate(d.getDate() - i);
+      var key = d.toISOString().slice(0, 10);
+      out.push(Object.assign({}, ZERO, map[key] || {}, { day: key }));
+    }
+    return out;
+  }
+  function chart(id, axisId, perDay) {
+    var list = fillDays(perDay);
+    var max = Math.max(1, Math.max.apply(null, list.map(function (d) { return d.views; })));
+    $(id).innerHTML = list.map(function (d) {
+      return '<div style="height:' + (d.views / max * 100) + '%" title="' + fmtDate(d.day) + ': ' + d.views + ' views, ' + d.actions + ' actions"><i style="height:' + (d.views ? Math.min(100, d.actions / d.views * 100) : 0) + '%"></i></div>';
+    }).join('');
+    $(axisId).innerHTML = '<span>' + fmtDate(list[0].day) + '</span><span>Today</span>';
+  }
+  function bars(id, rows, empty) {
+    if (!rows.length) { $(id).innerHTML = '<li><span class="muted">' + (empty || 'Nothing yet') + '</span></li>'; return; }
+    var max = Math.max.apply(null, rows.map(function (r) { return r[1]; }));
+    $(id).innerHTML = rows.map(function (r) { return '<li><em style="width:' + (r[1] / max * 100) + '%"></em><span>' + esc(r[0]) + '</span><b>' + r[1] + '</b></li>'; }).join('');
+  }
+  var ACTION_LABEL = { book_open: 'Opened the booking window', book_calendar: 'Went on to the Cal.com calendar', whatsapp: 'Tapped a WhatsApp button', call: 'Tapped to call', email: 'Tapped to email', signup: 'Signed up for news', directions: 'Asked for directions', instagram: 'Opened Instagram' };
+  var PAGE_LABEL = function (p) { return p === '/' ? 'Home' : p.replace(/^\//, '').replace(/\.html$/, ''); };
+  var C = { wine: 'var(--wine)', green: 'var(--green)', sage: 'var(--sage)', lav: 'var(--lavender)', gold: '#B8923A', brown: '#7B6458', teal: '#3C6E71' };
+  var shortDate = function (d) { return new Date(d + 'T00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); };
+  var nz = function (v) { return +v || 0; };
+  var niceMax = function (m) {
+    if (m <= 4) return 4;
+    var p = Math.pow(10, Math.floor(Math.log10(m))), f = m / p;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+  };
+  function legend(id, items) {
+    $(id).innerHTML = items.map(function (it) { return '<span><i style="background:' + it.color + '"></i>' + esc(it.label) + '</span>'; }).join('');
+  }
+  /* shared plot frame: grid lines, y ticks, first / middle / last x labels */
+  function frame(W, H, L, R, T, B, max, labels) {
+    var out = '', top = niceMax(max), n = labels.length;
+    for (var g = 0; g <= 4; g++) {
+      var y = T + (H - T - B) * (1 - g / 4);
+      out += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/><text x="' + (L - 8) + '" y="' + (y + 4) + '" text-anchor="end">' + Math.round(top * g / 4) + '</text>';
+    }
+    [0, Math.floor((n - 1) / 2), n - 1].forEach(function (i, k) {
+      if (k && i === 0) return;
+      var x = n === 1 ? (L + W - R) / 2 : L + (W - L - R) * i / (n - 1);
+      out += '<text x="' + x + '" y="' + (H - 6) + '" text-anchor="' + (k === 0 ? 'start' : k === 2 ? 'end' : 'middle') + '">' + esc(labels[i]) + '</text>';
+    });
+    return { svg: out, top: top };
+  }
+  function lineChart(id, labels, series) {
+    var W = 900, H = 270, L = 40, R = 14, T = 12, B = 28, n = labels.length;
+    var max = Math.max(1, Math.max.apply(null, [].concat.apply([], series.map(function (s) { return s.values; }))));
+    var f = frame(W, H, L, R, T, B, max, labels);
+    var X = function (i) { return n === 1 ? (L + W - R) / 2 : L + (W - L - R) * i / (n - 1); };
+    var Y = function (v) { return T + (H - T - B) * (1 - v / f.top); };
+    var svg = f.svg;
+    series.forEach(function (s, k) {
+      var pts = s.values.map(function (v, i) { return X(i) + ',' + Y(v); }).join(' ');
+      if (k === 0) svg += '<polygon points="' + X(0) + ',' + Y(0) + ' ' + pts + ' ' + X(n - 1) + ',' + Y(0) + '" fill="' + s.color + '" opacity=".13"/>';
+      svg += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
+      if (n <= 31) s.values.forEach(function (v, i) { svg += '<circle cx="' + X(i) + '" cy="' + Y(v) + '" r="2.8" fill="' + s.color + '"/>'; });
+    });
+    var cw = (W - L - R) / Math.max(1, n);
+    labels.forEach(function (lb, i) {
+      var tip = lb + '\n' + series.map(function (s) { return s.label + ': ' + s.values[i]; }).join('\n');
+      svg += '<rect class="hv" x="' + (X(i) - cw / 2) + '" y="' + T + '" width="' + cw + '" height="' + (H - T - B) + '"><title>' + esc(tip) + '</title></rect>';
+    });
+    $(id).innerHTML = '<svg class="svgc" viewBox="0 0 ' + W + ' ' + H + '" role="img">' + svg + '</svg>';
+  }
+  function stackChart(id, labels, series) {
+    var W = 560, H = 250, L = 34, R = 8, T = 10, B = 26, n = labels.length;
+    var totals = labels.map(function (_, i) { return series.reduce(function (a, s) { return a + s.values[i]; }, 0); });
+    var f = frame(W, H, L, R, T, B, Math.max(1, Math.max.apply(null, totals)), labels);
+    var cw = (W - L - R) / n, bw = Math.max(2, cw * 0.72), svg = f.svg;
+    labels.forEach(function (lb, i) {
+      var y = H - B, x = L + cw * i + (cw - bw) / 2, tip = lb + '\n';
+      series.forEach(function (s) {
+        var h = (H - T - B) * s.values[i] / f.top;
+        if (h > 0) { svg += '<rect x="' + x + '" y="' + (y - h) + '" width="' + bw + '" height="' + h + '" fill="' + s.color + '"/>'; y -= h; }
+        if (s.values[i]) tip += s.label + ': ' + s.values[i] + '\n';
+      });
+      svg += '<rect class="hv" x="' + (L + cw * i) + '" y="' + T + '" width="' + cw + '" height="' + (H - T - B) + '"><title>' + esc(tip.trim()) + '</title></rect>';
+    });
+    $(id).innerHTML = '<svg class="svgc" viewBox="0 0 ' + W + ' ' + H + '" role="img">' + svg + '</svg>';
+  }
+  function colChart(id, labels, values, color, unit) {
+    var W = 560, H = 220, L = 34, R = 8, T = 10, B = 26, n = labels.length;
+    var max = Math.max(1, Math.max.apply(null, values)), top = niceMax(max), out = '';
+    for (var g = 0; g <= 4; g++) {
+      var y = T + (H - T - B) * (1 - g / 4);
+      out += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/><text x="' + (L - 8) + '" y="' + (y + 4) + '" text-anchor="end">' + Math.round(top * g / 4) + '</text>';
+    }
+    var cw = (W - L - R) / n, bw = cw * 0.7;
+    values.forEach(function (v, i) {
+      var h = (H - T - B) * v / top, x = L + cw * i + (cw - bw) / 2;
+      out += '<rect x="' + x + '" y="' + (H - B - h) + '" width="' + bw + '" height="' + h + '" rx="2" fill="' + (v === max && v ? C.wine : color) + '"><title>' + esc(labels[i] + ': ' + v + ' ' + unit) + '</title></rect>';
+      if (n <= 7 || i % 3 === 0) out += '<text x="' + (x + bw / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(labels[i]) + '</text>';
+    });
+    $(id).innerHTML = '<svg class="svgc" viewBox="0 0 ' + W + ' ' + H + '" role="img">' + out + '</svg>';
+  }
+  function donut(id, items) {
+    items = items.filter(function (i) { return i.value > 0; });
+    var total = items.reduce(function (a, i) { return a + i.value; }, 0);
+    if (!total) { $(id).innerHTML = '<p class="muted" style="color:var(--muted)">Nothing yet</p>'; return; }
+    var r = 54, Cc = 2 * Math.PI * r, off = 0, arcs = '';
+    items.forEach(function (it) {
+      var len = Cc * it.value / total;
+      arcs += '<circle cx="75" cy="75" r="' + r + '" fill="none" stroke="' + it.color + '" stroke-width="26" stroke-dasharray="' + len + ' ' + (Cc - len) + '" stroke-dashoffset="' + (-off) + '" transform="rotate(-90 75 75)"><title>' + esc(it.label + ': ' + it.value) + '</title></circle>';
+      off += len;
+    });
+    $(id).innerHTML = '<svg viewBox="0 0 150 150" role="img">' + arcs + '<text class="mid" x="75" y="81">' + total + '</text></svg><ul>' +
+      items.map(function (it) { return '<li><i style="background:' + it.color + '"></i><span>' + esc(it.label) + '</span><b>' + it.value + '</b><small>' + Math.round(it.value / total * 100) + '%</small></li>'; }).join('') + '</ul>';
+  }
+  function miniTable(id, head, rows, empty) {
+    if (!rows.length) { $(id).innerHTML = '<p class="empty" style="padding:14px 0">' + empty + '</p>'; return; }
+    $(id).innerHTML = '<table class="mini"><thead><tr><th>' + head[0] + '</th><th class="n">' + head[1] + '</th><th class="n">' + head[2] + '</th><th class="n">' + head[3] + '</th></tr></thead><tbody>' +
+      rows.map(function (r) { return '<tr><td>' + esc(r[0]) + '</td><td class="n">' + r[1] + '</td><td class="n">' + r[2] + '</td><td class="n r">' + r[3] + '</td></tr>'; }).join('') + '</tbody></table>';
+  }
+  var rate = function (a, b) { return b ? Math.round(a / b * 1000) / 10 + '%' : '–'; };
+
+  function renderStats() {
+    var s = stats, a = s.actions || {};
+    var enquiries = nz(a.book_open) + nz(a.whatsapp) + nz(a.call) + nz(a.email);
+    var k = [
+      [s.views, 'Page views'],
+      [s.visitors, 'Unique visitors<br>(who accepted cookies)'],
+      [s.returning, 'Returning visitors'],
+      [enquiries, 'Enquiries' + (s.views ? '<br>(' + rate(enquiries, s.views) + ' of visits)' : '')],
+      [nz(a.book_open), 'Booking windows opened'],
+      [nz(a.book_calendar), 'Went on to the calendar'],
+      [nz(a.whatsapp), 'WhatsApp taps'],
+      [nz(a.call), 'Calls'],
+      [nz(a.email), 'Email taps'],
+      [nz(a.instagram), 'Instagram taps'],
+      [nz(a.directions), 'Directions taps'],
+      [s.subscribers_new, 'New subscribers'],
+      [s.subscribers_total, 'Subscribers in total'],
+      [s.upcoming_events, 'Upcoming events']
+    ];
+    $('kpis').innerHTML = k.map(function (x) { return '<div class="kpi"><b>' + x[0] + '</b><span>' + x[1] + '</span></div>'; }).join('');
+    $('an-upgrade').hidden = s.campaigns !== undefined;
+
+    chart('chart-ov', 'axis-ov', s.per_day || []);
+
+    var list = fillDays(s.per_day || []), labels = list.map(function (d) { return shortDate(d.day); });
+    var enq = list.map(function (d) { return d.book + d.whatsapp + d.call + d.email; });
+    var LINE = [{ label: 'Page views', color: C.green, values: list.map(function (d) { return d.views; }) },
+      { label: 'Visitors (cookies accepted)', color: C.sage, values: list.map(function (d) { return d.visitors; }) },
+      { label: 'Enquiries', color: C.wine, values: enq }];
+    lineChart('ch-line', labels, LINE); legend('lg-line', LINE);
+
+    var ST = [{ label: 'Booking window', color: C.wine, key: 'book' }, { label: 'WhatsApp', color: C.green, key: 'whatsapp' }, { label: 'Call', color: C.lav, key: 'call' },
+      { label: 'Email', color: C.gold, key: 'email' }, { label: 'Directions', color: C.teal, key: 'directions' }, { label: 'Instagram', color: C.brown, key: 'instagram' }, { label: 'Sign-up', color: C.sage, key: 'signup' }]
+      .map(function (x) { return { label: x.label, color: x.color, values: list.map(function (d) { return d[x.key]; }) }; });
+    stackChart('ch-stack', labels, ST); legend('lg-stack', ST);
+
+    donut('ch-actions', [['book_open', C.wine], ['whatsapp', C.green], ['call', C.lav], ['email', C.gold], ['directions', C.teal], ['instagram', C.brown], ['signup', C.sage], ['book_calendar', '#A8506B']]
+      .map(function (x) { return { label: ACTION_LABEL[x[0]], value: nz(a[x[0]]), color: x[1] }; }));
+    donut('ov-donut', [['book_open', C.wine], ['whatsapp', C.green], ['call', C.lav], ['email', C.gold]]
+      .map(function (x) { return { label: ACTION_LABEL[x[0]], value: nz(a[x[0]]), color: x[1] }; }));
+
+    var refs = (s.referrers || []).map(function (r) { return [r.referrer, r.views]; });
+    bars('an-refs', refs); bars('ov-refs', refs.slice(0, 6));
+    miniTable('an-campaigns', ['Link', 'Visits', 'Enquiries', 'Rate'], (s.campaigns || []).map(function (c) { return [c.channel, c.views, c.enquiries, rate(c.enquiries, c.views)]; }),
+      'No tracking-link visits yet. Use links like divino-urbancellar.com/?utm_source=instagram&amp;utm_campaign=bio');
+    miniTable('an-pages-conv', ['Page', 'Views', 'Enquiries', 'Rate'], (s.pages || []).map(function (p) { return [PAGE_LABEL(p.path), p.views, p.enquiries, rate(p.enquiries, p.views)]; }), 'Nothing yet');
+    bars('an-pages', (s.top_pages || []).map(function (r) { return [PAGE_LABEL(r.path), r.views]; }));
+
+    var dev = s.devices || {}, lang = s.languages || {};
+    donut('ch-dev', [{ label: 'Phone', value: nz(dev.mobile), color: C.wine }, { label: 'Computer', value: nz(dev.desktop), color: C.green }]);
+    donut('ch-lang', [{ label: 'English pages', value: nz(lang.en), color: C.green }, { label: 'Italian pages', value: nz(lang.it), color: C.wine }]);
+    donut('ch-ret', [{ label: 'New', value: Math.max(0, nz(s.visitors) - nz(s.returning)), color: C.sage }, { label: 'Returning', value: nz(s.returning), color: C.wine }]);
+
+    var hrs = new Array(24).fill(0); (s.hours || []).forEach(function (h) { hrs[h.h] = +h.n; });
+    colChart('ch-hours', hrs.map(function (_, i) { return String(i).padStart(2, '0'); }), hrs, C.sage, 'views');
+    var dn = [1, 2, 3, 4, 5, 6, 0], dl = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], wd = {}; (s.weekdays || []).forEach(function (w) { wd[w.d] = +w.n; });
+    colChart('ch-days', dl, dn.map(function (d) { return wd[d] || 0; }), C.green, 'views');
+
+    var opened = nz(a.book_open), cal = nz(a.book_calendar);
+    $('funnel').innerHTML = '<div><b>' + s.views + '</b><span>Page views</span></div><i>›</i><div><b>' + opened + '</b><span>Opened the booking window' + (s.views ? ' (' + rate(opened, s.views) + ')' : '') + '</span></div><i>›</i><div><b>' + cal + '</b><span>Chose guests and opened the calendar' + (opened ? ' (' + Math.round(cal / opened * 100) + '%)' : '') + '</span></div><i>›</i><div><b>→</b><span><a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener">Bookings in Cal.com</a></span></div>';
+    bars('bk-touch', [['WhatsApp taps', nz(a.whatsapp)], ['Calls', nz(a.call)], ['Email taps', nz(a.email)], ['Instagram taps', nz(a.instagram)]].filter(function (r) { return r[1]; }), 'No taps yet');
+  }
+
+  /* ---------- Subscribers ---------- */
+  async function loadSubs() {
+    var r = await rpc('admin_subscribers');
+    if (r.error) return say($('sub-msg'), r.error.message, true);
+    subs = r.data;
+    var lists = Array.from(new Set(subs.map(function (s) { return s.list; })));
+    $('sub-list').innerHTML = '<option value="">All lists</option>' + lists.map(function (l) { return '<option>' + esc(l) + '</option>'; }).join('');
+    renderSubs();
+  }
+  function filteredSubs() {
+    var q = $('sub-q').value.trim().toLowerCase(), l = $('sub-list').value, st = $('sub-status').value;
+    return subs.filter(function (s) {
+      return (!q || s.email.indexOf(q) > -1) && (!l || s.list === l) &&
+        (!st || (st === 'active' ? !s.unsubscribed : s.unsubscribed));
+    });
+  }
+  function renderSubs() {
+    var rows = filteredSubs();
+    say($('sub-msg'), rows.length + (rows.length === 1 ? ' person' : ' people'));
+    $('sub-rows').innerHTML = rows.length ? rows.map(function (s) {
+      return '<tr><td>' + esc(s.email) + '</td><td>' + esc(s.list) + '</td><td>' + (s.lang === 'it' ? 'Italian' : 'English') + '</td><td>' + fmtDate(s.created_at) + '</td><td>' +
+        (s.unsubscribed ? '<span class="pill off">Unsubscribed</span>' : '<span class="pill">Subscribed</span>') + '</td><td>' +
+        '<button class="lnk" data-sub-toggle="' + s.id + '">' + (s.unsubscribed ? 'Resubscribe' : 'Unsubscribe') + '</button><button class="lnk danger" data-sub-del="' + s.id + '">Delete</button></td></tr>';
+    }).join('') : '<tr><td colspan="6" class="empty">No sign-ups yet. They appear here as soon as someone joins on the website.</td></tr>';
+  }
+  ['sub-q', 'sub-list', 'sub-status'].forEach(function (id) { $(id).addEventListener('input', renderSubs); });
+  $('sub-rows').addEventListener('click', async function (e) {
+    var t = e.target.dataset.subToggle, d = e.target.dataset.subDel;
+    if (t) {
+      var s = subs.find(function (x) { return x.id == t; });
+      var r = await rpc('admin_subscriber_set', { sub_id: +t, is_unsubscribed: !s.unsubscribed });
+      if (r.error) return say($('sub-msg'), r.error.message, true);
+      s.unsubscribed = !s.unsubscribed; renderSubs();
+    }
+    if (d) {
+      var s2 = subs.find(function (x) { return x.id == d; });
+      if (!confirm('Delete ' + s2.email + ' for good? (Use Unsubscribe to keep a record.)')) return;
+      var r2 = await rpc('admin_subscriber_delete', { sub_id: +d });
+      if (r2.error) return say($('sub-msg'), r2.error.message, true);
+      subs = subs.filter(function (x) { return x.id != d; }); renderSubs();
+    }
+  });
+  $('sub-csv').addEventListener('click', function () {
+    var rows = filteredSubs();
+    var csv = 'email,list,language,signed_up,status\n' + rows.map(function (s) {
+      return ['"' + s.email.replace(/"/g, '""') + '"', '"' + s.list.replace(/"/g, '""') + '"', s.lang, s.created_at.slice(0, 10), s.unsubscribed ? 'unsubscribed' : 'subscribed'].join(',');
+    }).join('\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+    a.download = 'divino-subscribers-' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.click();
+  });
+  $('sub-copy').addEventListener('click', async function () {
+    var emails = filteredSubs().filter(function (s) { return !s.unsubscribed; }).map(function (s) { return s.email; });
+    try { await navigator.clipboard.writeText(emails.join(', ')); say($('sub-msg'), emails.length + ' emails copied, ready to paste into your email.'); }
+    catch (e) { say($('sub-msg'), 'Could not copy: your browser blocked it.', true); }
+  });
+
+  /* ---------- Events ---------- */
+  var events = [];
+  async function loadEvents() {
+    var r = await rpc('admin_events');
+    if (r.error) return say($('ev-msg'), r.error.message, true);
+    events = r.data; renderEvents();
+  }
+  function renderEvents() {
+    var today = new Date().toISOString().slice(0, 10);
+    $('ev-rows').innerHTML = events.length ? events.map(function (e) {
+      var past = e.date < today;
+      return '<tr><td>' + fmtDate(e.date + 'T00:00') + (e.time ? '<br><span class="muted">' + esc(e.time) + '</span>' : '') + '</td><td><b>' + esc(e.name) + '</b>' + (e.description ? '<br><span class="muted">' + esc(e.description) + '</span>' : '') + '</td><td>' + (e.price ? '€' + esc(String(e.price).replace(/^€\s*/, '')) : '') + '</td><td>' +
+        (past ? '<span class="pill off">Past</span>' : e.published ? '<span class="pill">On the website</span>' : '<span class="pill off">Hidden</span>') +
+        '</td><td><button class="lnk" data-ev-edit="' + e.id + '">Edit</button><button class="lnk danger" data-ev-del="' + e.id + '">Delete</button></td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty">No events yet. Add the first one above.</td></tr>';
+  }
+  function resetForm() {
+    $('ev-form').reset(); $('ev-id').value = ''; $('ev-pub').checked = true;
+    $('ev-title').textContent = 'Add an event'; $('ev-cancel').hidden = true;
+  }
+  $('ev-cancel').addEventListener('click', resetForm);
+  $('ev-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var booking = $('ev-booking').value.trim();
+    if (booking && !/^https:\/\//.test(booking)) return say($('ev-msg'), 'The booking link must start with https://', true);
+    var row = { date: $('ev-date').value, time: $('ev-time').value.trim() || null, name: $('ev-name').value.trim(), description: $('ev-desc').value.trim() || null,
+      price: $('ev-price').value.trim().replace(/^€\s*/, '') || null, booking: booking || null, photo: $('ev-photo').value.trim() || null, published: $('ev-pub').checked };
+    var id = $('ev-id').value;
+    if (id) row.id = +id;
+    var r = await rpc('admin_event_save', { ev: row });
+    if (r.error) return say($('ev-msg'), r.error.message, true);
+    say($('ev-msg'), id ? 'Event updated.' : 'Event added. It is on the Events page now.');
+    resetForm(); loadEvents(); loadStats();
+  });
+  $('ev-rows').addEventListener('click', async function (e) {
+    var ed = e.target.dataset.evEdit, dl = e.target.dataset.evDel;
+    if (ed) {
+      var v = events.find(function (x) { return x.id == ed; });
+      $('ev-id').value = v.id; $('ev-date').value = v.date; $('ev-time').value = v.time || ''; $('ev-name').value = v.name;
+      $('ev-desc').value = v.description || ''; $('ev-price').value = v.price || ''; $('ev-booking').value = v.booking || '';
+      $('ev-photo').value = v.photo || ''; $('ev-pub').checked = v.published;
+      $('ev-title').textContent = 'Edit event'; $('ev-cancel').hidden = false;
+      $('ev-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    if (dl) {
+      var v2 = events.find(function (x) { return x.id == dl; });
+      if (!confirm('Delete “' + v2.name + '”?')) return;
+      var r = await rpc('admin_event_delete', { ev_id: +dl });
+      if (r.error) return say($('ev-msg'), r.error.message, true);
+      loadEvents(); loadStats();
+    }
+  });
+
+  start();
+})();
+</script>
+</body>
+</html>
