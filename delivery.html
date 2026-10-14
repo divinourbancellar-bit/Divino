@@ -9,7 +9,8 @@
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#6E2A34">
+<meta name="theme-color" content="#4B5320">
+<meta name="dv-section" content="products">
 
 <title>Same-Day Wine Delivery in Cefal&ugrave; | Divino</title>
 <meta name="description" content="Free same-day delivery of Sicilian wine and sparkling from Divino Urban Cellar in Cefal&ugrave;. Minimum order &euro;50. Order by WhatsApp by 12:00.">
@@ -32,12 +33,6 @@
 <meta name="twitter:description" content="Free same-day delivery of Sicilian wine and sparkling from Divino Urban Cellar in Cefal&ugrave;. Minimum order &euro;50. Order by WhatsApp by 12:00.">
 <meta name="twitter:image" content="https://divino-urbancellar.com/optimized/delivery-banner-og.jpg">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="blog.css">
-<link rel="stylesheet" href="delivery-strip.css">
-<link rel="stylesheet" href="delivery.css">
 
 <script type="application/ld+json">
 {
@@ -50,161 +45,178 @@
   "url": "https://divino-urbancellar.com/delivery.html"
 }
 </script>
+<!-- dv:ga -->
+<!-- Google Analytics, consent-gated: nothing is stored until the visitor accepts. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+  gtag('js', new Date());
+  gtag('config', 'G-31NB1K438E');
+  (function () {
+    var loaded = false;
+    function load() { if (loaded) return; loaded = true; var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-31NB1K438E'; document.head.appendChild(s); }
+    ['pointerdown', 'keydown', 'scroll'].forEach(function (e) { window.addEventListener(e, load, { once: true, passive: true }); });
+    if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 6000 }); else setTimeout(load, 5000);
+  })();
+</script>
+<!-- /dv:ga -->
+<!-- dv:head -->
+<link rel="preload" href="fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/eb-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://app.cal.com" crossorigin>
+<link rel="stylesheet" href="chrome.css">
+<!-- /dv:head -->
+<link rel="stylesheet" href="site.css">
+<style>
+.wn details.note summary{display:inline-block;cursor:pointer;list-style:none;margin-top:10px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--wine);border-bottom:1px solid var(--wine)}
+.wn details.note summary::-webkit-details-marker{display:none}
+.wn .vid{margin-top:10px;font-size:14px;color:var(--muted);letter-spacing:.04em}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);max-width:900px;margin:0 auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.rules div{text-align:center;padding:28px 16px;border-left:1px solid var(--line)} .rules div:first-child{border-left:0}
+.rules b{display:block;font:500 34px var(--display);color:var(--wine)} .rules span{font-size:16px;color:var(--muted)}
+.vats{max-width:960px;margin:44px auto 0;background:var(--ivory);border:1px solid var(--line);border-top:3px solid var(--sage);padding:26px;text-align:center}
+.vats h4{font:500 28px var(--display)} .vats p{margin-top:6px}
+.avail{max-width:760px;margin:28px auto 0;text-align:center;font-size:16.5px;color:var(--muted)}
+.prac{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+.prac div{background:#fff;border:1px solid var(--line);border-top:3px solid var(--sage);padding:26px 22px;text-align:center}
+.prac h4{font:500 24px var(--display)} .prac p{font-size:16.5px;margin-top:8px} .prac a{color:var(--wine)}
+@media (max-width:1024px){.prac{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.prac,.rules{grid-template-columns:1fr}.rules div{border-left:0;border-top:1px solid var(--line)}.rules div:first-child{border-top:0}}
+</style>
 </head>
 <body>
-
-<a class="skip-link" href="#main">Skip to content</a>
-<a class="delivery-strip" href="delivery.html">Free same-day delivery &middot; Minimum order &euro;50 &middot; Order by WhatsApp</a>
-
-<header class="site-header">
-    <div class="site-header__inner">
-        <a href="index.html" aria-label="Divino Urban Cellar &mdash; home">
-            <img src="divino logo black and red.svg" alt="Divino Urban Cellar, Cefal&ugrave;" class="site-header__logo" width="200" height="76">
-        </a>
-        <nav class="site-nav" aria-label="Main">
-            <a href="index.html#booking">Book</a>
-            <a href="index.html#vision">Vision</a>
-            <a href="index.html#cellar">The Urban Cellar</a>
-            <a href="index.html#calendar">Calendar</a>
-            <a href="index.html#owner">About</a>
-            <a href="magazine.html">Magazine</a>
-            <a href="ambrosia.html">Ambrosia</a>
-            <a class="lang-toggle" href="delivery-it.html" hreflang="it" lang="it" data-lang-switch="it" aria-label="Leggi in italiano">IT</a>
-        </nav>
-        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav">
-            <span class="sr-only">Open menu</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-    </div>
-    <div class="mobile-nav" id="mobile-nav">
-        <ul>
-            <li><a href="index.html#booking">Book</a></li>
-            <li><a href="index.html#vision">Vision</a></li>
-            <li><a href="index.html#cellar">The Urban Cellar</a></li>
-            <li><a href="index.html#calendar">Calendar</a></li>
-            <li><a href="index.html#owner">About</a></li>
-            <li><a href="magazine.html">Magazine</a></li>
-            <li><a href="ambrosia.html">Ambrosia</a></li>
-            <li><a class="lang-toggle" href="delivery-it.html" hreflang="it" lang="it" data-lang-switch="it" aria-label="Leggi in italiano">IT</a></li>
-        </ul>
-    </div>
+<!-- dv:header -->
+<a class="skip" href="#main">Skip to content</a>
+<a class="strip" href="delivery.html">Free same-day delivery · Minimum order €50 · Order by WhatsApp</a>
+<header class="dvh">
+ <div class="hdr">
+  <div class="lang" aria-label="Language"><span class="on" aria-current="true">EN</span> · <a href="delivery-it.html" hreflang="it" lang="it" data-lang-switch="it">IT</a></div>
+  <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></svg><span>Menu</span><b class="sr-only">Open menu</b></button>
+  <nav class="nav l" aria-label="Main, left"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Tastings</button><div class="sub"><a href="tastings.html">At Divino</a><a href="wine-tasting-cefalu.html">Wine tasting in Cefalù</a><a href="private-group-wine-tasting.html">Private & group tastings</a><a href="tasting-villa.html">At your villa</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Classes</button><div class="sub"><a href="wine-classes.html">Wine classes</a><a href="cooking-classes.html">Farm-to-table cooking<span class="soon-dot">Soon</span></a></div></div><a href="events.html">Events</a></nav>
+  <a class="logo" href="./" aria-label="Divino Urban Cellar, Home"><span class="wm" style="--s:46px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span></a>
+  <nav class="nav r" aria-label="Main, right"><div class="dd cur"><button type="button" aria-expanded="false" aria-haspopup="true">Our Products</button><div class="sub"><a href="products.html#specialty">Divino Specialty Products</a><a href="products.html#countryside">From our Countryside</a><a href="delivery.html" aria-current="page">Wines delivered</a><a href="products.html#gift-cards">Gift cards</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">The Countryside</button><div class="sub"><a href="countryside.html">Our land</a><a href="countryside.html#donna-maria">Donna Maria products</a></div></div><a href="magazine.html">Magazine</a><a href="about.html">About Us</a><a class="btn sm" href="tastings.html#book" data-book>Book</a></nav>
+  <a class="btn sm mbook" href="tastings.html#book" data-book>Book</a>
+ </div>
 </header>
+<div class="drawer" id="drawer" aria-hidden="true">
+ <div class="scrim" data-close-drawer></div>
+ <nav class="panel" aria-label="Menu">
+  <div class="top"><a href="./" aria-label="Divino Urban Cellar, Home"><span class="wm" style="--s:30px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span></a><button class="close" type="button" data-close-drawer aria-label="Close menu">×</button></div>
+  <div class="grp"><p>Tastings</p><a class="s" href="tastings.html">At Divino</a><a class="s" href="wine-tasting-cefalu.html">Wine tasting in Cefalù</a><a class="s" href="private-group-wine-tasting.html">Private & group tastings</a><a class="s" href="tasting-villa.html">At your villa</a></div><div class="grp"><p>Classes</p><a class="s" href="wine-classes.html">Wine classes</a><a class="s" href="cooking-classes.html">Farm-to-table cooking<span class="soon-dot">Soon</span></a></div>
+  <div class="grp"><a href="events.html">Events</a></div>
+  <div class="grp"><p>Our Products</p><a class="s" href="products.html#specialty">Divino Specialty Products</a><a class="s" href="products.html#countryside">From our Countryside</a><a class="s" href="delivery.html" aria-current="page">Wines delivered</a><a class="s" href="products.html#gift-cards">Gift cards</a></div><div class="grp"><p>The Countryside</p><a class="s" href="countryside.html">Our land</a><a class="s" href="countryside.html#donna-maria">Donna Maria products</a></div>
+  <div class="grp"><a href="magazine.html">Magazine</a><a href="about.html">About Us</a></div>
+  <a class="btn" href="tastings.html#book" data-book>Book</a>
+  <div class="dl" aria-label="Language"><span class="on" aria-current="true">EN</span> · <a href="delivery-it.html" hreflang="it" lang="it" data-lang-switch="it">IT</a></div>
+ </nav>
+</div>
+<!-- /dv:header -->
 
 <main id="main">
+<div class="phero" style="background-image:url('photos/wine-shelves.webp');background-position:center 45%" role="img" aria-label="The wine shelves at Divino"></div>
+<section class="white" style="padding-bottom:90px">
+ <div class="pintro">
+  <p class="caps kick">Our Products · Wines, delivered</p>
+  <h1>Free same-day delivery</h1><p class="itl" lang="it">Consegna gratuita in giornata</p>
+  <p class="d">Choose your Sicilian wines and we bring them to your villa, apartment or hotel the same day. Free delivery for orders of €50 or more.</p>
+  <div class="actions"><a class="btn" href="https://wa.me/393312530729" data-wa="Hi Divino, I'd like to order wine for delivery today.">Order by WhatsApp</a><a class="btn o" href="tel:+393312530729">Call to order</a></div>
+  <p style="margin-top:18px;color:var(--muted)">Order by 12:00 for delivery the same day.</p>
+ </div>
+ <div class="rules"><div><b>Free</b><span>same-day delivery</span></div><div><b>€50</b><span>minimum order</span></div><div><b>Wine</b><span>delivery is for wine only</span></div></div>
+</section>
 
-    <figure class="dl-banner">
-        <img src="optimized/delivery-banner-900.webp" srcset="optimized/delivery-banner-900.webp 900w, optimized/delivery-banner.webp 1800w" sizes="100vw" alt="Watercolour sketch of the Divino entrance on Via Gibilmanna" width="1800" height="900" loading="eager" decoding="async">
-    </figure>
+<section class="cream bt"><div class="wrap blk">
+ <p class="caps kick">How it works</p><h2>Three steps to your door</h2>
+ <div class="steps"><div class="step rv"><p class="n">1</p><h3>Send your order</h3><p>Message us on WhatsApp or call with your wines and your address.</p></div><div class="step rv"><p class="n">2</p><h3>We confirm</h3><p>We reply with the total and your delivery time.</p></div><div class="step rv"><p class="n">3</p><h3>We deliver</h3><p>Your wine arrives the same day.</p></div></div>
+</div></section>
 
-    <section class="dl-hero">
-        <span class="eyebrow">Delivery</span>
-        <h1>Same-day delivery</h1>
-        <p class="dl-sub">From our cellar to your door, today.</p>
-        <p class="dl-lead">Order your Sicilian wines and sparkling, and we bring them to your villa, apartment or hotel the same day.</p>
-        <div class="dl-actions">
-            <a class="dl-btn" href="https://wa.me/393312530729?text=Hi%20Divino%2C%20I%27d%20like%20to%20order%20for%20delivery%20today." rel="noopener">Order by WhatsApp</a>
-            <a class="dl-btn dl-btn--ghost" href="tel:+393312530729">Call to order</a>
-        </div>
-        <small>Order by 12:00 for delivery the same day.</small>
-    </section>
+<section class="white bt" id="wines"><div class="wrap blk">
+ <p class="caps kick">What we deliver</p><h2>Our delivery wine list</h2>
+ <p class="lead-it">Prices per 75 cl bottle, VAT included</p>
+<div class="wgroup rv"><h3>Sparkling<i>Bollicine</i></h3>
+<div class="wn"><div><h4>Carricante Brut Metodo Classico</h4><p class="pr">Planeta &middot; Carricante · Etna</p><p class="ds">Traditional-method Carricante from 850 m on Etna’s north slope. Citrus, bread crust and a fresh, mineral finish. 24 months on the lees.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From one of Sicily’s leading wine estates, known for bringing out the island’s different terroirs through five separate wineries. This Carricante comes from Contrada Sciaranuova on the north slope of Etna, where volcanic sand and an altitude of 850 metres give a fresh, mineral traditional-method sparkling wine with notes of citrus, bread crust and a distinct savoury edge. Aged 24 months on its lees in the bottle.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;28</div></div>
+</div>
+<div class="wgroup rv"><h3>Sicilian Wines · Whites &amp; Rosé<i>Bianchi e Rosato</i></h3>
+<div class="wn"><div><h4>Catarratto “Miano”</h4><p class="pr">Castellucci Miano &middot; Catarratto · Madonie</p><p class="ds">Mountain white from old vines at almost 1,000 m in the Madonie. White flowers, green apple, mineral and lively.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">Made by a small cooperative in Valledolmo, formed by several families whose mission is to support mountain winegrowing and bring back the old grape varieties of the Madonie. This Catarratto comes from old bush vines and younger trellised vines at almost 1,000 metres, on limestone soil. Wide swings between day and night temperatures and active limestone give a Catarratto of great tension, with aromas of white flowers and green apple, mineral and with lively acidity.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;16</div></div>
+<div class="wn"><div><h4>Grillo “della Timpa”</h4><p class="pr">Feudo Montoni &middot; Grillo · Cammarata</p><p class="ds">Artisan Grillo from the high hills of Cammarata. Orange blossom, citrus and herbs, with a mineral streak.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From an artisan estate with roots going back to 1469, run today by winegrower Fabio Sireci, guardian of very old clones of native Sicilian grapes. This Grillo is born on the high hills of Cammarata, between the Madonie and the Agrigento countryside, a cool, breezy area with clay and sand soils, giving an intense, long white with aromas of orange blossom, citrus and herbs, and a lovely mineral streak. Aged in concrete tanks after a few days of skin contact.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;18</div></div>
+<div class="wn"><div><h4>Zibibbo Secco “Gagliardetta”</h4><p class="pr">Curatolo Arini &middot; Zibibbo · Gulf of Castellammare</p><p class="ds">Single-vineyard dry Zibibbo overlooking the Gulf of Castellammare. Citrus and white flowers, with hints of sage and mint.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From a historic Marsala winery founded in 1875, whose labels were designed by the architect Ernesto Basile. Gagliardetta is a pure Zibibbo from a single vineyard on an east-facing hill at 350 metres, looking out over the Gulf of Castellammare. Sandy, clay soil for this dry-vinified Zibibbo: very fresh, with a rich, complex bouquet of citrus and white flowers over hints of sage and mint.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;20</div></div>
+<div class="wn"><div><h4>Etna Bianco Superiore</h4><p class="pr">Barone di Villagrande &middot; Carricante · Etna</p><p class="ds">Volcanic white from the slopes of Etna. Mineral, crisp and elegant.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From one of Etna’s oldest wine estates, active on the volcano since 1727 and keeper of old vines on the mountain’s eastern slope. This Etna Bianco comes from Milo, the only municipality where the “Superiore” designation is allowed for wines based on Carricante. It grows from volcanic sand and ash on the side of the mountain that faces the sea and is aged for at least ten months in steel. It stands out for its floral and white-fruit aromas, and is harmonious thanks to its freshness and pronounced minerality.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;26</div></div>
+<div class="wn"><div><h4>Etna Bianco “Valcerasa”</h4><p class="pr">Alice Bonaccorsi – Valcerasa &middot; Carricante · Etna</p><p class="ds">A small family estate on Etna. A deeper, more refined volcanic white.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From one of the most authentic and interesting artisan estates on Etna, a family winery led by Alice Bonaccorsi, focused on natural practices and respect for the vine. This Carricante comes from Contrada Croce Monaci, on the northern slope of Etna at about 750 metres. The volcanic soil, particularly rich in stones, supports bush-trained vines and gives a pleasantly mineral white that develops precious petrol notes over time. A small share of the wine is macerated on its skins before ageing for two years in steel.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;34</div></div>
+<div class="wn"><div><h4>Etna Rosato “Alnus”</h4><p class="pr">I Custodi delle Vigne dell’Etna &middot; Nerello Mascalese · Etna</p><p class="ds">A pale, delicate rosé from Etna. Red berries, freshness and a salty finish.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From an estate founded with the mission of safeguarding Etna’s old bush-trained vineyards and its terraced landscape, with the help of local craftsmen: the Vigneri. This rosé comes from the northern slope of the volcano, from high-altitude bush-trained vineyards on lava-stone terraces. A blend of Nerello Mascalese and Cappuccio, it shows a pale pink colour, with aromas of pomegranate and wild strawberry over a mineral, smoky background.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;24</div></div>
+</div>
+<div class="wgroup rv"><h3>Sicilian Wines · Reds<i>Rossi</i></h3>
+<div class="wn"><div><h4>Perricone</h4><p class="pr">Castellucci Miano &middot; Perricone · Madonie</p><p class="ds">A rare native Sicilian red from the Madonie. Dark fruit, gentle spice, smooth.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">Made by a small cooperative in Valledolmo, formed by several families whose mission is to support mountain winegrowing and bring back the old grape varieties of the Madonie. This red is made from pure Perricone, grown up to 1,000 metres in the Madonie on limestone and clay soil, giving an intense red in the glass, with notes of plum, wild berries, dark spices and a firm but well-integrated tannin.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;20</div></div>
+<div class="wn"><div><h4>Perricone</h4><p class="pr">Ferreri &middot; Perricone · Western Sicily</p><p class="ds">The same rare grape from a family winery in western Sicily. Rich and rustic.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From a very small winery in Santa Ninfa, founded in 2003 in the province of Trapani, to celebrate the history, culture and produce of the land. This pure Perricone comes from Contrada Calviano, on mid-height hills with a soil locally called Baiata, completely white and strongly calcareous. The result is a wine of great complexity, with hints of graphite, humus and tar, and on the palate balanced tannins and great freshness.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;20</div></div>
+<div class="wn"><div><h4>Frappato “Nerocapitano”</h4><p class="pr">Lamoresca &middot; Frappato · South-east Sicily</p><p class="ds">A light, juicy red full of fresh cherries. Delicious slightly chilled.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From an artisan estate led by Filippo Rizzo, farmed on natural principles with biodynamic techniques and no invasive intervention in the cellar. This Frappato comes from San Michele di Ganzeria, hilly inland country with limestone and sandy soils, which give a light, lively, juicy red with notes of fresh cherry, pomegranate and sweet spices. On the palate it is very easy to drink, and fresh.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;22</div></div>
+<div class="wn"><div><h4>Etna Rosso “Valcerasa”</h4><p class="pr">Alice Bonaccorsi – Valcerasa &middot; Nerello Mascalese · Etna</p><p class="ds">Elegant volcanic red from Etna. Red fruit, fine tannins, a mineral finish.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From one of the most authentic and interesting artisan estates on Etna, a family winery led by Alice Bonaccorsi, focused on natural practices and respect for the vine. This Etna Rosso is made from Nerello Mascalese with 20% Nerello Cappuccio, grown as bush vines in the municipality of Randazzo, on the northern slope of the volcano at 750 metres. After a long ageing in steel and in bottle, it becomes a broad, complex red with floral pot-pourri, moderate minerality and a spicy background.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;30</div></div>
+<div class="wn"><div><h4>Nero d’Avola “Vrucara”</h4><p class="pr">Feudo Montoni &middot; Nero d’Avola · Sicily</p><p class="ds">Our special bottle. Made from very old vines, deep and complex, for a great occasion.</p><details class="note"><summary>Read Manfredi’s note</summary><p class="ds">From an artisan estate with roots going back to 1469, run today by winegrower Fabio Sireci, guardian of very old clones of native Sicilian grapes. This Nero d’Avola is a selection from the estate’s oldest vines, with ungrafted vines up to 150 years old, grown as bush vines at high altitude on sandy, clay soil. After five years of ageing in the cellar, it becomes a deep, complex wine where fruity and balsamic notes alternate with hints of incense and cocoa.</p></details><p class="vid">▶ Video coming soon</p></div><div class="wp">&euro;48</div></div>
+</div>
+ <div class="vats"><h4>Wine from our Vats</h4><p>Ask us on WhatsApp what is in the vats today.</p></div>
+ <p class="avail">Our delivery selection changes from time to time, depending on the season and what our winemakers have available. If a wine is not available, we will suggest a similar bottle when we confirm your order.</p>
+ <div class="actions"><a class="btn" href="https://wa.me/393312530729" data-wa="Hi Divino, I'd like to order wine for delivery today.">Order by WhatsApp</a><a class="btn o" href="tel:+393312530729">Call +39 331 253 0729</a></div>
+</div></section>
 
-    <section class="dl-band dl-band--light">
-        <div class="dl-wrap">
-            <div class="dl-center">
-                <span class="eyebrow">Delivery</span>
-                <h2>Free same-day delivery &middot; Minimum order &euro;50</h2>
-            </div>
-            <div class="dl-rules dl-rules--one">
-                <div class="dl-rule dl-rule--free">
-                    <div class="dl-big">&euro;50<small>minimum order</small></div>
-                    <p>Every order of &euro;50 or more is delivered free to your door, the same day.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="cream bt"><div class="wrap blk">
+ <p class="caps kick">Good to know</p><h2>Delivery details</h2>
+ <div class="prac"><div><h4>Delivery hours</h4><p><span class="tbc">[days and hours]</span></p></div><div><h4>Payment</h4><p><span class="tbc">[how guests pay]</span></p></div><div><h4>Order</h4><p>WhatsApp or phone<br><a href="tel:+393312530729">+39 331 253 0729</a></p></div><div><h4>Age</h4><p>We deliver alcohol to adults 18+ only and may ask for ID.</p></div></div>
+ <div class="c"><p style="font:italic 400 22px var(--display);color:var(--wine)">Would you rather taste first?</p><div class="actions" style="margin-top:18px"><a class="btn o" href="tasting-villa.html">Tasting at your villa</a></div></div>
+</div></section>
 
-    <section class="dl-band">
-        <div class="dl-wrap">
-            <div class="dl-center">
-                <span class="eyebrow">How it works</span>
-                <h2>Three steps to your door</h2>
-            </div>
-            <div class="dl-steps">
-                <div class="dl-step"><span class="dl-no">1</span><h3>Send your order</h3><p>Message us on WhatsApp or call with what you&rsquo;d like and your address.</p></div>
-                <div class="dl-step"><span class="dl-no">2</span><h3>We confirm</h3><p>We reply with the total and your delivery time.</p></div>
-                <div class="dl-step"><span class="dl-no">3</span><h3>We deliver</h3><p>Your order arrives the same day, ready to open or to chill.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="dl-band dl-band--light">
-        <div class="dl-wrap">
-            <div class="dl-center">
-                <span class="eyebrow">What we deliver</span>
-                <h2>The cellar, brought to you</h2>
-            </div>
-            <div class="dl-list">
-            <h3 class="dl-group">Sparkling</h3>
-            <ul class="dl-wines">
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Carricante Brut Metodo Classico</h4><span class="dl-wine__price">&euro;28</span></div><p class="dl-wine__meta">Planeta &middot; Carricante · Etna</p><p>Traditional-method Carricante from 850 m on Etna’s north slope. Citrus, bread crust and a fresh, mineral finish. 24 months on the lees.</p><details class="dl-more"><summary>Read more</summary><p>From one of Sicily’s leading wine estates, known for bringing out the island’s different terroirs through five separate wineries. This Carricante comes from Contrada Sciaranuova on the north slope of Etna, where volcanic sand and an altitude of 850 metres give a fresh, mineral traditional-method sparkling wine with notes of citrus, bread crust and a distinct savoury edge. Aged 24 months on its lees in the bottle.</p></details></li>
-            </ul>
-            <h3 class="dl-group">Sicilian Wines</h3>
-            <h4 class="dl-sub-group">Whites &amp; Rosé</h4>
-            <ul class="dl-wines">
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Catarratto “Miano”</h4><span class="dl-wine__price">&euro;16</span></div><p class="dl-wine__meta">Castellucci Miano &middot; Catarratto · Madonie</p><p>Mountain white from old vines at almost 1,000 m in the Madonie. White flowers, green apple, mineral and lively.</p><details class="dl-more"><summary>Read more</summary><p>Made by a small cooperative in Valledolmo, formed by several families whose mission is to support mountain winegrowing and bring back the old grape varieties of the Madonie. This Catarratto comes from old bush vines and younger trellised vines at almost 1,000 metres, on limestone soil. Wide swings between day and night temperatures and active limestone give a Catarratto of great tension, with aromas of white flowers and green apple, mineral and with lively acidity.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Grillo “della Timpa”</h4><span class="dl-wine__price">&euro;18</span></div><p class="dl-wine__meta">Feudo Montoni &middot; Grillo · Sicily</p><p>Artisan Grillo from the high hills of Cammarata. Orange blossom, citrus and herbs, with a mineral streak.</p><details class="dl-more"><summary>Read more</summary><p>From an artisan estate with roots going back to 1469, run today by winegrower Fabio Sireci, guardian of very old clones of native Sicilian grapes. This Grillo is born on the high hills of Cammarata, between the Madonie and the Agrigento countryside, a cool, breezy area with clay and sand soils, giving an intense, long white with aromas of orange blossom, citrus and herbs, and a lovely mineral streak. Aged in concrete tanks after a few days of skin contact.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Zibibbo Secco “Gagliardetta”</h4><span class="dl-wine__price">&euro;20</span></div><p class="dl-wine__meta">Curatolo Arini &middot; Zibibbo · Sicily</p><p>Single-vineyard dry Zibibbo overlooking the Gulf of Castellammare. Citrus and white flowers, with hints of sage and mint.</p><details class="dl-more"><summary>Read more</summary><p>From a historic Marsala winery founded in 1875, whose labels were designed by the architect Ernesto Basile. Gagliardetta is a pure Zibibbo from a single vineyard on an east-facing hill at 350 metres, looking out over the Gulf of Castellammare. Sandy, clay soil for this dry-vinified Zibibbo: very fresh, with a rich, complex bouquet of citrus and white flowers over hints of sage and mint.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Etna Bianco</h4><span class="dl-wine__price">&euro;26</span></div><p class="dl-wine__meta">Barone di Villagrande &middot; Carricante · Etna</p><p>Volcanic white from the slopes of Etna. Mineral, crisp and elegant.</p><details class="dl-more"><summary>Read more</summary><p>From one of Etna’s oldest wine estates, active on the volcano since 1727 and keeper of old vines on the mountain’s eastern slope. This Etna Bianco comes from Milo, the only municipality where the “Superiore” designation is allowed for wines based on Carricante. It grows from volcanic sand and ash on the side of the mountain that faces the sea and is aged for at least ten months in steel. It stands out for its floral and white-fruit aromas, and is harmonious thanks to its freshness and pronounced minerality.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Etna Bianco “Valcerasa”</h4><span class="dl-wine__price">&euro;34</span></div><p class="dl-wine__meta">Alice Bonaccorsi – Valcerasa &middot; Carricante · Etna</p><p>A small family estate on Etna. A deeper, more refined volcanic white.</p><details class="dl-more"><summary>Read more</summary><p>From one of the most authentic and interesting artisan estates on Etna, a family winery led by Alice Bonaccorsi, focused on natural practices and respect for the vine. This Carricante comes from Contrada Croce Monaci, on the northern slope of Etna at about 750 metres. The volcanic soil, particularly rich in stones, supports bush-trained vines and gives a pleasantly mineral white that develops precious petrol notes over time. A small share of the wine is macerated on its skins before ageing for two years in steel.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Etna Rosato “Alnus”</h4><span class="dl-wine__price">&euro;24</span></div><p class="dl-wine__meta">I Custodi delle Vigne dell’Etna &middot; Nerello Mascalese · Etna</p><p>A pale, delicate rosé from Etna. Red berries, freshness and a salty finish.</p><details class="dl-more"><summary>Read more</summary><p>From an estate founded with the mission of safeguarding Etna’s old bush-trained vineyards and its terraced landscape, with the help of local craftsmen: the Vigneri. This rosé comes from the northern slope of the volcano, from high-altitude bush-trained vineyards on lava-stone terraces. A blend of Nerello Mascalese and Cappuccio, it shows a pale pink colour, with aromas of pomegranate and wild strawberry over a mineral, smoky background.</p></details></li>
-            </ul>
-            <h4 class="dl-sub-group">Reds</h4>
-            <ul class="dl-wines">
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Perricone</h4><span class="dl-wine__price">&euro;20</span></div><p class="dl-wine__meta">Castellucci Miano &middot; Perricone · Madonie</p><p>A rare native Sicilian red from the Madonie. Dark fruit, gentle spice, smooth.</p><details class="dl-more"><summary>Read more</summary><p>Made by a small cooperative in Valledolmo, formed by several families whose mission is to support mountain winegrowing and bring back the old grape varieties of the Madonie. This red is made from pure Perricone, grown up to 1,000 metres in the Madonie on limestone and clay soil, giving an intense red in the glass, with notes of plum, wild berries, dark spices and a firm but well-integrated tannin.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Perricone</h4><span class="dl-wine__price">&euro;20</span></div><p class="dl-wine__meta">Ferreri &middot; Perricone · Western Sicily</p><p>The same rare grape from a family winery in western Sicily. Rich and rustic.</p><details class="dl-more"><summary>Read more</summary><p>From a very small winery in Santa Ninfa, founded in 2003 in the province of Trapani, to celebrate the history, culture and produce of the land. This pure Perricone comes from Contrada Calviano, on mid-height hills with a soil locally called Baiata, completely white and strongly calcareous. The result is a wine of great complexity, with hints of graphite, humus and tar, and on the palate balanced tannins and great freshness.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Frappato “Nerocapitano”</h4><span class="dl-wine__price">&euro;22</span></div><p class="dl-wine__meta">Lamoresca &middot; Frappato · South-east Sicily</p><p>A light, juicy red full of fresh cherries. Delicious slightly chilled.</p><details class="dl-more"><summary>Read more</summary><p>From an artisan estate led by Filippo Rizzo, farmed on natural principles with biodynamic techniques and no invasive intervention in the cellar. This Frappato comes from San Michele di Ganzeria, hilly inland country with limestone and sandy soils, which give a light, lively, juicy red with notes of fresh cherry, pomegranate and sweet spices. On the palate it is very easy to drink, and fresh.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Etna Rosso “Valcerasa”</h4><span class="dl-wine__price">&euro;30</span></div><p class="dl-wine__meta">Alice Bonaccorsi – Valcerasa &middot; Nerello Mascalese · Etna</p><p>Elegant volcanic red from Etna. Red fruit, fine tannins, a mineral finish.</p><details class="dl-more"><summary>Read more</summary><p>From one of the most authentic and interesting artisan estates on Etna, a family winery led by Alice Bonaccorsi, focused on natural practices and respect for the vine. This Etna Rosso is made from Nerello Mascalese with 20% Nerello Cappuccio, grown as bush vines in the municipality of Randazzo, on the northern slope of the volcano at 750 metres. After a long ageing in steel and in bottle, it becomes a broad, complex red with floral pot-pourri, moderate minerality and a spicy background.</p></details></li>
-            <li class="dl-wine"><div class="dl-wine__head"><h4>Nero d’Avola “Vrucara”</h4><span class="dl-wine__price">&euro;48</span></div><p class="dl-wine__meta">Feudo Montoni &middot; Nero d’Avola · Sicily</p><p>Our special bottle. Made from very old vines, deep and complex, for a great occasion.</p><details class="dl-more"><summary>Read more</summary><p>From an artisan estate with roots going back to 1469, run today by winegrower Fabio Sireci, guardian of very old clones of native Sicilian grapes. This Nero d’Avola is a selection from the estate’s oldest vines, with ungrafted vines up to 150 years old, grown as bush vines at high altitude on sandy, clay soil. After five years of ageing in the cellar, it becomes a deep, complex wine where fruity and balsamic notes alternate with hints of incense and cocoa.</p></details></li>
-            </ul>
-            <p class="dl-vats">Wine from our vats</p>
-            <p class="dl-per">75&nbsp;cl bottle &middot; VAT included</p>
-            <p class="dl-avail">Our delivery selection changes from time to time, depending on the season and what our winemakers have available. If a wine is not available, we will suggest a similar bottle when we confirm your order.</p>
-            </div>
-            <div class="dl-actions">
-            <a class="dl-btn" href="https://wa.me/393312530729?text=Hi%20Divino%2C%20I%27d%20like%20to%20order%20for%20delivery%20today." rel="noopener">Order by WhatsApp</a>
-            <a class="dl-btn dl-btn--ghost" href="tel:+393312530729">Call to order</a>
-        </div>
-            <div class="dl-villa">
-                <div><h3>A tasting at your villa?</h3><p>Our sommeliers can come to you, with the wines.</p></div>
-                <a class="dl-btn dl-btn--ghost dl-btn--sm" href="index.html#booking">Tasting at your villa</a>
-            </div>
-            <dl class="dl-know">
-                <div><dt>Age</dt><dd>We deliver alcohol to adults 18+ only and may ask for ID.</dd></div>
-                <div><dt>Order by</dt><dd>WhatsApp or phone: <a href="tel:+393312530729">+39 331 253 0729</a></dd></div>
-            </dl>
-        </div>
-    </section>
-
+<!-- dv:reviews -->
+<section class="white bt"><div class="wrap blk">
+ <p class="caps kick">Google reviews</p><h2>What our guests say</h2>
+ <p class="rbadge"><b aria-hidden="true">★★★★★</b>4.5 on Google · 120+ reviews</p>
+ <div class="revs"><figure class="rev rv"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote lang="en">“This place is incredible! The owner Massimo is so knowledgeable and personable. The wines offered are incredibly delicious and priced very well.”</blockquote><figcaption><b>Alex Dalla Zanna</b> · Google review</figcaption></figure><figure class="rev rv"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote lang="en">“We already loved Sicily. We didn’t think it was possible to love it more. Then we walked into Divino Urban Cellar and found a place as warm and memorable as the territory itself.”</blockquote><figcaption><b>Mike Page</b> · Google review</figcaption></figure><figure class="rev rv"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote lang="en">“What a transformation! The service is friendly and the wine selection is exceptional.”</blockquote><figcaption><b>Allan Baynton</b> · Google review</figcaption></figure><figure class="rev rv"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote lang="en">“Absolutely adore this wine shop. They have an incredible curation of wines (with a focus on Sicilian) plus they’ve kept the very affordable tap wine.”</blockquote><figcaption><b>Sarah Moore</b> · Google review</figcaption></figure></div>
+ <div class="c"><a class="btn o" href="https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU" target="_blank" rel="noopener">Read all our reviews on Google</a></div>
+</div></section>
+<!-- /dv:reviews -->
+<!-- dv:letters -->
+<section class="letters">
+ <p class="caps kick">Letters from Sicily</p><h2>Stories, events and new wines, once a month</h2>
+ <p class="d">Join our letters and be the first to hear about tastings, evenings at Divino and news from the countryside.</p>
+ <form class="signup" data-signup="Letters from Sicily"><label class="sr-only" for="letters-email">Your email</label><input id="letters-email" type="email" name="email" placeholder="Your email" autocomplete="email" required><button class="btn" type="submit">Sign up</button></form>
+ <p class="form-msg" aria-live="polite"></p>
+ <small>One email a month. No spam, ever.</small>
+</section>
+<!-- /dv:letters -->
 </main>
 
-<footer class="site-footer">
-    <nav aria-label="Footer">
-        <a href="index.html">Home</a>
-        <a href="magazine.html">Magazine</a>
-        <a href="index.html#cellar">The Urban Cellar</a>
-        <a href="index.html#calendar">Calendar</a>
-        <a href="ambrosia.html">Ambrosia</a>
-        <a href="delivery.html">Delivery</a>
-        <a href="index.html#visit">Visit</a>
-    </nav>
-    <div class="social-links">
-        <a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener" aria-label="Divino on Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg></a>
-        <a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener" aria-label="Divino on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-    <a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener" aria-label="Divino on YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-    </div>
-    <p>&copy; 2026 Divino Urban Cellar Cefal&ugrave; &middot; Via Gibilmanna, 16 &middot; 90015 Cefal&ugrave; PA</p>
+<!-- dv:footer -->
+<footer class="dvf">
+ <div class="fw">
+  <div class="fgrid">
+   <div><span class="wm" style="--s:34px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span><p>Enoteca · Experiences · The Countryside</p></div>
+   <div><h4>Find us</h4><p>Via Gibilmanna 16<br>90015 Cefalù (PA), Italy</p><p>Mon–Sat 10:00–14:00, 17:00–22:30<br>Sun 10:00–13:00, 17:00–22:00</p><a class="ul" href="https://www.google.com/maps/dir/?api=1&destination=Divino+Urban+Cellar%2C+Via+Gibilmanna+16%2C+90015+Cefal%C3%B9+PA" target="_blank" rel="noopener">Get directions</a></div>
+   <div id="contact"><h4>Contact</h4><a href="https://wa.me/393312530729" target="_blank" rel="noopener">Phone &amp; WhatsApp +39 331 253 0729</a><a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><p><span class="tbc">[email]</span></p><a href="https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU" target="_blank" rel="noopener">Google reviews</a></div>
+   <div><h4>Explore</h4><a href="tastings.html">Tastings</a><a href="wine-classes.html">Classes</a><a href="events.html">Events</a><a href="products.html">Our Products</a><a href="countryside.html">The Countryside</a><a href="magazine.html">Magazine</a><a href="delivery.html">Delivery</a><a href="products.html#gift-cards">Gift cards</a></div>
+  </div>
+  <div class="legal"><span>© 2026 Divino Urban Cellar · P.IVA <span class="tbc">[number]</span></span><span><button type="button" data-cookie-settings>Cookie settings</button> · <span class="on" aria-current="true">EN</span> · <a href="delivery-it.html" hreflang="it" lang="it" data-lang-switch="it">IT</a></span></div>
+ </div>
 </footer>
 
-<script src="blog.js" defer></script>
+<div class="bk" id="booking" role="dialog" aria-modal="true" aria-labelledby="bk-title" aria-hidden="true">
+ <div class="scrim" data-close-booking></div>
+ <div class="box">
+  <button class="x" type="button" data-close-booking aria-label="Close">×</button>
+  <span class="kick">Wine tasting at Divino</span>
+  <h2 id="bk-title">Book your tasting</h2>
+  <p class="when">Every day at 11:00 and 18:00, at the long table on Via Gibilmanna.</p>
+  <p class="q">How many guests?</p>
+  <div class="stepper"><button type="button" data-step="-1" aria-label="One guest fewer">−</button><output aria-live="polite">2</output><button type="button" data-step="1" aria-label="One guest more">+</button></div>
+  <p class="total" aria-live="polite"></p>
+  <button class="btn" type="button" data-confirm>Choose your day and time</button>
+  <p class="err" role="alert" hidden>Online booking is not available right now. Please book on WhatsApp and we will reply quickly.</p>
+  <p class="alt">Prefer to talk? <a href="https://wa.me/393312530729?text=Hello%20Divino!%20I%20would%20like%20to%20book%20a%20wine%20tasting." target="_blank" rel="noopener">Book on WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a></p>
+ </div>
+</div>
+
+<div class="cookie" id="cookie" role="dialog" aria-label="This website uses cookies">
+ <p><b>This website uses cookies</b>Only if you accept, we use Google Analytics and one small Divino cookie that counts returning visitors, so we can see how our site is used. No advertising or social media tracking cookies. Without your consent we still count page visits, anonymously and without cookies. Booking and map services may set their own cookies when you use them. You can change your choice at any time from “Cookie settings” in the footer.</p>
+ <div class="acts"><button class="btn sm" type="button" data-accept>Accept</button><button class="btn sm o" type="button" data-decline>Decline</button></div>
+</div>
+<a class="sbook btn" href="tastings.html#book" data-book>Book a tasting</a>
+<script src="site.js" defer></script>
+<!-- /dv:footer -->
 </body>
 </html>

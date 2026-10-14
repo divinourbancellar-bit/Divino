@@ -4,16 +4,222 @@
 
   <url>
     <loc>https://divino-urbancellar.com/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/index-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/"/>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://divino-urbancellar.com/ambrosia.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://divino-urbancellar.com/index-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/index-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/tastings.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/tastings.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/tastings-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/tastings.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/tastings-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/tastings.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/tastings-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/tastings.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/wine-tasting-cefalu.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/wine-tasting-cefalu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/wine-tasting-cefalu-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/wine-tasting-cefalu.html"/>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/wine-tasting-cefalu-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/wine-tasting-cefalu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/wine-tasting-cefalu-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/wine-tasting-cefalu.html"/>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/private-group-wine-tasting.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/private-group-wine-tasting.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/private-group-wine-tasting-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/private-group-wine-tasting.html"/>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/private-group-wine-tasting-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/private-group-wine-tasting.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/private-group-wine-tasting-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/private-group-wine-tasting.html"/>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/tasting-villa.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/tasting-villa.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/tasting-villa-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/tasting-villa.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/tasting-villa-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/tasting-villa.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/tasting-villa-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/tasting-villa.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/wine-classes.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/wine-classes.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/wine-classes-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/wine-classes.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/wine-classes-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/wine-classes.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/wine-classes-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/wine-classes.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/cooking-classes.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/cooking-classes.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/cooking-classes-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/cooking-classes.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/cooking-classes-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/cooking-classes.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/cooking-classes-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/cooking-classes.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/events.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/events.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/events-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/events.html"/>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/events-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/events.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/events-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/events.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/products.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/products.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/products-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/products.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/products-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/products.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/products-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/products.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/countryside.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/countryside.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/countryside-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/countryside.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/countryside-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/countryside.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/countryside-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/countryside.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/about-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/about.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://divino-urbancellar.com/about-it.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://divino-urbancellar.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://divino-urbancellar.com/about-it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divino-urbancellar.com/about.html"/>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>

@@ -9,7 +9,8 @@
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#6E2A34">
+<meta name="theme-color" content="#4B5320">
+<meta name="dv-section" content="magazine">
 
 <title>Nero d'Avola: L'Uva che Aspetta — Racconto e Poesia | Divino</title>
 <meta name="description" content="Com'è fatto il Nero d'Avola, come invecchia e cosa mangiarci insieme — attorno alla storia di una bottiglia tenuta undici anni e aperta un martedì qualunque.">
@@ -35,11 +36,13 @@
 <meta name="twitter:description" content="Una bottiglia, undici anni e un martedì qualunque — più com'è fatto davvero il Nero d'Avola.">
 <meta name="twitter:image" content="https://divino-urbancellar.com/og/nero-davola.jpg">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<!-- dv:head -->
+<link rel="preload" href="fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/eb-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://app.cal.com" crossorigin>
+<link rel="stylesheet" href="chrome.css">
+<!-- /dv:head -->
 <link rel="stylesheet" href="blog.css">
-<link rel="stylesheet" href="delivery-strip.css">
 
 <script type="application/ld+json">
 {
@@ -96,42 +99,32 @@
 </head>
 <body>
 
-<a class="skip-link" href="#main">Vai al contenuto</a>
-<a class="delivery-strip" href="delivery-it.html">Consegna gratuita in giornata &middot; Ordine minimo 50&nbsp;&euro; &middot; Ordina su WhatsApp</a>
-
-<header class="site-header">
-    <div class="site-header__inner">
-        <a href="index.html" aria-label="Divino Urban Cellar — home">
-            <img src="divino logo black and red.svg" alt="Divino Urban Cellar, Cefalù" class="site-header__logo" width="200" height="76">
-        </a>
-        <nav class="site-nav" aria-label="Principale">
-            <a href="index.html#booking">Prenota</a>
-            <a href="index.html#vision">Visione</a>
-            <a href="index.html#cellar">Il Wine Cellar Urbano</a>
-            <a href="index.html#calendar">Calendario</a>
-            <a href="index.html#owner">Chi Siamo</a>
-            <a href="magazine-it.html" aria-current="page">Magazine</a>
-            <a href="ambrosia.html">Ambrosia</a>
-            <a class="lang-toggle" href="blog-nero-davola.html" hreflang="en" lang="en" data-lang-switch="en" aria-label="Read in English">EN</a>
-        </nav>
-        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav">
-            <span class="sr-only">Apri il menu</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-    </div>
-    <div class="mobile-nav" id="mobile-nav">
-        <ul>
-            <li><a href="index.html#booking">Prenota</a></li>
-            <li><a href="index.html#vision">Visione</a></li>
-            <li><a href="index.html#cellar">Il Wine Cellar Urbano</a></li>
-            <li><a href="index.html#calendar">Calendario</a></li>
-            <li><a href="index.html#owner">Chi Siamo</a></li>
-            <li><a href="magazine-it.html" aria-current="page">Magazine</a></li>
-            <li><a href="ambrosia.html">Ambrosia</a></li>
-            <li><a class="lang-toggle" href="blog-nero-davola.html" hreflang="en" lang="en" data-lang-switch="en" aria-label="Read in English">EN</a></li>
-        </ul>
-    </div>
+<!-- dv:header -->
+<a class="skip" href="#main">Vai al contenuto</a>
+<a class="strip" href="delivery-it.html">Consegna gratuita in giornata · Ordine minimo €50 · Ordina su WhatsApp</a>
+<header class="dvh">
+ <div class="hdr">
+  <div class="lang" aria-label="Lingua"><a href="blog-nero-davola.html" hreflang="en" lang="en" data-lang-switch="en">EN</a> · <span class="on" aria-current="true">IT</span></div>
+  <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></svg><span>Menu</span><b class="sr-only">Apri il menu</b></button>
+  <nav class="nav l" aria-label="Main, left"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Degustazioni</button><div class="sub"><a href="tastings-it.html">Da Divino</a><a href="wine-tasting-cefalu-it.html">Degustazione a Cefalù</a><a href="private-group-wine-tasting-it.html">Degustazioni private e di gruppo</a><a href="tasting-villa-it.html">Nella tua villa</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Corsi</button><div class="sub"><a href="wine-classes-it.html">Corsi di vino</a><a href="cooking-classes-it.html">Cucina dal campo alla tavola<span class="soon-dot">Presto</span></a></div></div><a href="events-it.html">Eventi</a></nav>
+  <a class="logo" href="index-it.html" aria-label="Divino Urban Cellar, Home"><span class="wm" style="--s:46px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span></a>
+  <nav class="nav r" aria-label="Main, right"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">I nostri prodotti</button><div class="sub"><a href="products-it.html#specialty">Prodotti Divino</a><a href="products-it.html#countryside">Dalla nostra campagna</a><a href="delivery-it.html">Vini a domicilio</a><a href="products-it.html#gift-cards">Carte regalo</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">La Campagna</button><div class="sub"><a href="countryside-it.html">La nostra terra</a><a href="countryside-it.html#donna-maria">Prodotti Donna Maria</a></div></div><a href="magazine-it.html" aria-current="page">Magazine</a><a href="about-it.html">Chi siamo</a><a class="btn sm" href="tastings-it.html#book" data-book>Prenota</a></nav>
+  <a class="btn sm mbook" href="tastings-it.html#book" data-book>Prenota</a>
+ </div>
 </header>
+<div class="drawer" id="drawer" aria-hidden="true">
+ <div class="scrim" data-close-drawer></div>
+ <nav class="panel" aria-label="Menu">
+  <div class="top"><a href="index-it.html" aria-label="Divino Urban Cellar, Home"><span class="wm" style="--s:30px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span></a><button class="close" type="button" data-close-drawer aria-label="Chiudi il menu">×</button></div>
+  <div class="grp"><p>Degustazioni</p><a class="s" href="tastings-it.html">Da Divino</a><a class="s" href="wine-tasting-cefalu-it.html">Degustazione a Cefalù</a><a class="s" href="private-group-wine-tasting-it.html">Degustazioni private e di gruppo</a><a class="s" href="tasting-villa-it.html">Nella tua villa</a></div><div class="grp"><p>Corsi</p><a class="s" href="wine-classes-it.html">Corsi di vino</a><a class="s" href="cooking-classes-it.html">Cucina dal campo alla tavola<span class="soon-dot">Presto</span></a></div>
+  <div class="grp"><a href="events-it.html">Eventi</a></div>
+  <div class="grp"><p>I nostri prodotti</p><a class="s" href="products-it.html#specialty">Prodotti Divino</a><a class="s" href="products-it.html#countryside">Dalla nostra campagna</a><a class="s" href="delivery-it.html">Vini a domicilio</a><a class="s" href="products-it.html#gift-cards">Carte regalo</a></div><div class="grp"><p>La Campagna</p><a class="s" href="countryside-it.html">La nostra terra</a><a class="s" href="countryside-it.html#donna-maria">Prodotti Donna Maria</a></div>
+  <div class="grp"><a href="magazine-it.html" aria-current="page">Magazine</a><a href="about-it.html">Chi siamo</a></div>
+  <a class="btn" href="tastings-it.html#book" data-book>Prenota</a>
+  <div class="dl" aria-label="Lingua"><a href="blog-nero-davola.html" hreflang="en" lang="en" data-lang-switch="en">EN</a> · <span class="on" aria-current="true">IT</span></div>
+ </nav>
+</div>
+<!-- /dv:header -->
 
 <main id="main">
 
@@ -412,7 +405,7 @@ e spera che tu te ne accorga.</div>
                 con il <strong>Frappato</strong>, e il risultato è uno dei rossi più sorprendenti d'Italia —
                 il peso dell'uno, il profumo e la leggerezza dell'altro. Se hai deciso che il Nero d'Avola
                 non ti piace, molto spesso è quella la bottiglia che riapre la trattativa. Di solito ne
-                abbiamo una <a href="index.html#cellar">in cantina</a>.
+                abbiamo una <a href="index.html">in cantina</a>.
             </p>
 
             <h2>Il che ci riporta all'armadio</h2>
@@ -438,7 +431,7 @@ e spera che tu te ne accorga.</div>
 
             <p>
                 Apri la bottiglia. Se preferisci aprirla con qualcuno che ti racconti cosa sta facendo,
-                <a href="index.html#booking">il tavolo lungo è qui</a>, e quasi sempre c'è sopra qualcosa di
+                <a href="tastings.html#book" data-book>il tavolo lungo è qui</a>, e quasi sempre c'è sopra qualcosa di
                 scuro, acido sul bordo e siciliano.
             </p>
 
@@ -474,7 +467,7 @@ e spera che tu te ne accorga.</div>
                     Nero d'Avola, rossi dell'Etna, bianchi dell'isola — versati a coppie al tavolo lungo,
                     così puoi sentire la differenza invece di crederci sulla parola.
                 </p>
-                <a class="button" href="index.html#booking">Prenota una degustazione</a>
+                <a class="button" href="tastings.html#book" data-book>Prenota una degustazione</a>
             </div>
         </section>
 
@@ -482,24 +475,41 @@ e spera che tu te ne accorga.</div>
 
 </main>
 
-<footer class="site-footer">
-    <nav aria-label="Piè di pagina">
-        <a href="index.html">Home</a>
-        <a href="magazine-it.html">Magazine</a>
-        <a href="index.html#cellar">Il Wine Cellar Urbano</a>
-        <a href="index.html#calendar">Calendario</a>
-        <a href="ambrosia.html">Ambrosia</a>
-        <a href="delivery-it.html">Consegna</a>
-        <a href="index.html#visit">Vieni a trovarci</a>
-    </nav>
-    <div class="social-links">
-        <a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener" aria-label="Divino su Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg></a>
-        <a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener" aria-label="Divino su Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-    <a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener" aria-label="Divino su YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-    </div>
-    <p>&copy; 2026 Divino Urban Cellar Cefalù · Via Gibilmanna, 16 · 90015 Cefalù PA</p>
+<!-- dv:footer -->
+<footer class="dvf">
+ <div class="fw">
+  <div class="fgrid">
+   <div><span class="wm" style="--s:34px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span><p>Enoteca · Esperienze · La Campagna</p></div>
+   <div><h4>Dove siamo</h4><p>Via Gibilmanna 16<br>90015 Cefalù (PA), Italia</p><p>Lun–Sab 10:00–14:00, 17:00–22:30<br>Dom 10:00–13:00, 17:00–22:00</p><a class="ul" href="https://www.google.com/maps/dir/?api=1&destination=Divino+Urban+Cellar%2C+Via+Gibilmanna+16%2C+90015+Cefal%C3%B9+PA" target="_blank" rel="noopener">Indicazioni stradali</a></div>
+   <div id="contact"><h4>Contatti</h4><a href="https://wa.me/393312530729" target="_blank" rel="noopener">Telefono e WhatsApp +39 331 253 0729</a><a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><p><span class="tbc">[email]</span></p><a href="https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU" target="_blank" rel="noopener">Recensioni Google</a></div>
+   <div><h4>Esplora</h4><a href="tastings-it.html">Degustazioni</a><a href="wine-classes-it.html">Corsi</a><a href="events-it.html">Eventi</a><a href="products-it.html">I nostri prodotti</a><a href="countryside-it.html">La Campagna</a><a href="magazine-it.html">Magazine</a><a href="delivery-it.html">Consegna</a><a href="products-it.html#gift-cards">Carte regalo</a></div>
+  </div>
+  <div class="legal"><span>© 2026 Divino Urban Cellar · P.IVA <span class="tbc">[numero]</span></span><span><button type="button" data-cookie-settings>Impostazioni cookie</button> · <a href="blog-nero-davola.html" hreflang="en" lang="en" data-lang-switch="en">EN</a> · <span class="on" aria-current="true">IT</span></span></div>
+ </div>
 </footer>
 
-<script src="blog.js" defer></script>
+<div class="bk" id="booking" role="dialog" aria-modal="true" aria-labelledby="bk-title" aria-hidden="true">
+ <div class="scrim" data-close-booking></div>
+ <div class="box">
+  <button class="x" type="button" data-close-booking aria-label="Chiudi">×</button>
+  <span class="kick">Degustazione da Divino</span>
+  <h2 id="bk-title">Prenota la tua degustazione</h2>
+  <p class="when">Ogni giorno alle 11:00 e alle 18:00, al lungo tavolo in Via Gibilmanna.</p>
+  <p class="q">Quanti ospiti?</p>
+  <div class="stepper"><button type="button" data-step="-1" aria-label="Un ospite in meno">−</button><output aria-live="polite">2</output><button type="button" data-step="1" aria-label="Un ospite in più">+</button></div>
+  <p class="total" aria-live="polite"></p>
+  <button class="btn" type="button" data-confirm>Scegli giorno e orario</button>
+  <p class="err" role="alert" hidden>La prenotazione online non è disponibile in questo momento. Prenota su WhatsApp e ti risponderemo subito.</p>
+  <p class="alt">Preferisci parlarci? <a href="https://wa.me/393312530729?text=Ciao%20Divino!%20Vorrei%20prenotare%20una%20degustazione." target="_blank" rel="noopener">Prenota su WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a></p>
+ </div>
+</div>
+
+<div class="cookie" id="cookie" role="dialog" aria-label="Questo sito usa i cookie">
+ <p><b>Questo sito usa i cookie</b>Solo se acconsenti, usiamo Google Analytics e un piccolo cookie di Divino che conta i visitatori di ritorno, per capire come viene usato il sito. Nessun cookie pubblicitario o di tracciamento dei social media. Senza il tuo consenso contiamo comunque le visite alle pagine, in forma anonima e senza cookie. I servizi di prenotazione e di mappa possono impostare propri cookie quando li usi. Puoi cambiare la tua scelta in qualsiasi momento da “Impostazioni cookie” nel footer.</p>
+ <div class="acts"><button class="btn sm" type="button" data-accept>Accetta</button><button class="btn sm o" type="button" data-decline>Rifiuta</button></div>
+</div>
+<a class="sbook btn" href="tastings-it.html#book" data-book>Prenota una degustazione</a>
+<script src="site.js" defer></script>
+<!-- /dv:footer -->
 </body>
 </html>

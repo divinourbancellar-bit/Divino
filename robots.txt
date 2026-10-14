@@ -9,5 +9,6 @@ Disallow: /*.pdf$
 Disallow: /botanical-seamless-pattern/
 Disallow: /olive-icons-set/
 Disallow: /wine-black-doodle-icons-set/
+Disallow: /admin.html
 
 Sitemap: https://divino-urbancellar.com/sitemap.xml

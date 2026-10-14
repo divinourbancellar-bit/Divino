@@ -9,7 +9,8 @@
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#6E2A34">
+<meta name="theme-color" content="#4B5320">
+<meta name="dv-section" content="magazine">
 
 <title>Magazine | Divino Cefalù — Sicilian Wine Stories</title>
 <meta name="description" content="The Divino magazine: stories on Sicilian wine, Cefalù and country life, written from the urban cellar on Via Gibilmanna.">
@@ -33,11 +34,6 @@
 <meta name="twitter:image" content="https://divino-urbancellar.com/icons/og-image.png">
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="blog.css">
-<link rel="stylesheet" href="delivery-strip.css">
 
 <script type="application/ld+json">
 {
@@ -83,435 +79,198 @@
   ]
 }
 </script>
+<!-- dv:ga -->
+<!-- Google Analytics, consent-gated: nothing is stored until the visitor accepts. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+  gtag('js', new Date());
+  gtag('config', 'G-31NB1K438E');
+  (function () {
+    var loaded = false;
+    function load() { if (loaded) return; loaded = true; var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-31NB1K438E'; document.head.appendChild(s); }
+    ['pointerdown', 'keydown', 'scroll'].forEach(function (e) { window.addEventListener(e, load, { once: true, passive: true }); });
+    if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 6000 }); else setTimeout(load, 5000);
+  })();
+</script>
+<!-- /dv:ga -->
+<!-- dv:head -->
+<link rel="preload" href="fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/eb-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://app.cal.com" crossorigin>
+<link rel="stylesheet" href="chrome.css">
+<!-- /dv:head -->
+<link rel="stylesheet" href="site.css">
+<style>
+.topics{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:6px auto 0;padding:0 16px}
+.topics button{border:1px solid var(--wine);color:var(--wine);padding:10px 18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;transition:background .2s,color .2s}
+.topics button[aria-pressed="true"],.topics button:hover{background:var(--wine);color:#fff}
+.feat{display:grid;grid-template-columns:1.15fr 1fr;max-width:1120px;margin:50px auto 0;background:var(--ivory);border:1px solid var(--line);border-top:3px solid var(--sage)}
+.feat .fi{min-height:420px;background:url('photos/countryside-lavender-900.webp') center/cover}
+.feat .fb{padding:46px 44px;display:flex;flex-direction:column;justify-content:center}
+.feat h2{text-align:left;font-size:clamp(32px,3.4vw,44px)} .feat p.x{font-size:18px;line-height:1.65;margin-top:14px}
+.tag{color:var(--green)}
+.arts{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1120px;margin:56px auto 0}
+.art{background:#fff;border:1px solid var(--line);border-top:3px solid var(--sage);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.art:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(74,55,48,.1)}
+.art[hidden]{display:none}
+.art .ai{aspect-ratio:3/2;overflow:hidden;background:var(--sand)} .art .ai img{width:100%;height:100%;object-fit:cover}
+.art .ab{padding:22px 22px 26px;text-align:center;flex:1;display:flex;flex-direction:column}
+.art h3{font:500 25px/1.25 var(--display);margin-top:8px;flex:1} .art .dt{font-size:14.5px;color:var(--muted);margin-top:8px}
+.art .go{align-self:center;margin-top:14px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--wine);border-bottom:1px solid var(--wine)}
+@media (max-width:1024px){.arts{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.arts{grid-template-columns:1fr}.feat{grid-template-columns:1fr}.feat .fi{min-height:240px}.feat .fb{padding:30px 22px}}
+</style>
 </head>
 <body>
-
-<a class="skip-link" href="#main">Skip to content</a>
-<a class="delivery-strip" href="delivery.html">Free same-day delivery &middot; Minimum order &euro;50 &middot; Order by WhatsApp</a>
-
-<header class="site-header">
-    <div class="site-header__inner">
-        <a href="index.html" aria-label="Divino Urban Cellar — home">
-            <img src="divino logo black and red.svg" alt="Divino Urban Cellar, Cefalù" class="site-header__logo" width="200" height="76">
-        </a>
-        <nav class="site-nav" aria-label="Main">
-            <a href="index.html#booking">Book</a>
-            <a href="index.html#vision">Vision</a>
-            <a href="index.html#cellar">The Urban Cellar</a>
-            <a href="index.html#calendar">Calendar</a>
-            <a href="index.html#owner">About</a>
-            <a href="magazine.html" aria-current="page">Magazine</a>
-            <a href="ambrosia.html">Ambrosia</a>
-            <a class="lang-toggle" href="magazine-it.html" hreflang="it" lang="it" data-lang-switch="it" aria-label="Leggi in italiano">IT</a>
-        </nav>
-        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav">
-            <span class="sr-only">Open menu</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-    </div>
-    <div class="mobile-nav" id="mobile-nav">
-        <ul>
-            <li><a href="index.html#booking">Book</a></li>
-            <li><a href="index.html#vision">Vision</a></li>
-            <li><a href="index.html#cellar">The Urban Cellar</a></li>
-            <li><a href="index.html#calendar">Calendar</a></li>
-            <li><a href="index.html#owner">About</a></li>
-            <li><a href="magazine.html" aria-current="page">Magazine</a></li>
-            <li><a href="ambrosia.html">Ambrosia</a></li>
-            <li><a class="lang-toggle" href="magazine-it.html" hreflang="it" lang="it" data-lang-switch="it" aria-label="Leggi in italiano">IT</a></li>
-        </ul>
-    </div>
+<!-- dv:header -->
+<a class="skip" href="#main">Skip to content</a>
+<a class="strip" href="delivery.html">Free same-day delivery · Minimum order €50 · Order by WhatsApp</a>
+<header class="dvh">
+ <div class="hdr">
+  <div class="lang" aria-label="Language"><span class="on" aria-current="true">EN</span> · <a href="magazine-it.html" hreflang="it" lang="it" data-lang-switch="it">IT</a></div>
+  <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></svg><span>Menu</span><b class="sr-only">Open menu</b></button>
+  <nav class="nav l" aria-label="Main, left"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Tastings</button><div class="sub"><a href="tastings.html">At Divino</a><a href="wine-tasting-cefalu.html">Wine tasting in Cefalù</a><a href="private-group-wine-tasting.html">Private & group tastings</a><a href="tasting-villa.html">At your villa</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Classes</button><div class="sub"><a href="wine-classes.html">Wine classes</a><a href="cooking-classes.html">Farm-to-table cooking<span class="soon-dot">Soon</span></a></div></div><a href="events.html">Events</a></nav>
+  <a class="logo" href="./" aria-label="Divino Urban Cellar, Home"><span class="wm" style="--s:46px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span></a>
+  <nav class="nav r" aria-label="Main, right"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Our Products</button><div class="sub"><a href="products.html#specialty">Divino Specialty Products</a><a href="products.html#countryside">From our Countryside</a><a href="delivery.html">Wines delivered</a><a href="products.html#gift-cards">Gift cards</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">The Countryside</button><div class="sub"><a href="countryside.html">Our land</a><a href="countryside.html#donna-maria">Donna Maria products</a></div></div><a href="magazine.html" aria-current="page">Magazine</a><a href="about.html">About Us</a><a class="btn sm" href="tastings.html#book" data-book>Book</a></nav>
+  <a class="btn sm mbook" href="tastings.html#book" data-book>Book</a>
+ </div>
 </header>
+<div class="drawer" id="drawer" aria-hidden="true">
+ <div class="scrim" data-close-drawer></div>
+ <nav class="panel" aria-label="Menu">
+  <div class="top"><a href="./" aria-label="Divino Urban Cellar, Home"><span class="wm" style="--s:30px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span></a><button class="close" type="button" data-close-drawer aria-label="Close menu">×</button></div>
+  <div class="grp"><p>Tastings</p><a class="s" href="tastings.html">At Divino</a><a class="s" href="wine-tasting-cefalu.html">Wine tasting in Cefalù</a><a class="s" href="private-group-wine-tasting.html">Private & group tastings</a><a class="s" href="tasting-villa.html">At your villa</a></div><div class="grp"><p>Classes</p><a class="s" href="wine-classes.html">Wine classes</a><a class="s" href="cooking-classes.html">Farm-to-table cooking<span class="soon-dot">Soon</span></a></div>
+  <div class="grp"><a href="events.html">Events</a></div>
+  <div class="grp"><p>Our Products</p><a class="s" href="products.html#specialty">Divino Specialty Products</a><a class="s" href="products.html#countryside">From our Countryside</a><a class="s" href="delivery.html">Wines delivered</a><a class="s" href="products.html#gift-cards">Gift cards</a></div><div class="grp"><p>The Countryside</p><a class="s" href="countryside.html">Our land</a><a class="s" href="countryside.html#donna-maria">Donna Maria products</a></div>
+  <div class="grp"><a href="magazine.html" aria-current="page">Magazine</a><a href="about.html">About Us</a></div>
+  <a class="btn" href="tastings.html#book" data-book>Book</a>
+  <div class="dl" aria-label="Language"><span class="on" aria-current="true">EN</span> · <a href="magazine-it.html" hreflang="it" lang="it" data-lang-switch="it">IT</a></div>
+ </nav>
+</div>
+<!-- /dv:header -->
 
 <main id="main">
+<div class="phero" style="background-image:url('photos/long-table.webp');height:clamp(220px,30vw,420px)" role="img" aria-label=""></div>
+<section class="white" style="padding-bottom:96px">
+ <div class="pintro" style="padding-bottom:30px">
+  <p class="caps kick">Magazine · Il nostro blog</p>
+  <h1>Stories from the cellar and the countryside</h1>
+  <p class="itl" lang="it">Storie dalla cantina e dalla campagna</p>
+  <p class="d">Wines and the families who make them, evenings at Divino, and life on our land: lavender, olive oil, the vineyard and manna.</p>
+ </div>
+ <div class="topics" role="group" aria-label="Filter stories by topic"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="wine" aria-pressed="false">Wine stories</button><button type="button" data-filter="events" aria-pressed="false">Events</button><button type="button" data-filter="countryside" aria-pressed="false">The Countryside</button><button type="button" data-filter="sicily" aria-pressed="false">Cefalù and Sicily</button></div>
+ <div class="wrap">
+  <article class="feat"><div class="fi" role="img" aria-label=""></div><div class="fb"><p class="caps tag">The Countryside · Featured</p><h2><a href="blog-sicilian-countryside.html">What Nobody Tells You About Living in the Sicilian Countryside</a></h2><p class="x">The fantasy involves lemon trees and a long table. The reality involves a water tank, a man named Turi who may or may not exist, and learning that August is not a month but a weather event.</p><a class="btn" style="align-self:flex-start;margin-top:26px" href="blog-sicilian-countryside.html">Read the story</a></div></article>
+  <div class="arts" id="arts">
+<a class="art" href="blog-esperto-vini-di-sicilia.html" data-topic="wine"><div class="ai"><img src="blog-photos/post17-airbnb-experience-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>Sicilian Wine Expert: Our Airbnb Experience</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-consegna-vini-cefalu.html" data-topic="wine"><div class="ai"><img src="blog-photos/post09-consegna-vini-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>Sicilian Wine, Delivered to Your Door</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-vino-bag-in-box.html" data-topic="wine"><div class="ai"><img src="blog-photos/post05-bag-in-box-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>The Wine at Home Is Changing</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-stasera-da-divino-vorwerk.html" data-topic="events"><div class="ai"><img src="blog-photos/post14-stasera-vorwerk-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Events</p><h3>Tonight at Divino: Wine &amp; More</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-cocktail-a-base-di-vino.html" data-topic="events"><div class="ai"><img src="blog-photos/post08-cocktail-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Events</p><h3>Wine-Based Cocktails at Divino</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-pudding-party.html" data-topic="events"><div class="ai"><img src="blog-photos/post04-pudding-party-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Events</p><h3>Cefal&ugrave;&rsquo;s First Pudding Party</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-degustazione-vaccaro.html" data-topic="events"><div class="ai"><img src="blog-photos/post12-vaccaro-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Events</p><h3>A Tasting with Vaccaro</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-presentazione-prosecco-valdo.html" data-topic="events"><div class="ai"><img src="blog-photos/post11-prosecco-valdo-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Events</p><h3>A Prosecco Presentation with Valdo</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-serata-frappato.html" data-topic="wine"><div class="ai"><img src="blog-photos/post15-frappato-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>An Evening Devoted to Frappato</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-rossi-di-sicilia.html" data-topic="wine"><div class="ai"><img src="blog-photos/post20-rossi-di-sicilia-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>Rossi di Sicilia</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-sicilian-amaro-tasting.html" data-topic="wine"><div class="ai"><img src="blog-photos/post18-amaro-tasting-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>Sicilian Amaro: Bitter-Sweet Secrets</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-vitigni-autoctoni-sicilia.html" data-topic="wine"><div class="ai"><img src="blog-photos/post10-vitigni-autoctoni-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>Sicily&rsquo;s Native Grapes</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-serata-marino-abate.html" data-topic="events"><div class="ai"><img src="blog-photos/post06-marino-abate-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Events</p><h3>An Evening with Nicola Marino Abate</h3><p class="dt"><time datetime="2026-08-30">30 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-viaggio-sicilia-del-vino.html" data-topic="wine"><div class="ai"><img src="blog-photos/post01-sicily-wine-journey-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>A Journey Through Sicily, One Glass at a Time</h3><p class="dt"><time datetime="2026-08-28">28 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-how-to-taste-wine.html" data-topic="wine"><div class="ai"><img src="12.webp" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>How to Taste Wine Without Becoming Insufferable</h3><p class="dt"><time datetime="2026-08-12">12 August 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-cefalu-stories.html" data-topic="sicily"><div class="ai"><img src="optimized/cefalu.webp" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Cefalù and Sicily</p><h3>Cefalù: Notes From a Town Beneath a Very Large Rock</h3><p class="dt"><time datetime="2026-07-09">9 July 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-serata-duca-di-salaparuta.html" data-topic="events"><div class="ai"><img src="blog-photos/post02-duca-salaparuta-02.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Events</p><h3>An Evening with Duca di Salaparuta</h3><p class="dt"><time datetime="2026-06-26">26 June 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-wine-tasting-experience.html" data-topic="wine"><div class="ai"><img src="blog-photos/post03-wine-tasting-02.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>Wine Tasting at Divino</h3><p class="dt"><time datetime="2026-06-22">22 June 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-lettura-dal-vivo-con-lautore.html" data-topic="events"><div class="ai"><img src="blog-photos/post04-lettura-dal-vivo-01.jpg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Events</p><h3>A Live Reading with the Author</h3><p class="dt"><time datetime="2026-06-13">13 June 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-lavender-soap.html" data-topic="countryside"><div class="ai"><img src="lavender-banner.svg" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">The Countryside</p><h3>How to Make Lavender Soap (and What the Lye Taught Me)</h3><p class="dt"><time datetime="2026-05-22">22 May 2026</time></p><span class="go">Read the story</span></div></a>
+<a class="art" href="blog-nero-davola.html" data-topic="wine"><div class="ai"><img src="optimized/cheeseplate.webp" alt="" loading="lazy" decoding="async"></div><div class="ab"><p class="caps tag">Wine stories</p><h3>The Grape That Waits: A Story and a Poem for Nero d'Avola</h3><p class="dt"><time datetime="2026-04-18">18 April 2026</time></p><span class="go">Read the story</span></div></a>
+  </div>
+  <div class="c"><button class="btn o" type="button" id="more">More stories</button></div>
+ </div>
+</section>
 
-    <nav class="breadcrumb wrap" aria-label="Breadcrumb">
-        <ol>
-            <li><a href="index.html">Home</a></li>
-            <li><span aria-current="page">Magazine</span></li>
-        </ol>
-    </nav>
-
-    <div class="wrap index-hero">
-        <span class="eyebrow">The Divino Magazine</span>
-        <h1>Wine, Cefalù, and the Long Sicilian Afternoon</h1>
-        <hr class="rule rule--center">
-        <p>
-            Long pieces from the cellar on <a href="index.html#cellar">Via Gibilmanna</a> — wine,
-            country life, the people who grow it, and the occasional small humiliation.
-        </p>
-    </div>
-
-    <!-- ============================================== The Divino Journal -->
-    <section class="magazine-section" aria-labelledby="journal-heading">
-        <div class="wrap">
-            <div class="section-head">
-                <span class="eyebrow">From the Cellar</span>
-                <h2 id="journal-heading">The Divino Journal</h2>
-                <hr class="rule rule--center">
-                <p>
-                    How to taste Sicilian wine without pretending, what the countryside actually asks
-                    of you, and how to make soap from a plant that grows in the cracks of a wall.
-                </p>
-            </div>
-
-            <div class="post-grid">
-
-                <article class="post-card post-card--lead">
-                    <a class="post-card__media" href="blog-how-to-taste-wine.html" tabindex="-1" aria-hidden="true">
-                        <img src="12.webp" alt="Guests seated around the long tasting table at Divino Urban Cellar in Cefalù, wine glasses and carafes set out beneath warm pendant lights" width="1280" height="720" loading="eager" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-12">12 August 2026</time> · Wine</p>
-                        <h3><a href="blog-how-to-taste-wine.html">How to Taste Wine Without Becoming Insufferable</a></h3>
-                        <p>
-                            There is a moment, roughly forty seconds into any wine tasting, when a person decides
-                            who they are going to be. This is a guide to not becoming the other thing —
-                            and to actually noticing what is in the glass.
-                        </p>
-                        <a class="post-card__more" href="blog-how-to-taste-wine.html">Read the piece →</a>
-                    </div>
-                </article>
-                <!-- FB-IMPORT:START -->
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-viaggio-sicilia-del-vino.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post01-sicily-wine-journey-01.jpg" alt="A Journey Through Sicily, One Glass at a Time &mdash; Divino Urban Cellar" width="2034" height="1074" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-28">28 August 2026</time> &middot; Wine</p>
-                        <h3><a href="blog-viaggio-sicilia-del-vino.html">A Journey Through Sicily, One Glass at a Time</a></h3>
-                        <p>
-                            Authentic labels, small producers and grapes that carry a territory &mdash; from Etna to the lands of Frappato and Nero d&rsquo;Avola.
-                        </p>
-                        <a class="post-card__more" href="blog-viaggio-sicilia-del-vino.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-serata-duca-di-salaparuta.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post02-duca-salaparuta-02.jpg" alt="An Evening with Duca di Salaparuta &mdash; Divino Urban Cellar" width="1600" height="900" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-06-26">26 June 2026</time> &middot; Events</p>
-                        <h3><a href="blog-serata-duca-di-salaparuta.html">An Evening with Duca di Salaparuta</a></h3>
-                        <p>
-                            Lavico, Sentiero del Vento and Passo delle Mule, with Olio Lorenzo alongside.
-                        </p>
-                        <a class="post-card__more" href="blog-serata-duca-di-salaparuta.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-wine-tasting-experience.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post03-wine-tasting-02.jpg" alt="Wine Tasting at Divino &mdash; Divino Urban Cellar" width="590" height="332" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-06-22">22 June 2026</time> &middot; Wine</p>
-                        <h3><a href="blog-wine-tasting-experience.html">Wine Tasting at Divino</a></h3>
-                        <p>
-                            A private session, no need to drive, and some of the finest wines Sicily has to offer.
-                        </p>
-                        <a class="post-card__more" href="blog-wine-tasting-experience.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-lettura-dal-vivo-con-lautore.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post04-lettura-dal-vivo-01.jpg" alt="A Live Reading with the Author &mdash; Divino Urban Cellar" width="526" height="788" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-06-13">13 June 2026</time> &middot; Events</p>
-                        <h3><a href="blog-lettura-dal-vivo-con-lautore.html">A Live Reading with the Author</a></h3>
-                        <p>
-                            An hour of stories with Antonio Campagna, and a glass of Glera to go with them.
-                        </p>
-                        <a class="post-card__more" href="blog-lettura-dal-vivo-con-lautore.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-serata-marino-abate.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post06-marino-abate-01.jpg" alt="An Evening with Nicola Marino Abate &mdash; Divino Urban Cellar" width="443" height="590" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Events</p>
-                        <h3><a href="blog-serata-marino-abate.html">An Evening with Nicola Marino Abate</a></h3>
-                        <p>
-                            The Marsala producer poured his own wines in Cefal&ugrave; &mdash; fresh mineral whites through to the Marsala tradition.
-                        </p>
-                        <a class="post-card__more" href="blog-serata-marino-abate.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-vitigni-autoctoni-sicilia.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post10-vitigni-autoctoni-01.jpg" alt="Sicily's Native Grapes &mdash; Divino Urban Cellar" width="526" height="275" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Wine</p>
-                        <h3><a href="blog-vitigni-autoctoni-sicilia.html">Sicily&rsquo;s Native Grapes</a></h3>
-                        <p>
-                            Etna Bianco, Grillo and Nero d&rsquo;Avola poured side by side &mdash; three grapes, three very different corners of the island.
-                        </p>
-                        <a class="post-card__more" href="blog-vitigni-autoctoni-sicilia.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-sicilian-amaro-tasting.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post18-amaro-tasting-01.jpg" alt="Sicilian Amaro: Bitter-Sweet Secrets &mdash; Divino Urban Cellar" width="512" height="640" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Tastings</p>
-                        <h3><a href="blog-sicilian-amaro-tasting.html">Sicilian Amaro: Bitter-Sweet Secrets</a></h3>
-                        <p>
-                            Four amari side by side, and why knowing which one you like changes what you order after dinner.
-                        </p>
-                        <a class="post-card__more" href="blog-sicilian-amaro-tasting.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-rossi-di-sicilia.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post20-rossi-di-sicilia-01.jpg" alt="Rossi di Sicilia &mdash; Divino Urban Cellar" width="526" height="274" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Wine</p>
-                        <h3><a href="blog-rossi-di-sicilia.html">Rossi di Sicilia</a></h3>
-                        <p>
-                            Sicilian red covers more ground than its reputation suggests. An evening lining them up.
-                        </p>
-                        <a class="post-card__more" href="blog-rossi-di-sicilia.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-serata-frappato.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post15-frappato-01.jpg" alt="An Evening Devoted to Frappato &mdash; Divino Urban Cellar" width="526" height="526" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Tastings</p>
-                        <h3><a href="blog-serata-frappato.html">An Evening Devoted to Frappato</a></h3>
-                        <p>
-                            The pale, perfumed one among Sicily&rsquo;s reds &mdash; a whole evening on a single grape.
-                        </p>
-                        <a class="post-card__more" href="blog-serata-frappato.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-presentazione-prosecco-valdo.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post11-prosecco-valdo-01.jpg" alt="A Prosecco Presentation with Valdo &mdash; Divino Urban Cellar" width="640" height="533" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Events</p>
-                        <h3><a href="blog-presentazione-prosecco-valdo.html">A Prosecco Presentation with Valdo</a></h3>
-                        <p>
-                            Rive di San Pietro di Barbozza, Cuv&eacute;e di Boj and Cuv&eacute;e 1926 &mdash; a useful counterweight to a Sicilian shelf.
-                        </p>
-                        <a class="post-card__more" href="blog-presentazione-prosecco-valdo.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-degustazione-vaccaro.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post12-vaccaro-01.jpg" alt="A Tasting with Vaccaro &mdash; Divino Urban Cellar" width="526" height="275" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Events</p>
-                        <h3><a href="blog-degustazione-vaccaro.html">A Tasting with Vaccaro</a></h3>
-                        <p>
-                            Three or four wines from one estate in a row tell you what the house actually believes about wine.
-                        </p>
-                        <a class="post-card__more" href="blog-degustazione-vaccaro.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-pudding-party.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post04-pudding-party-01.jpg" alt="Cefal&ugrave;'s First Pudding Party &mdash; Divino Urban Cellar" width="512" height="640" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Events</p>
-                        <h3><a href="blog-pudding-party.html">Cefal&ugrave;&rsquo;s First Pudding Party</a></h3>
-                        <p>
-                            Six desserts, each matched to a wine from the cellar, with Little Italian Kitchen.
-                        </p>
-                        <a class="post-card__more" href="blog-pudding-party.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-cocktail-a-base-di-vino.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post08-cocktail-01.jpg" alt="Wine-Based Cocktails at Divino &mdash; Divino Urban Cellar" width="526" height="526" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Events</p>
-                        <h3><a href="blog-cocktail-a-base-di-vino.html">Wine-Based Cocktails at Divino</a></h3>
-                        <p>
-                            Wine as the base rather than the whole drink &mdash; a different way of enjoying it.
-                        </p>
-                        <a class="post-card__more" href="blog-cocktail-a-base-di-vino.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-stasera-da-divino-vorwerk.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post14-stasera-vorwerk-01.jpg" alt="Tonight at Divino: Wine &amp; More &mdash; Divino Urban Cellar" width="526" height="518" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Events</p>
-                        <h3><a href="blog-stasera-da-divino-vorwerk.html">Tonight at Divino: Wine &amp; More</a></h3>
-                        <p>
-                            An evening with Vorwerk, where the wine bar half of the shop earns its keep.
-                        </p>
-                        <a class="post-card__more" href="blog-stasera-da-divino-vorwerk.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-vino-bag-in-box.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post05-bag-in-box-01.jpg" alt="The Wine at Home Is Changing &mdash; Divino Urban Cellar" width="526" height="526" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Wine</p>
-                        <h3><a href="blog-vino-bag-in-box.html">The Wine at Home Is Changing</a></h3>
-                        <p>
-                            You no longer need to open a bottle every time you want a decent glass.
-                        </p>
-                        <a class="post-card__more" href="blog-vino-bag-in-box.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-consegna-vini-cefalu.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post09-consegna-vini-01.jpg" alt="Sicilian Wine, Delivered to Your Door &mdash; Divino Urban Cellar" width="519" height="720" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Service</p>
-                        <h3><a href="blog-consegna-vini-cefalu.html">Sicilian Wine, Delivered to Your Door</a></h3>
-                        <p>
-                            Mixed cases of six or twelve brought to your villa or apartment in Cefal&ugrave; &mdash; same day if you order by noon.
-                        </p>
-                        <a class="post-card__more" href="blog-consegna-vini-cefalu.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-esperto-vini-di-sicilia.html" tabindex="-1" aria-hidden="true">
-                        <img src="blog-photos/post17-airbnb-experience-01.jpg" alt="Sicilian Wine Expert: Our Airbnb Experience &mdash; Divino Urban Cellar" width="500" height="261" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-08-30">30 August 2026</time> &middot; Service</p>
-                        <h3><a href="blog-esperto-vini-di-sicilia.html">Sicilian Wine Expert: Our Airbnb Experience</a></h3>
-                        <p>
-                            The same long table and the same guided tasting &mdash; findable before you arrive.
-                        </p>
-                        <a class="post-card__more" href="blog-esperto-vini-di-sicilia.html">Read the piece &rarr;</a>
-                    </div>
-                </article>
-                <!-- FB-IMPORT:END -->
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-cefalu-stories.html" tabindex="-1" aria-hidden="true">
-                        <img src="optimized/cefalu.webp" alt="The old town of Cefalù seen from above, with the Norman cathedral, terracotta rooftops and the beach curving beneath the limestone cliff of La Rocca" width="1400" height="763" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-07-09">9 July 2026</time> · Cefalù</p>
-                        <h3><a href="blog-cefalu-stories.html">Cefalù: Notes From a Town Beneath a Very Large Rock</a></h3>
-                        <p>
-                            Four stories about the place we live in: a cathedral built out of a shipwreck that
-                            probably never happened, a fisherman with opinions, and the exact week the town
-                            stops performing for anyone.
-                        </p>
-                        <a class="post-card__more" href="blog-cefalu-stories.html">Read the piece →</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-sicilian-countryside.html" tabindex="-1" aria-hidden="true">
-                        <img src="optimized/vineyard.webp" alt="Rows of vines running over dry hills toward a stone farmhouse framed by cypress trees in the Sicilian countryside" width="1400" height="763" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-06-14">14 June 2026</time> · Country Life</p>
-                        <h3><a href="blog-sicilian-countryside.html">What Nobody Tells You About Living in the Sicilian Countryside</a></h3>
-                        <p>
-                            The fantasy involves lemon trees and a long table. The reality involves a water tank,
-                            a man named Turi who may or may not exist, and learning that August is not a month
-                            but a weather event.
-                        </p>
-                        <a class="post-card__more" href="blog-sicilian-countryside.html">Read the piece →</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-lavender-soap.html" tabindex="-1" aria-hidden="true">
-                        <img src="lavender-banner.svg" alt="Illustrated rows of lavender sprigs in a field below the Madonie hills, drawn in warm limestone and burgundy tones" width="1600" height="900" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-05-22">22 May 2026</time> · Making Things</p>
-                        <h3><a href="blog-lavender-soap.html">How to Make Lavender Soap (and What the Lye Taught Me)</a></h3>
-                        <p>
-                            A genuine cold-process recipe with olive oil from the hills behind Cefalù,
-                            wrapped around the story of the first four batches, which were not soap
-                            so much as an expensive, fragrant apology.
-                        </p>
-                        <a class="post-card__more" href="blog-lavender-soap.html">Read the piece →</a>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <a class="post-card__media" href="blog-nero-davola.html" tabindex="-1" aria-hidden="true">
-                        <img src="optimized/cheeseplate.webp" alt="Two glasses of Sicilian red wine on a worn wooden table beside a board of cheese, figs, grapes and almonds" width="1400" height="763" loading="lazy" decoding="async">
-                    </a>
-                    <div class="post-card__body">
-                        <p class="post-card__meta"><time datetime="2026-04-18">18 April 2026</time> · Wine &amp; Verse</p>
-                        <h3><a href="blog-nero-davola.html">The Grape That Waits: A Story and a Poem for Nero d'Avola</a></h3>
-                        <p>
-                            My grandmother kept one bottle for eleven years and drank it on a Tuesday
-                            for no reason at all. This is that story, and a poem for the grape
-                            that taught Sicily how to be patient.
-                        </p>
-                        <a class="post-card__more" href="blog-nero-davola.html">Read the piece →</a>
-                    </div>
-                </article>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="cta-band cta-band--burgundy">
-        <div class="wrap wrap--narrow">
-            <span class="eyebrow">Come and sit down</span>
-            <h2>The best version of this is in a glass</h2>
-            <p>
-                Everything written here started as a conversation across the tasting table.
-                Book a seat at the cellar in Cefalù and we will finish the argument in person.
-            </p>
-            <a class="button" href="index.html#booking">Book a tasting</a>
-        </div>
-    </section>
-
+<!-- dv:close -->
+<section class="ctab"><p class="caps kick">Visit Divino</p><h2>Come and taste with us</h2><p class="d">Tastings every day at 11:00 and 18:00 at the long table on Via Gibilmanna, Cefalù.</p>
+ <div class="actions"><a class="btn" href="tastings.html#book" data-book>Book a tasting</a><a class="btn o" href="https://wa.me/393312530729" data-wa="Hello Divino!">WhatsApp +39 331 253 0729</a><a class="btn o" href="delivery.html">Order wine for delivery</a></div></section>
+<!-- /dv:close -->
+<!-- dv:letters -->
+<section class="letters">
+ <p class="caps kick">Letters from Sicily</p><h2>Stories, events and new wines, once a month</h2>
+ <p class="d">Join our letters and be the first to hear about tastings, evenings at Divino and news from the countryside.</p>
+ <form class="signup" data-signup="Letters from Sicily"><label class="sr-only" for="letters-email">Your email</label><input id="letters-email" type="email" name="email" placeholder="Your email" autocomplete="email" required><button class="btn" type="submit">Sign up</button></form>
+ <p class="form-msg" aria-live="polite"></p>
+ <small>One email a month. No spam, ever.</small>
+</section>
+<!-- /dv:letters -->
+<!-- dv:instagram -->
+<section class="cream bt"><div class="wrap blk">
+ <p class="caps kick">Instagram</p><h2>Our gallery, every day</h2>
+ <p class="handle"><a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener">@divino_cantinaurbana</a></p>
+ <div class="igs"><a class="ig" href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener"><img src="photos/long-table-thumb.webp" alt="The long table at Divino" width="300" height="240" loading="lazy" decoding="async"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></span></a><a class="ig" href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener"><img src="photos/wine-shelves-thumb.webp" alt="The wine shelves" width="300" height="240" loading="lazy" decoding="async"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></span></a><a class="ig" href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener"><img src="photos/products-plants-thumb.webp" alt="Sicilian products among the plants" width="300" height="240" loading="lazy" decoding="async"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></span></a><a class="ig" href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener"><img src="photos/shop-counter-thumb.webp" alt="The shop and counter" width="300" height="240" loading="lazy" decoding="async"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></span></a><a class="ig" href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener"><img src="photos/countryside-lavender-thumb.webp" alt="Massimo in the lavender field" width="300" height="240" loading="lazy" decoding="async"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></span></a><a class="ig" href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener"><img src="photos/cefalu-thumb.webp" alt="Cefalù from the sea" width="300" height="240" loading="lazy" decoding="async"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></span></a></div>
+ <div class="c"><a class="btn" href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener">Follow us on Instagram</a></div>
+</div></section>
+<!-- /dv:instagram -->
 </main>
 
-<footer class="site-footer">
-    <nav aria-label="Footer">
-        <a href="index.html">Home</a>
-        <a href="magazine.html">Magazine</a>
-        <a href="index.html#cellar">The Urban Cellar</a>
-        <a href="index.html#calendar">Calendar</a>
-        <a href="ambrosia.html">Ambrosia</a>
-        <a href="delivery.html">Delivery</a>
-        <a href="index.html#visit">Visit</a>
-    </nav>
-    <div class="social-links">
-        <a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener" aria-label="Divino on Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg></a>
-        <a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener" aria-label="Divino on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-    <a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener" aria-label="Divino on YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-    </div>
-    <p>&copy; 2026 Divino Urban Cellar Cefalù · Via Gibilmanna, 16 · 90015 Cefalù PA</p>
+<!-- dv:footer -->
+<footer class="dvf">
+ <div class="fw">
+  <div class="fgrid">
+   <div><span class="wm" style="--s:34px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span><p>Enoteca · Experiences · The Countryside</p></div>
+   <div><h4>Find us</h4><p>Via Gibilmanna 16<br>90015 Cefalù (PA), Italy</p><p>Mon–Sat 10:00–14:00, 17:00–22:30<br>Sun 10:00–13:00, 17:00–22:00</p><a class="ul" href="https://www.google.com/maps/dir/?api=1&destination=Divino+Urban+Cellar%2C+Via+Gibilmanna+16%2C+90015+Cefal%C3%B9+PA" target="_blank" rel="noopener">Get directions</a></div>
+   <div id="contact"><h4>Contact</h4><a href="https://wa.me/393312530729" target="_blank" rel="noopener">Phone &amp; WhatsApp +39 331 253 0729</a><a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><p><span class="tbc">[email]</span></p><a href="https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU" target="_blank" rel="noopener">Google reviews</a></div>
+   <div><h4>Explore</h4><a href="tastings.html">Tastings</a><a href="wine-classes.html">Classes</a><a href="events.html">Events</a><a href="products.html">Our Products</a><a href="countryside.html">The Countryside</a><a href="magazine.html">Magazine</a><a href="delivery.html">Delivery</a><a href="products.html#gift-cards">Gift cards</a></div>
+  </div>
+  <div class="legal"><span>© 2026 Divino Urban Cellar · P.IVA <span class="tbc">[number]</span></span><span><button type="button" data-cookie-settings>Cookie settings</button> · <span class="on" aria-current="true">EN</span> · <a href="magazine-it.html" hreflang="it" lang="it" data-lang-switch="it">IT</a></span></div>
+ </div>
 </footer>
 
-<script src="blog.js" defer></script>
+<div class="bk" id="booking" role="dialog" aria-modal="true" aria-labelledby="bk-title" aria-hidden="true">
+ <div class="scrim" data-close-booking></div>
+ <div class="box">
+  <button class="x" type="button" data-close-booking aria-label="Close">×</button>
+  <span class="kick">Wine tasting at Divino</span>
+  <h2 id="bk-title">Book your tasting</h2>
+  <p class="when">Every day at 11:00 and 18:00, at the long table on Via Gibilmanna.</p>
+  <p class="q">How many guests?</p>
+  <div class="stepper"><button type="button" data-step="-1" aria-label="One guest fewer">−</button><output aria-live="polite">2</output><button type="button" data-step="1" aria-label="One guest more">+</button></div>
+  <p class="total" aria-live="polite"></p>
+  <button class="btn" type="button" data-confirm>Choose your day and time</button>
+  <p class="err" role="alert" hidden>Online booking is not available right now. Please book on WhatsApp and we will reply quickly.</p>
+  <p class="alt">Prefer to talk? <a href="https://wa.me/393312530729?text=Hello%20Divino!%20I%20would%20like%20to%20book%20a%20wine%20tasting." target="_blank" rel="noopener">Book on WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a></p>
+ </div>
+</div>
+
+<div class="cookie" id="cookie" role="dialog" aria-label="This website uses cookies">
+ <p><b>This website uses cookies</b>Only if you accept, we use Google Analytics and one small Divino cookie that counts returning visitors, so we can see how our site is used. No advertising or social media tracking cookies. Without your consent we still count page visits, anonymously and without cookies. Booking and map services may set their own cookies when you use them. You can change your choice at any time from “Cookie settings” in the footer.</p>
+ <div class="acts"><button class="btn sm" type="button" data-accept>Accept</button><button class="btn sm o" type="button" data-decline>Decline</button></div>
+</div>
+<a class="sbook btn" href="tastings.html#book" data-book>Book a tasting</a>
+<script src="site.js" defer></script>
+<!-- /dv:footer -->
+<script>
+/* Topic filter and "More stories": show 9 at a time. */
+(function () {
+  var cards = [].slice.call(document.querySelectorAll('#arts .art'));
+  var more = document.getElementById('more');
+  var topic = 'all', shown = 9;
+  function render() {
+    var match = cards.filter(function (c) { return topic === 'all' || c.dataset.topic === topic; });
+    cards.forEach(function (c) { c.hidden = true; });
+    match.slice(0, shown).forEach(function (c) { c.hidden = false; });
+    more.parentNode.hidden = match.length <= shown;
+  }
+  document.querySelectorAll('[data-filter]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      topic = b.dataset.filter; shown = 9;
+      document.querySelectorAll('[data-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      render();
+    });
+  });
+  more.addEventListener('click', function () { shown += 9; render(); });
+  render();
+})();
+</script>
 </body>
 </html>
