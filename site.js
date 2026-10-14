@@ -90,6 +90,7 @@
     if (typeof window.gtag !== 'function') return;
     window.gtag('event', name, { link_text: label || '', page_path: page, language: IT ? 'it' : 'en', transport_type: 'beacon' });
   }
+  var CAL_HREF = /(^|\/\/)(app\.)?cal\.com\/divino-urban-cellar-gcpvix\//;
   track('view');
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]');
@@ -105,7 +106,11 @@
     if (/wa\.me\/|api\.whatsapp\.com/.test(href)) ga('whatsapp_click', label);
     if (/^tel:/.test(href)) ga('phone_click', label);
     if (/^mailto:/.test(href)) ga('email_click', label);
-    if (a.hasAttribute('data-book') || /#book$/.test(href)) ga('book_click', label);
+    // The Book key event is a click through to the booking calendar (see goToCalendar);
+    // opening the guest window is only the step before it. A plain link to the
+    // calendar counts as a Book click too.
+    if (CAL_HREF.test(href)) { track('book_calendar', label); ga('book_click', label); }
+    else if (a.hasAttribute('data-book') || /#book$/.test(href)) ga('book_open', label);
     if (/instagram\.com/.test(href)) ga('instagram_click', label);
     if (/google\.com\/maps|maps\.app\.goo\.gl/.test(href)) ga('directions_click', label);
   }, true);
@@ -253,6 +258,7 @@
     var ns = window.Cal && window.Cal.ns && window.Cal.ns[CAL_NS];
     closeBooking();
     track('book_calendar', guests + (bookTime ? ' · ' + bookTime : ''));
+    ga('book_click', guests + (guests === 1 ? ' guest' : ' guests') + (bookTime ? ' · ' + bookTime : ''));
     if (ns) {
       ns('modal', { calLink: link, config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true', theme: 'light' } });
     } else {

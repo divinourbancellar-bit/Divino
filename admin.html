@@ -39,6 +39,11 @@ main{max-width:1200px;margin:0 auto;padding:34px 28px 80px}
 .panel{background:#fff;border:1px solid var(--line);padding:22px 24px;margin-top:22px}
 .panel h3{font-size:25px;margin-bottom:12px}
 .panel .note{font-size:14.5px;color:var(--muted);margin-top:10px}
+.panel .links{list-style:none;margin:8px 0 0;padding:0;font-size:14.5px}
+.panel .links li{display:flex;gap:10px;align-items:baseline;justify-content:space-between;padding:7px 0;border-top:1px solid var(--line, #e7e1d6)}
+.panel .links b{font-weight:600;white-space:nowrap}
+.panel .links code{flex:1;min-width:0;overflow-wrap:anywhere;font-size:12.5px}
+.panel .links button{font:inherit;font-size:13px;cursor:pointer;border:1px solid currentColor;background:none;border-radius:4px;padding:3px 9px;color:inherit}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .grid2 .panel{margin-top:22px}
 .chart{display:flex;align-items:flex-end;gap:3px;height:180px;padding-top:10px;border-bottom:1px solid var(--line)}
@@ -218,7 +223,8 @@ td .muted{color:var(--muted)}
     <div class="panel"><h3>What visitors did, in total</h3><div class="donut" id="ch-actions"></div></div>
    </div>
    <div class="grid2">
-    <div class="panel"><h3>Tracking links</h3><div id="an-campaigns"></div><p class="note">Visitors who arrive through your Instagram, WhatsApp, QR code or partner links (the ones with utm_source) are listed here.</p></div>
+    <div class="panel"><h3>Tracking links</h3><div id="an-campaigns"></div><p class="note">Visitors who arrive through your Instagram, WhatsApp, Google Maps, QR code or partner links (the ones with utm_source) are listed here. Ready-made links:</p>
+     <ul class="links" id="trk-links"></ul></div>
     <div class="panel"><h3>Where visitors come from</h3><ul class="bars" id="an-refs"></ul></div>
    </div>
    <div class="grid2">
@@ -308,6 +314,30 @@ td .muted{color:var(--muted)}
     start();
   });
   $('signout').addEventListener('click', function () { try { sessionStorage.removeItem('divino-admin-pw'); } catch (e) {} location.reload(); });
+
+  /* ---------- Tracking links: ready to copy ---------- */
+  (function () {
+    var BASE = 'https://divino-urbancellar.com/';
+    var LINKS = [
+      ['Instagram bio', BASE + '?utm_source=instagram&utm_campaign=bio'],
+      ['WhatsApp profile', BASE + '?utm_source=whatsapp&utm_medium=messaging&utm_campaign=profile'],
+      ['Google Maps', BASE + '?utm_source=google&utm_medium=organic&utm_campaign=maps'],
+      ['QR code, tables', BASE + 'tastings.html?utm_source=qr&utm_campaign=tables'],
+      ['QR code, window', BASE + 'tastings.html?utm_source=qr&utm_campaign=window']
+    ];
+    var ul = document.getElementById('trk-links');
+    LINKS.forEach(function (l) {
+      var li = document.createElement('li');
+      li.innerHTML = '<b>' + l[0] + '</b><code></code><button type="button">Copy</button>';
+      li.querySelector('code').textContent = l[1].replace(BASE, '/');
+      var btn = li.querySelector('button');
+      btn.addEventListener('click', function () {
+        (navigator.clipboard ? navigator.clipboard.writeText(l[1]) : Promise.reject()).then(function () { btn.textContent = 'Copied'; }, function () { window.prompt('Copy this link:', l[1]); });
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1800);
+      });
+      ul.appendChild(li);
+    });
+  })();
 
   /* ---------- Tabs ---------- */
   document.querySelectorAll('[data-tab]').forEach(function (b) {
