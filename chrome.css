@@ -158,24 +158,6 @@ body.locked{overflow:hidden}
 .cookie .acts{display:flex;gap:10px;flex-shrink:0}
 @media (max-width:760px){.cookie{flex-direction:column;align-items:stretch}.cookie .acts .btn{flex:1}}
 
-/* ---------- Soft-jazz button: bottom-left, notes drift up while it plays ---------- */
-.music{position:fixed;left:18px;bottom:18px;z-index:90;width:44px;height:44px;border-radius:50%;background:var(--ivory);border:1px solid var(--line);color:var(--wine);box-shadow:0 6px 18px rgba(74,55,48,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.9;transition:opacity .2s,border-color .2s}
-.music:hover,.music:focus-visible{opacity:1;border-color:var(--wine)}
-.music svg{width:21px;height:21px}
-.music .w{opacity:0;transition:opacity .25s}
-.music[aria-pressed="true"] .w{opacity:1}
-.music[aria-pressed="true"] .x{display:none}
-.music i{position:absolute;left:30px;top:2px;font:normal 15px/1 var(--display);color:var(--green);opacity:0;pointer-events:none}
-.music i:nth-of-type(2){left:22px;font-size:17px}
-.music i:nth-of-type(3){left:34px;font-size:13px}
-.music[aria-pressed="true"] i{animation:dvnote 4.2s ease-out infinite}
-.music[aria-pressed="true"] i:nth-of-type(2){animation-delay:1.4s}
-.music[aria-pressed="true"] i:nth-of-type(3){animation-delay:2.8s}
-@keyframes dvnote{0%{opacity:0;transform:translate(0,6px) rotate(0)}18%{opacity:.75}100%{opacity:0;transform:translate(10px,-34px) rotate(16deg)}}
-@media (prefers-reduced-motion:reduce){.music[aria-pressed="true"] i{animation:none}.music[aria-pressed="true"] i:first-of-type{opacity:.7;transform:translate(4px,-6px)}}
-body.locked .music{display:none}
-@media (max-width:760px){.music{bottom:80px;left:16px}}
-
 /* ---------- Sticky "Book a tasting" on phones ---------- */
 .sbook{display:none}
 @media (max-width:760px){

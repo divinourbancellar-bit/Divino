@@ -51,7 +51,6 @@ const T = {
     bkNext: 'Choose your day and time', bkAlt: 'Prefer to talk? <a href="' + WA + '?text=' + encodeURIComponent('Hello Divino! I have a question about a wine tasting.') + '" target="_blank" rel="noopener">Message us on WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a>',
     bkErr: 'Online booking is not available right now. Please message us on WhatsApp and we will reply quickly.',
     bkClose: 'Close', stickyBook: 'Book a tasting',
-    musicOn: 'Play soft jazz', musicOff: 'Pause the music',
     cookieTitle: 'This website uses cookies',
     cookieText: 'Only if you accept, we use Google Analytics and one small Divino cookie that counts returning visitors, so we can see how our site is used. No advertising or social media tracking cookies. Without your consent we still count page visits, anonymously and without cookies. Booking and map services may set their own cookies when you use them. You can change your choice at any time from “Cookie settings” in the footer.',
     accept: 'Accept', decline: 'Decline',
@@ -89,7 +88,6 @@ const T = {
     bkNext: 'Scegli giorno e orario', bkAlt: 'Preferisci parlarci? <a href="' + WA + '?text=' + encodeURIComponent('Ciao Divino! Ho una domanda su una degustazione.') + '" target="_blank" rel="noopener">Scrivici su WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a>',
     bkErr: 'La prenotazione online non è disponibile in questo momento. Scrivici su WhatsApp e ti risponderemo subito.',
     bkClose: 'Chiudi', stickyBook: 'Prenota una degustazione',
-    musicOn: 'Ascolta un po’ di jazz', musicOff: 'Metti in pausa la musica',
     cookieTitle: 'Questo sito usa i cookie',
     cookieText: 'Solo se acconsenti, usiamo Google Analytics e un piccolo cookie di Divino che conta i visitatori di ritorno, per capire come viene usato il sito. Nessun cookie pubblicitario o di tracciamento dei social media. Senza il tuo consenso contiamo comunque le visite alle pagine, in forma anonima e senza cookie. I servizi di prenotazione e di mappa possono impostare propri cookie quando li usi. Puoi cambiare la tua scelta in qualsiasi momento da “Impostazioni cookie” nel footer.',
     accept: 'Accetta', decline: 'Rifiuta',
@@ -220,7 +218,6 @@ function footer(page) {
  <div class="acts"><button class="btn sm" type="button" data-accept>${t.accept}</button><button class="btn sm o" type="button" data-decline>${t.decline}</button></div>
 </div>
 <a class="sbook btn" href="${L('tastings.html')}#book" data-book>${t.stickyBook}</a>
-<button class="music" id="music" type="button" aria-pressed="false" aria-label="${t.musicOn}" title="${t.musicOn}" data-on="${t.musicOn}" data-off="${t.musicOff}" data-src="audio/soft-jazz.mp3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path class="w" d="M15.5 9.2a4 4 0 0 1 0 5.6M18 6.8a7.5 7.5 0 0 1 0 10.4"/><path class="x" d="M4 20 20 4"/></svg><i aria-hidden="true">♪</i><i aria-hidden="true">♫</i><i aria-hidden="true">♪</i></button>
 <script src="site.js" defer></script>
 `;
 }

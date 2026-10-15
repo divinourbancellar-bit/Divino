@@ -360,51 +360,6 @@
     });
   });
 
-  /* ---------- Soft jazz: off until the visitor presses the speaker ----------
-     The track downloads only on the first press. The choice is remembered in
-     this browser, and the song carries on across pages where the browser allows. */
-  var musicBtn = document.getElementById('music');
-  if (musicBtn) {
-    var audio = null, VOL = 0.4, fade = null;
-    var store = function (k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} };
-    var load = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
-    var paint = function (on) {
-      musicBtn.setAttribute('aria-pressed', String(on));
-      var label = musicBtn.getAttribute(on ? 'data-off' : 'data-on');
-      musicBtn.setAttribute('aria-label', label); musicBtn.setAttribute('title', label);
-    };
-    var ramp = function (to, done) {
-      clearInterval(fade);
-      fade = setInterval(function () {
-        var d = to - audio.volume;
-        if (Math.abs(d) < 0.03) { audio.volume = to; clearInterval(fade); if (done) done(); }
-        else audio.volume = Math.max(0, Math.min(1, audio.volume + (d > 0 ? 0.03 : -0.03)));
-      }, 45);
-    };
-    var ensure = function () {
-      if (audio) return audio;
-      audio = new Audio(musicBtn.getAttribute('data-src'));
-      audio.loop = true; audio.volume = 0;
-      var t = parseFloat(load('divino-music-time'));
-      if (t > 0) audio.addEventListener('loadedmetadata', function () { if (t < audio.duration) audio.currentTime = t; }, { once: true });
-      return audio;
-    };
-    var play = function () {
-      var p = ensure().play();
-      var go = function () { paint(true); store('divino-music', 'on'); ramp(VOL); };
-      if (p && p.then) p.then(go, function () { paint(false); }); else go();
-    };
-    var pause = function () {
-      paint(false); store('divino-music', 'off');
-      if (audio) ramp(0, function () { audio.pause(); });
-    };
-    musicBtn.addEventListener('click', function () { if (musicBtn.getAttribute('aria-pressed') === 'true') pause(); else play(); });
-    // Keep the place in the song for the next page.
-    window.addEventListener('pagehide', function () { if (audio && !audio.paused) store('divino-music-time', String(audio.currentTime)); });
-    // They had it on: try to carry on. If the browser blocks it, the button just stays off.
-    if (load('divino-music') === 'on') play();
-  }
-
   /* ---------- Reveal on scroll ---------- */
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
