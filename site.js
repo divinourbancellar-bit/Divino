@@ -360,6 +360,22 @@
     });
   });
 
+  /* ---------- Live Google rating ----------
+     Pages carry the last typed rating; this swaps in the live numbers from the
+     google-rating function (cached there, refreshed from Google twice a day).
+     If it fails or has nothing yet, the typed numbers simply stay. */
+  var gRating = document.querySelectorAll('[data-g-rating]');
+  if (gRating.length && window.fetch) {
+    fetch(SB_URL + '/functions/v1/google-rating').then(function (r) { return r.json(); }).then(function (g) {
+      if (!g || typeof g.rating !== 'number' || typeof g.count !== 'number') return;
+      var it = document.documentElement.lang === 'it';
+      var rating = g.rating.toFixed(1), count = g.count.toLocaleString(it ? 'it-IT' : 'en-GB');
+      if (it) rating = rating.replace('.', ',');
+      gRating.forEach(function (el) { el.textContent = rating; });
+      document.querySelectorAll('[data-g-count]').forEach(function (el) { el.textContent = count; });
+    }).catch(function () {});
+  }
+
   /* ---------- Reveal on scroll ---------- */
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {

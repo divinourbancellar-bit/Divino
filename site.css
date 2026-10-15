@@ -101,7 +101,7 @@ h2{font-size:clamp(34px,4.2vw,48px);line-height:1.12;text-align:center}
 .tm p{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 
 /* ---------- Reviews ---------- */
-.rbadge{text-align:center;margin-top:18px;font-size:18px;color:var(--green)}
+.rbadge,.trust{display:table;margin:18px auto 0;padding:9px 24px;background:var(--ivory);border:1px solid var(--line);border-radius:999px;text-align:center;font-size:18px;color:var(--green)}
 .rbadge b{color:var(--lavender);letter-spacing:3px;margin-right:8px;font-weight:400}
 .revs{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:46px}
 .rev{background:var(--ivory);border:1px solid var(--line);border-top:3px solid var(--sage);padding:30px 28px 26px;display:flex;flex-direction:column}
@@ -191,7 +191,7 @@ h2{font-size:clamp(34px,4.2vw,48px);line-height:1.12;text-align:center}
 .faq summary:after{content:"+";font:300 30px var(--display);color:var(--sage);transition:transform .2s}
 .faq details[open] summary:after{transform:rotate(45deg)}
 .faq details p{padding:0 4px 24px;font-size:18px;line-height:1.65}
-.trust{text-align:center;margin-top:34px;color:var(--green);font-size:17px}
+.trust{margin-top:34px;font-size:17px}
 .trust b{color:var(--lavender);font-weight:400;letter-spacing:2px}
 
 /* Lists of 4 product/experience cards */
