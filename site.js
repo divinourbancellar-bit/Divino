@@ -365,7 +365,7 @@
      this browser, and the song carries on across pages where the browser allows. */
   var musicBtn = document.getElementById('music');
   if (musicBtn) {
-    var audio = null, VOL = 0.3, fade = null;
+    var audio = null, VOL = 0.4, fade = null;
     var store = function (k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} };
     var load = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
     var paint = function (on) {

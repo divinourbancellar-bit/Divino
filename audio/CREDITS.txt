@@ -1,5 +1,4 @@
-cafe-jazz.mp3
-Track: "Romantic 01" by Lily J
-Source: https://mixkit.co/free-stock-music/ (file 752, downloaded 2026-10-15)
-Licence: Mixkit Free License (free for commercial use, no attribution required; do not redistribute the file on its own).
-Re-encoded from 320 kbps to 112 kbps MP3 for the web. Used as the optional background music behind the speaker button.
+soft-jazz.mp3
+Track: "Après-midi ensoleillé", supplied by the site owner (generated with Suno).
+Licence: made on a Suno plan that allows commercial use (confirmed by the site owner, 2026-10-15). Keep proof of that plan.
+Re-encoded to 112 kbps MP3 for the web, trailing silence trimmed, metadata and cover art removed. Used as the optional background music behind the speaker button.

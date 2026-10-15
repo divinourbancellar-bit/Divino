@@ -220,7 +220,7 @@ function footer(page) {
  <div class="acts"><button class="btn sm" type="button" data-accept>${t.accept}</button><button class="btn sm o" type="button" data-decline>${t.decline}</button></div>
 </div>
 <a class="sbook btn" href="${L('tastings.html')}#book" data-book>${t.stickyBook}</a>
-<button class="music" id="music" type="button" aria-pressed="false" aria-label="${t.musicOn}" title="${t.musicOn}" data-on="${t.musicOn}" data-off="${t.musicOff}" data-src="audio/cafe-jazz.mp3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path class="w" d="M15.5 9.2a4 4 0 0 1 0 5.6M18 6.8a7.5 7.5 0 0 1 0 10.4"/><path class="x" d="M4 20 20 4"/></svg><i aria-hidden="true">♪</i><i aria-hidden="true">♫</i><i aria-hidden="true">♪</i></button>
+<button class="music" id="music" type="button" aria-pressed="false" aria-label="${t.musicOn}" title="${t.musicOn}" data-on="${t.musicOn}" data-off="${t.musicOff}" data-src="audio/soft-jazz.mp3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path class="w" d="M15.5 9.2a4 4 0 0 1 0 5.6M18 6.8a7.5 7.5 0 0 1 0 10.4"/><path class="x" d="M4 20 20 4"/></svg><i aria-hidden="true">♪</i><i aria-hidden="true">♫</i><i aria-hidden="true">♪</i></button>
 <script src="site.js" defer></script>
 `;
 }
