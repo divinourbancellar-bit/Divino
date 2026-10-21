@@ -360,6 +360,59 @@
     });
   });
 
+  /* ---------- Age check ----------
+     The head script covers the page (html.ag) until the visitor says they
+     are 18 or older; the answer lasts for this visit (sessionStorage). */
+  var ageBox = document.getElementById('age');
+  var root = document.documentElement;
+  var afterAge = [];
+  var ageOk = function () { return !root.classList.contains('ag'); };
+  if (ageBox) {
+    if (!ageOk()) { var yesBtn = ageBox.querySelector('[data-age="yes"]'); if (yesBtn) yesBtn.focus(); }
+    ageBox.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-age]');
+      if (!b) return;
+      if (b.getAttribute('data-age') === 'yes') {
+        try { sessionStorage.setItem('dv-age', 'yes'); } catch (err) {}
+        root.classList.remove('ag');
+        afterAge.splice(0).forEach(function (fn) { fn(); });
+      } else {
+        ageBox.querySelector('.acts').hidden = true;
+        ageBox.querySelector('.sorry').hidden = false;
+      }
+    });
+  }
+
+  /* ---------- Next evening at Divino ----------
+     Once per visit, after the age check, a small card with the next published
+     event from the Divino database. Not on the Events page itself. */
+  var showNextEvent = function () {
+    if (/events(-it)?\.html$/.test(location.pathname)) return;
+    try { if (sessionStorage.getItem('dv-evpop')) return; } catch (e) { return; }
+    var d0 = new Date(), iso = d0.getFullYear() + '-' + String(d0.getMonth() + 1).padStart(2, '0') + '-' + String(d0.getDate()).padStart(2, '0');
+    fetch(SB_URL + '/rest/v1/events?select=date,time,name,price&published=eq.true&date=gte.' + iso + '&order=date.asc&limit=1', { headers: { apikey: SB_KEY } })
+      .then(function (r) { return r.ok ? r.json() : []; }).then(function (rows) {
+        var ev = rows && rows[0];
+        if (!ev) return;
+        var d = new Date(ev.date + 'T00:00');
+        var when = d.toLocaleDateString(IT ? 'it-IT' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) + (ev.time ? ' · ' + ev.time : '');
+        var price = String(ev.price || '15').replace(/^€\s*/, '');
+        var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+        var box = document.createElement('aside');
+        box.className = 'evpop';
+        box.setAttribute('aria-label', IT ? 'Prossima serata da Divino' : 'Next evening at Divino');
+        box.innerHTML = '<button class="x" type="button" aria-label="' + (IT ? 'Chiudi' : 'Close') + '">×</button>' +
+          '<p class="k">' + (IT ? 'Prossima serata' : 'Next at Divino') + '</p><h3>' + esc(ev.name) + '</h3>' +
+          '<p>' + esc(when) + '</p><p>' + (IT ? price + ' € a persona · porta aperta' : '€' + price + ' per person · open door') + '</p>' +
+          '<a class="btn sm" href="' + (IT ? 'events-it.html' : 'events.html') + '#whats-on">' + (IT ? 'Scopri la serata' : 'See the evening') + '</a>';
+        var done = function () { try { sessionStorage.setItem('dv-evpop', '1'); } catch (e) {} box.remove(); };
+        box.querySelector('.x').addEventListener('click', done);
+        box.querySelector('a').addEventListener('click', done);
+        document.body.appendChild(box);
+      }).catch(function () {});
+  };
+  if (ageOk()) setTimeout(showNextEvent, 2500); else afterAge.push(function () { setTimeout(showNextEvent, 2500); });
+
   /* ---------- Live Google rating ----------
      Pages carry the last typed rating; this swaps in the live numbers from the
      google-rating function (cached there, refreshed from Google twice a day).

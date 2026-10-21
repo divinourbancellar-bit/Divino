@@ -21,6 +21,7 @@ const ROOT = path.join(__dirname, '..');
 const WA = 'https://wa.me/393312530729';
 const REVIEWS_URL = 'https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU';
 const IG_URL = 'https://www.instagram.com/divino_cantinaurbana/';
+const EMAIL = 'divino.urbancellar@gmail.com';
 const MAPS_URL = 'https://www.google.com/maps/dir/?api=1&destination=Divino+Urban+Cellar%2C+Via+Gibilmanna+16%2C+90015+Cefal%C3%B9+PA';
 
 /* ---------------------------------------------------------------- copy */
@@ -42,8 +43,8 @@ const T = {
     address: 'Via Gibilmanna 16<br>90015 Cefalù (PA), Italy',
     hours: 'Mon–Sat 10:00–14:00, 17:00–22:30<br>Sun 10:00–13:00, 17:00–22:00',
     directions: 'Get directions', phone: 'Phone &amp; WhatsApp +39 331 253 0729',
-    email: '[email]', reviewsLink: 'Google reviews', delivery: 'Delivery',
-    piva: '© 2026 Divino Urban Cellar · P.IVA <span class="tbc">[number]</span>',
+    waReply: 'We’ll reply within the hour', reviewsLink: 'Google reviews', delivery: 'Delivery',
+    piva: '© 2026 Divino Urban Cellar · P.IVA IT06950220829',
     cookieSettings: 'Cookie settings',
     bkKick: 'Wine tasting at Divino', bkTitle: 'Book your tasting',
     bkWhen: 'Every day at 11:00 and 18:00, at the long table on Via Gibilmanna.',
@@ -54,6 +55,7 @@ const T = {
     cookieTitle: 'This website uses cookies',
     cookieText: 'Only if you accept, we use Google Analytics and one small Divino cookie that counts returning visitors, so we can see how our site is used. No advertising or social media tracking cookies. Without your consent we still count page visits, anonymously and without cookies. Booking and map services may set their own cookies when you use them. You can change your choice at any time from “Cookie settings” in the footer.',
     accept: 'Accept', decline: 'Decline',
+    ageQ: 'Are you 18 or older?', ageSub: 'You must be of legal drinking age to enter the Divino website.', ageYes: 'Yes', ageNo: 'No', ageSorry: 'Sorry, you need to be 18 or older to visit our website. We hope to welcome you at Divino one day.',
     revKick: 'Google reviews', revTitle: 'What our guests say', revBadge: '<span data-g-rating>4.7</span> on Google · <span data-g-count>120+</span> reviews', revAll: 'Read all our reviews on Google', revBy: 'Google review',
     igKick: 'Instagram', igTitle: 'Our gallery, every day', igFollow: 'Follow us on Instagram',
     lKick: 'Letters from Sicily', lTitle: 'Stories, events and new wines, once a month',
@@ -79,8 +81,8 @@ const T = {
     address: 'Via Gibilmanna 16<br>90015 Cefalù (PA), Italia',
     hours: 'Lun–Sab 10:00–14:00, 17:00–22:30<br>Dom 10:00–13:00, 17:00–22:00',
     directions: 'Indicazioni stradali', phone: 'Telefono e WhatsApp +39 331 253 0729',
-    email: '[email]', reviewsLink: 'Recensioni Google', delivery: 'Consegna',
-    piva: '© 2026 Divino Urban Cellar · P.IVA <span class="tbc">[numero]</span>',
+    waReply: 'Ti risponderemo entro un’ora', reviewsLink: 'Recensioni Google', delivery: 'Consegna',
+    piva: '© 2026 Divino Urban Cellar · P.IVA IT06950220829',
     cookieSettings: 'Impostazioni cookie',
     bkKick: 'Degustazione da Divino', bkTitle: 'Prenota la tua degustazione',
     bkWhen: 'Ogni giorno alle 11:00 e alle 18:00, al lungo tavolo in Via Gibilmanna.',
@@ -91,6 +93,7 @@ const T = {
     cookieTitle: 'Questo sito usa i cookie',
     cookieText: 'Solo se acconsenti, usiamo Google Analytics e un piccolo cookie di Divino che conta i visitatori di ritorno, per capire come viene usato il sito. Nessun cookie pubblicitario o di tracciamento dei social media. Senza il tuo consenso contiamo comunque le visite alle pagine, in forma anonima e senza cookie. I servizi di prenotazione e di mappa possono impostare propri cookie quando li usi. Puoi cambiare la tua scelta in qualsiasi momento da “Impostazioni cookie” nel footer.',
     accept: 'Accetta', decline: 'Rifiuta',
+    ageQ: 'Hai almeno 18 anni?', ageSub: 'Per entrare nel sito di Divino devi avere l’età legale per bere alcolici.', ageYes: 'Sì', ageNo: 'No', ageSorry: 'Ci dispiace, devi avere almeno 18 anni per visitare il nostro sito. Speriamo di accoglierti da Divino un giorno.',
     revKick: 'Recensioni Google', revTitle: 'Cosa dicono i nostri ospiti', revBadge: '<span data-g-rating>4,7</span> su Google · <span data-g-count>oltre 120</span> recensioni', revAll: 'Leggi tutte le recensioni su Google', revBy: 'Recensione Google',
     igKick: 'Instagram', igTitle: 'La nostra galleria, ogni giorno', igFollow: 'Seguici su Instagram',
     lKick: 'Lettere dalla Sicilia', lTitle: 'Storie, eventi e nuovi vini, una volta al mese',
@@ -163,7 +166,7 @@ function header(page) {
   <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></svg><span>${t.menu}</span><b class="sr-only">${t.openMenu}</b></button>
   <nav class="nav l" aria-label="Main, left">${dd('tastings', t.tastings)}${dd('classes', t.classes)}${link('events', 'events.html', t.events)}</nav>
   <a class="logo" href="${homeHref}" aria-label="Divino Urban Cellar, ${t.home}">${logo(46)}</a>
-  <nav class="nav r" aria-label="Main, right">${dd('products', t.products)}${dd('countryside', t.countryside)}${link('magazine', 'magazine.html', t.magazine)}${link('about', 'about.html', t.about)}<a class="btn sm" href="${localise('tastings.html', page.lang)}#book" data-book>${t.book}</a></nav>
+  <nav class="nav r" aria-label="Main, right">${dd('products', t.products)}${dd('countryside', t.countryside)}${link('about', 'about.html', t.about)}</nav>
   <a class="btn sm mbook" href="${localise('tastings.html', page.lang)}#book" data-book>${t.book}</a>
  </div>
 </header>
@@ -190,7 +193,7 @@ function footer(page) {
   <div class="fgrid">
    <div>${logo(34)}<p>${t.tagline}</p></div>
    <div><h4>${t.findUs}</h4><p>${t.address}</p><p>${t.hours}</p><a class="ul" href="${MAPS_URL}" target="_blank" rel="noopener">${t.directions}</a></div>
-   <div id="contact"><h4>${t.contact}</h4><a href="${WA}" target="_blank" rel="noopener">${t.phone}</a><a href="${IG_URL}" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><p><span class="tbc">${t.email}</span></p><a href="${REVIEWS_URL}" target="_blank" rel="noopener">${t.reviewsLink}</a></div>
+   <div id="contact"><h4>${t.contact}</h4><a href="${WA}" target="_blank" rel="noopener">${t.phone}</a><p class="wa-note">${t.waReply}</p><a href="${IG_URL}" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><a href="mailto:${EMAIL}">${EMAIL}</a><a href="${REVIEWS_URL}" target="_blank" rel="noopener">${t.reviewsLink}</a></div>
    <div><h4>${t.explore}</h4><a href="${L('tastings.html')}">${t.tastings}</a><a href="${L('wine-classes.html')}">${t.classes}</a><a href="${L('events.html')}">${t.events}</a><a href="${L('products.html')}">${t.products}</a><a href="${L('countryside.html')}">${t.countryside}</a><a href="${L('magazine.html')}">${t.magazine}</a><a href="${L('delivery.html')}">${t.delivery}</a><a href="${L('products.html#gift-cards')}">${t.gift}</a></div>
   </div>
   <div class="legal"><span>${t.piva}</span><span><button type="button" data-cookie-settings>${t.cookieSettings}</button> · ${langSwitch(page, 'll').replace(/^<div class="ll"[^>]*>|<\/div>$/g, '')}</span></div>
@@ -218,6 +221,9 @@ function footer(page) {
  <div class="acts"><button class="btn sm" type="button" data-accept>${t.accept}</button><button class="btn sm o" type="button" data-decline>${t.decline}</button></div>
 </div>
 <a class="sbook btn" href="${L('tastings.html')}#book" data-book>${t.stickyBook}</a>
+<div class="age" id="age" role="dialog" aria-modal="true" aria-labelledby="age-q" aria-describedby="age-s">
+ <div class="box">${logo(40)}<p class="q" id="age-q">${t.ageQ}</p><p class="s" id="age-s">${t.ageSub}</p><div class="acts"><button class="btn" type="button" data-age="yes">${t.ageYes}</button><button class="btn o" type="button" data-age="no">${t.ageNo}</button></div><p class="sorry" role="alert" hidden>${t.ageSorry}</p></div>
+</div>
 <script src="site.js" defer></script>
 `;
 }
@@ -280,6 +286,7 @@ function head(page) {
 <link rel="preload" href="fonts/eb-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://app.cal.com" crossorigin>
 <link rel="stylesheet" href="chrome.css">
+<script>/* Age check: cover the page until the visitor confirms they are 18+ (once per visit). */try{if(sessionStorage.getItem('dv-age')!=='yes')document.documentElement.classList.add('ag')}catch(e){document.documentElement.classList.add('ag')}</script>
 `;
 }
 

@@ -89,6 +89,7 @@
 <link rel="preload" href="fonts/eb-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://app.cal.com" crossorigin>
 <link rel="stylesheet" href="chrome.css">
+<script>/* Age check: cover the page until the visitor confirms they are 18+ (once per visit). */try{if(sessionStorage.getItem('dv-age')!=='yes')document.documentElement.classList.add('ag')}catch(e){document.documentElement.classList.add('ag')}</script>
 <!-- /dv:head -->
 <link rel="stylesheet" href="site.css">
 </head>
@@ -102,7 +103,7 @@
   <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></svg><span>Menu</span><b class="sr-only">Open menu</b></button>
   <nav class="nav l" aria-label="Main, left"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Tastings</button><div class="sub"><a href="tastings.html">At Divino</a><a href="wine-tasting-cefalu.html">Wine tasting in Cefalù</a><a href="private-group-wine-tasting.html">Private & group tastings</a><a href="tasting-villa.html">At your villa</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Classes</button><div class="sub"><a href="wine-classes.html">Wine classes</a><a href="cooking-classes.html">Farm-to-table cooking<span class="soon-dot">Soon</span></a></div></div><a href="events.html">Events</a></nav>
   <a class="logo" href="./" aria-label="Divino Urban Cellar, Home"><span class="wm" style="--s:46px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span></a>
-  <nav class="nav r" aria-label="Main, right"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Our Products</button><div class="sub"><a href="products.html#specialty">Divino Specialty Products</a><a href="products.html#countryside">From our Countryside</a><a href="delivery.html">Wines delivered</a><a href="products.html#gift-cards">Gift cards</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">The Countryside</button><div class="sub"><a href="countryside.html">Our land</a><a href="countryside.html#donna-maria">Donna Maria products</a></div></div><a href="magazine.html">Magazine</a><a href="about.html">About Us</a><a class="btn sm" href="tastings.html#book" data-book>Book</a></nav>
+  <nav class="nav r" aria-label="Main, right"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Our Products</button><div class="sub"><a href="products.html#specialty">Divino Specialty Products</a><a href="products.html#countryside">From our Countryside</a><a href="delivery.html">Wines delivered</a><a href="products.html#gift-cards">Gift cards</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">The Countryside</button><div class="sub"><a href="countryside.html">Our land</a><a href="countryside.html#donna-maria">Donna Maria products</a></div></div><a href="about.html">About Us</a></nav>
   <a class="btn sm mbook" href="tastings.html#book" data-book>Book</a>
  </div>
 </header>
@@ -143,7 +144,7 @@
  <div class="pil">
   <a class="rv" href="delivery.html"><div class="ph" style="background-image:url('photos/wine-shelves-900.webp')"></div><div class="lb"><h3>Enoteca</h3><p>Sicilian wines chosen by Manfredi and Arianna, wine from our vats, tapas at the bar.</p><span class="go">Our wines →</span></div></a>
   <a class="rv" href="tastings.html"><div class="ph" style="background-image:url('photos/long-table-900.webp')"></div><div class="lb"><h3>Experiences</h3><p>Tastings at the long table or at your villa, wine classes and events.</p><span class="go">Tastings →</span></div></a>
-  <a class="rv" href="products.html"><div class="ph" style="background-image:url('photos/products-plants-900.webp')"></div><div class="lb"><h3>Our Products</h3><p>Divino Specialty Products and our own olive oil, Olivum Mariae, in various sizes.</p><span class="go">Our Products →</span></div></a>
+  <a class="rv" href="products.html"><div class="ph" style="background-image:url('photos/products-plants-900.webp')"></div><div class="lb"><h3>Our Products</h3><p>Divino Specialty Products and our own olive oil, Olivum Mariae, in 1 L and 0.50 L tins.</p><span class="go">Our Products →</span></div></a>
   <a class="rv" href="countryside.html"><div class="ph" style="background-image:url('photos/countryside-lavender-900.webp')"><span class="soon">Coming soon</span></div><div class="lb"><h3>The Countryside</h3><p>Our land: lavender, the olive grove and our oleoteca, the vineyard and manna.</p><span class="go">Discover →</span></div></a>
  </div>
 </div></section>
@@ -162,7 +163,7 @@
  <div class="duo"><div style="background-image:url('photos/products-plants-900.webp')" role="img" aria-label="Jarred Sicilian specialities among the plants at Divino"></div><div style="background-image:url('photos/olivum-mariae.webp')" role="img" aria-label="A tin of Olivum Mariae olive oil"></div></div>
  <div class="ctxt rv">
   <p class="caps kick">Our Products</p><h2>From our shelves</h2>
-  <p class="d">Divino Specialty Products (jarred Sicilian specialities), Massimo’s Olivum Mariae olive oil in various sizes, and what grows on our land: lavender, wine and manna.</p>
+  <p class="d">Divino Specialty Products (jarred Sicilian specialities), Massimo’s Olivum Mariae olive oil in 1 L and 0.50 L tins, and what grows on our land: lavender, wine and manna.</p>
   <div class="actions"><a class="btn" href="products.html">Our Products</a></div>
  </div>
 </section>
@@ -250,10 +251,10 @@
   <div class="fgrid">
    <div><span class="wm" style="--s:34px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span><p>Enoteca · Experiences · The Countryside</p></div>
    <div><h4>Find us</h4><p>Via Gibilmanna 16<br>90015 Cefalù (PA), Italy</p><p>Mon–Sat 10:00–14:00, 17:00–22:30<br>Sun 10:00–13:00, 17:00–22:00</p><a class="ul" href="https://www.google.com/maps/dir/?api=1&destination=Divino+Urban+Cellar%2C+Via+Gibilmanna+16%2C+90015+Cefal%C3%B9+PA" target="_blank" rel="noopener">Get directions</a></div>
-   <div id="contact"><h4>Contact</h4><a href="https://wa.me/393312530729" target="_blank" rel="noopener">Phone &amp; WhatsApp +39 331 253 0729</a><a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><p><span class="tbc">[email]</span></p><a href="https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU" target="_blank" rel="noopener">Google reviews</a></div>
+   <div id="contact"><h4>Contact</h4><a href="https://wa.me/393312530729" target="_blank" rel="noopener">Phone &amp; WhatsApp +39 331 253 0729</a><p class="wa-note">We’ll reply within the hour</p><a href="https://www.instagram.com/divino_cantinaurbana/" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><a href="mailto:divino.urbancellar@gmail.com">divino.urbancellar@gmail.com</a><a href="https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU" target="_blank" rel="noopener">Google reviews</a></div>
    <div><h4>Explore</h4><a href="tastings.html">Tastings</a><a href="wine-classes.html">Classes</a><a href="events.html">Events</a><a href="products.html">Our Products</a><a href="countryside.html">The Countryside</a><a href="magazine.html">Magazine</a><a href="delivery.html">Delivery</a><a href="products.html#gift-cards">Gift cards</a></div>
   </div>
-  <div class="legal"><span>© 2026 Divino Urban Cellar · P.IVA <span class="tbc">[number]</span></span><span><button type="button" data-cookie-settings>Cookie settings</button> · <span class="on" aria-current="true">EN</span> · <a href="index-it.html" hreflang="it" lang="it" data-lang-switch="it">IT</a></span></div>
+  <div class="legal"><span>© 2026 Divino Urban Cellar · P.IVA IT06950220829</span><span><button type="button" data-cookie-settings>Cookie settings</button> · <span class="on" aria-current="true">EN</span> · <a href="index-it.html" hreflang="it" lang="it" data-lang-switch="it">IT</a></span></div>
  </div>
 </footer>
 
@@ -278,6 +279,9 @@
  <div class="acts"><button class="btn sm" type="button" data-accept>Accept</button><button class="btn sm o" type="button" data-decline>Decline</button></div>
 </div>
 <a class="sbook btn" href="tastings.html#book" data-book>Book a tasting</a>
+<div class="age" id="age" role="dialog" aria-modal="true" aria-labelledby="age-q" aria-describedby="age-s">
+ <div class="box"><span class="wm" style="--s:40px"><span class="w"><span>DIV</span><svg viewBox="0 0 20 40" aria-hidden="true" focusable="false"><path d="M3 2 H17 C17 12 14 17 10 18 C6 17 3 12 3 2 Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.2 8 H15.8 C15.3 13 13 16.2 10 16.8 C7 16.2 4.7 13 4.2 8 Z" fill="#6E2A34"/><line x1="10" y1="18" x2="10" y2="35" stroke="currentColor" stroke-width="1.3"/><path d="M4 38 C6 35.5 14 35.5 16 38" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>NO</span></span><span class="u">URBAN CELLAR</span></span><p class="q" id="age-q">Are you 18 or older?</p><p class="s" id="age-s">You must be of legal drinking age to enter the Divino website.</p><div class="acts"><button class="btn" type="button" data-age="yes">Yes</button><button class="btn o" type="button" data-age="no">No</button></div><p class="sorry" role="alert" hidden>Sorry, you need to be 18 or older to visit our website. We hope to welcome you at Divino one day.</p></div>
+</div>
 <script src="site.js" defer></script>
 <!-- /dv:footer -->
 </body>

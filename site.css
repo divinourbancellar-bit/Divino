@@ -222,6 +222,8 @@ h2{font-size:clamp(34px,4.2vw,48px);line-height:1.12;text-align:center}
 .ev h3{font:500 27px/1.2 var(--display)}
 .ev p{font-size:16.5px;margin-top:4px}
 .ev .ep{display:flex;align-items:center;gap:18px;font:italic 400 22px var(--display);color:var(--green)}
+.ev-rule{text-align:center;margin-top:14px;font-size:17px;color:var(--green)}
+.ev .eo{font-size:14.5px;color:var(--muted);margin-top:2px}
 .ev-empty{text-align:center;font:italic 400 24px var(--display);color:var(--green);padding:30px 0}
 .past{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;max-width:960px;margin:44px auto 0}
 .past>div{background:#fff;border:1px solid var(--line);border-top:3px solid var(--sage)}
