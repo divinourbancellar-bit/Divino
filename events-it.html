@@ -189,8 +189,9 @@
   var MONTHS = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
   var DAYS = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var poster = function (e) { return /^(https:\/\/|photos\/|optimized\/|assets\/)/.test(e.photo || '') ? e.photo : ''; };
   var today0 = new Date(); var iso = today0.getFullYear() + '-' + String(today0.getMonth() + 1).padStart(2, '0') + '-' + String(today0.getDate()).padStart(2, '0');
-  fetch('https://lcsitumjazsaxqwpivie.supabase.co/rest/v1/events?select=date,time,name,description,price,booking,photo&published=eq.true&date=gte.' + iso + '&order=date.asc', { headers: { apikey: 'sb_publishable_ywl1PdIojSf7vlrEIGC_HQ_aO3WynN_' } }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) { var data = { events: rows };
+  fetch('https://lcsitumjazsaxqwpivie.supabase.co/rest/v1/events?select=*&published=eq.true&date=gte.' + iso + '&order=date.asc', { headers: { apikey: 'sb_publishable_ywl1PdIojSf7vlrEIGC_HQ_aO3WynN_' } }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) { var data = { events: rows };
     var today = new Date(); today.setHours(0, 0, 0, 0);
     var evs = (data.events || []).filter(function (e) { return e.date && new Date(e.date + 'T00:00') >= today; })
       .sort(function (a, b) { return a.date < b.date ? -1 : 1; });
@@ -200,7 +201,7 @@
       var wa = 'https://wa.me/393312530729?text=' + encodeURIComponent('Ciao Divino! Vorrei prenotare: ' + e.name + ' il ' + e.date + '. Ospiti: ');
       var href = /^https:\/\//.test(e.booking || '') ? e.booking : wa;
       return '<div class="ev"><div class="dt"><b>' + d.getDate() + '</b><span>' + MONTHS[d.getMonth()] + '</span></div>' +
-        '<div class="et"><h3>' + esc(e.name) + '</h3><p>' + DAYS[d.getDay()] + (e.time ? ' · ' + esc(e.time) : '') + (e.description ? ' · ' + esc(e.description) : '') + '</p><p class="eo">15 € a persona · porta aperta, nessun limite di ospiti</p></div>' +
+        '<div class="et"><h3>' + esc(e.name) + '</h3><p>' + DAYS[d.getDay()] + (e.time ? ' · ' + esc(e.time) : '') + (e.description ? ' · ' + esc(e.description) : '') + '</p>' + (e.wines ? '<p class="ewn"><span>Vini</span> ' + esc(e.wines) + '</p>' : '') + '<p class="eo">15 € a persona · porta aperta, nessun limite di ospiti</p>' + (poster(e) ? '<a class="pt" href="' + esc(poster(e)) + '" target="_blank" rel="noopener"><img src="' + esc(poster(e)) + '" alt="' + esc('Locandina: ' + e.name) + '" loading="lazy"></a>' : '') + '</div>' +
         '<div class="ep">' + '€' + esc(String(e.price || '15').replace(/^€\s*/, '')) + '<a class="btn sm" href="' + esc(href) + '" target="_blank" rel="noopener">Prenota</a></div></div>';
     }).join('');
   }).catch(function () {});

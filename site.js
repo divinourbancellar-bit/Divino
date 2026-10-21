@@ -383,33 +383,73 @@
     });
   }
 
-  /* ---------- Next evening at Divino ----------
-     Once per visit, after the age check, a small card with the next published
-     event from the Divino database. Not on the Events page itself. */
+  /* ---------- Upcoming events (Home strip + "Next at Divino" pop-up) ----------
+     Both read the published events from the Divino database, from today on, so
+     an evening drops off the day after it happens. select=* keeps this working
+     whether or not the wines column exists yet. */
+  var evList = null;
+  var upcomingEvents = function () {
+    if (!evList) {
+      var d0 = new Date(), iso = d0.getFullYear() + '-' + String(d0.getMonth() + 1).padStart(2, '0') + '-' + String(d0.getDate()).padStart(2, '0');
+      evList = fetch(SB_URL + '/rest/v1/events?select=*&published=eq.true&date=gte.' + iso + '&order=date.asc,time.asc&limit=3', { headers: { apikey: SB_KEY } })
+        .then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
+    }
+    return evList;
+  };
+  var evEsc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var evHref = (IT ? 'events-it.html' : 'events.html') + '#whats-on';
+  var evPrice = function (ev) {
+    var p = String(ev.price || '15').replace(/^€\s*/, '');
+    return IT ? p + ' € a persona · porta aperta' : '€' + p + ' per person · open door';
+  };
+  var evPoster = function (ev) { return /^(https:\/\/|photos\/|optimized\/|assets\/)/.test(ev.photo || '') ? ev.photo : ''; };
+  var evDate = function (ev, opts) { return new Date(ev.date + 'T00:00').toLocaleDateString(IT ? 'it-IT' : 'en-GB', opts); };
+
+  var strip = document.getElementById('up-events');
+  if (strip) upcomingEvents().then(function (rows) {
+    if (!rows.length) return;
+    strip.querySelector('.upev-list').innerHTML = rows.map(function (ev) {
+      var poster = evPoster(ev);
+      return '<a class="upev-c" href="' + evHref + '">' +
+        (poster ? '<img src="' + evEsc(poster) + '" alt="' + evEsc((IT ? 'Locandina: ' : 'Poster: ') + ev.name) + '" loading="lazy">' : '') +
+        '<div class="b"><p class="dt">' + evEsc(evDate(ev, { weekday: 'long', day: 'numeric', month: 'long' })) + (ev.time ? ' · ' + evEsc(ev.time) : '') + '</p>' +
+        '<h3>' + evEsc(ev.name) + '</h3>' + (ev.description ? '<p>' + evEsc(ev.description) + '</p>' : '') +
+        (ev.wines ? '<p class="ewn"><span>' + (IT ? 'Vini' : 'Wines') + '</span> ' + evEsc(ev.wines) + '</p>' : '') +
+        '<p class="pr">' + evPrice(ev) + '</p></div></a>';
+    }).join('');
+    strip.hidden = false;
+  });
+
+  /* The pop-up: once per visit, after the age check, not on the Events page.
+     "Don't show again" remembers that evening in localStorage; the next new
+     evening will still be shown. */
   var showNextEvent = function () {
     if (/events(-it)?\.html$/.test(location.pathname)) return;
     try { if (sessionStorage.getItem('dv-evpop')) return; } catch (e) { return; }
-    var d0 = new Date(), iso = d0.getFullYear() + '-' + String(d0.getMonth() + 1).padStart(2, '0') + '-' + String(d0.getDate()).padStart(2, '0');
-    fetch(SB_URL + '/rest/v1/events?select=date,time,name,price&published=eq.true&date=gte.' + iso + '&order=date.asc&limit=1', { headers: { apikey: SB_KEY } })
-      .then(function (r) { return r.ok ? r.json() : []; }).then(function (rows) {
-        var ev = rows && rows[0];
-        if (!ev) return;
-        var d = new Date(ev.date + 'T00:00');
-        var when = d.toLocaleDateString(IT ? 'it-IT' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) + (ev.time ? ' · ' + ev.time : '');
-        var price = String(ev.price || '15').replace(/^€\s*/, '');
-        var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-        var box = document.createElement('aside');
-        box.className = 'evpop';
-        box.setAttribute('aria-label', IT ? 'Prossima serata da Divino' : 'Next evening at Divino');
-        box.innerHTML = '<button class="x" type="button" aria-label="' + (IT ? 'Chiudi' : 'Close') + '">×</button>' +
-          '<p class="k">' + (IT ? 'Prossima serata' : 'Next at Divino') + '</p><h3>' + esc(ev.name) + '</h3>' +
-          '<p>' + esc(when) + '</p><p>' + (IT ? price + ' € a persona · porta aperta' : '€' + price + ' per person · open door') + '</p>' +
-          '<a class="btn sm" href="' + (IT ? 'events-it.html' : 'events.html') + '#whats-on">' + (IT ? 'Scopri la serata' : 'See the evening') + '</a>';
-        var done = function () { try { sessionStorage.setItem('dv-evpop', '1'); } catch (e) {} box.remove(); };
-        box.querySelector('.x').addEventListener('click', done);
-        box.querySelector('a').addEventListener('click', done);
-        document.body.appendChild(box);
-      }).catch(function () {});
+    upcomingEvents().then(function (rows) {
+      var ev = rows[0];
+      if (!ev) return;
+      var key = ev.date + '|' + ev.name;
+      try { if (localStorage.getItem('dv-evpop-never') === key) return; } catch (e) {}
+      var poster = evPoster(ev);
+      var box = document.createElement('aside');
+      box.className = 'evpop' + (poster ? ' has-p' : '');
+      box.setAttribute('aria-label', IT ? 'Prossima serata da Divino' : 'Next evening at Divino');
+      box.innerHTML = '<button class="x" type="button" aria-label="' + (IT ? 'Chiudi' : 'Close') + '">×</button>' +
+        (poster ? '<a class="pp" href="' + evHref + '"><img src="' + evEsc(poster) + '" alt="' + evEsc((IT ? 'Locandina: ' : 'Poster: ') + ev.name) + '"></a>' : '') +
+        '<div class="b"><p class="k">' + (IT ? 'Prossima serata da Divino' : 'Next at Divino') + '</p>' +
+        '<p class="dt">' + evEsc(evDate(ev, { weekday: 'long', day: 'numeric', month: 'long' })) + (ev.time ? ' · ' + evEsc(ev.time) : '') + '</p>' +
+        '<h3>' + evEsc(ev.name) + '</h3>' + (ev.description ? '<p class="ds">' + evEsc(ev.description) + '</p>' : '') +
+        (ev.wines ? '<p class="ewn"><span>' + (IT ? 'Vini' : 'Wines') + '</span> ' + evEsc(ev.wines) + '</p>' : '') +
+        '<p class="pr">' + evPrice(ev) + '</p>' +
+        '<a class="btn sm" href="' + evHref + '">' + (IT ? 'Scopri la serata' : 'See the evening') + '</a>' +
+        '<button class="nv" type="button">' + (IT ? 'Non mostrare più' : 'Don’t show again') + '</button></div>';
+      var done = function () { try { sessionStorage.setItem('dv-evpop', '1'); } catch (e) {} box.remove(); };
+      box.querySelector('.x').addEventListener('click', done);
+      box.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', done); });
+      box.querySelector('.nv').addEventListener('click', function () { try { localStorage.setItem('dv-evpop-never', key); } catch (e) {} done(); });
+      document.body.appendChild(box);
+    });
   };
   if (ageOk()) setTimeout(showNextEvent, 2500); else afterAge.push(function () { setTimeout(showNextEvent, 2500); });
 

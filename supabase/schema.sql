@@ -31,6 +31,7 @@ create table public.events (
   time text check (char_length(time) <= 20),
   name text not null check (char_length(name) <= 160),
   description text check (char_length(description) <= 400),
+  wines text check (char_length(wines) <= 400),
   price text check (char_length(price) <= 20),
   booking text check (char_length(booking) <= 500),
   photo text check (char_length(photo) <= 300),
@@ -76,7 +77,8 @@ begin
 end $$;
 revoke all on function private.check_pw(text) from public, anon, authenticated;
 
--- After this file, run supabase/analytics-v2.sql: it replaces admin_stats_pw with the richer v2 version.
+-- After this file, run supabase/analytics-v2.sql: it replaces admin_stats_pw with the richer v2 version,
+-- and supabase/events-v2.sql for the event posters bucket.
 
 -- ---------------------------------------------------------------- admin functions
 
@@ -141,13 +143,13 @@ begin
   if coalesce(ev->>'booking', '') <> '' and ev->>'booking' !~ '^https://' then raise exception 'booking link must start with https://'; end if;
   if ev ? 'id' and nullif(ev->>'id', '') is not null then
     update events set date = (ev->>'date')::date, time = nullif(ev->>'time',''), name = ev->>'name',
-      description = nullif(ev->>'description',''), price = nullif(ev->>'price',''), booking = nullif(ev->>'booking',''),
-      photo = nullif(ev->>'photo',''), published = coalesce((ev->>'published')::boolean, true)
+      description = nullif(ev->>'description',''), wines = nullif(ev->>'wines',''), price = nullif(ev->>'price',''),
+      booking = nullif(ev->>'booking',''), photo = nullif(ev->>'photo',''), published = coalesce((ev->>'published')::boolean, true)
     where id = (ev->>'id')::bigint;
   else
-    insert into events (date, time, name, description, price, booking, photo, published)
-    values ((ev->>'date')::date, nullif(ev->>'time',''), ev->>'name', nullif(ev->>'description',''), nullif(ev->>'price',''),
-      nullif(ev->>'booking',''), nullif(ev->>'photo',''), coalesce((ev->>'published')::boolean, true));
+    insert into events (date, time, name, description, wines, price, booking, photo, published)
+    values ((ev->>'date')::date, nullif(ev->>'time',''), ev->>'name', nullif(ev->>'description',''), nullif(ev->>'wines',''),
+      nullif(ev->>'price',''), nullif(ev->>'booking',''), nullif(ev->>'photo',''), coalesce((ev->>'published')::boolean, true));
   end if;
 end $$;
 

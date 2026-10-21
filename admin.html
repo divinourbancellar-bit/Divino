@@ -81,6 +81,7 @@ td .muted{color:var(--muted)}
 .form .row{display:flex;gap:10px;align-items:center;grid-column:1/-1}
 .form .row label{margin:0;display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:16px;color:var(--cocoa)}
 .form .row input[type=checkbox]{width:auto}
+.pst{display:flex;gap:16px;align-items:flex-start}.pst img{width:96px;height:auto;max-height:136px;object-fit:cover;border:1px solid var(--line)}.pst input[type=file]{border:0;padding:6px 0}.pst p{font-size:14px;margin-top:4px}
 .msg{margin-top:10px;font:italic 19px var(--display);color:var(--green);min-height:1em}
 .msg.err{color:#9b2c2c}
 .login{max-width:420px;margin:9vh auto;background:#fff;border:1px solid var(--line);border-top:3px solid var(--sage);padding:38px 34px;text-align:center}
@@ -200,10 +201,12 @@ td .muted{color:var(--muted)}
      <div><label for="ev-date">Date</label><input id="ev-date" type="date" required></div>
      <div><label for="ev-time">Time</label><input id="ev-time" placeholder="19:00" maxlength="20"></div>
      <div class="w2"><label for="ev-name">Name</label><input id="ev-name" required maxlength="160" placeholder="An evening with…"></div>
-     <div class="w4"><label for="ev-desc">One-line description</label><input id="ev-desc" maxlength="400"></div>
+     <div class="w4"><label for="ev-desc">One-line description</label><input id="ev-desc" maxlength="400" placeholder="Degustazione con il produttore"></div>
+     <div class="w4"><label for="ev-wines">Wines (optional)</label><input id="ev-wines" maxlength="400" placeholder="Catarratto 2025, Mamertino Nero d’Avola 2017, Franco 2014"></div>
      <div><label for="ev-price">Price (€)</label><input id="ev-price" maxlength="20" placeholder="15"></div>
      <div class="w2"><label for="ev-booking">Booking link (optional)</label><input id="ev-booking" type="url" maxlength="500" placeholder="https://… (leave empty for WhatsApp)"></div>
-     <div><label for="ev-photo">Photo (optional)</label><input id="ev-photo" maxlength="300" placeholder="photos/long-table-900.webp"></div>
+     <div class="w4 poster"><label for="ev-poster">Poster image (optional)</label>
+      <div class="pst"><img id="ev-poster-img" alt="" hidden><div><input id="ev-poster" type="file" accept="image/jpeg,image/png,image/webp"><input type="hidden" id="ev-photo"><button class="lnk" type="button" id="ev-poster-rm" hidden>Remove poster</button><p class="muted" id="ev-poster-msg">JPEG, PNG or WebP. Shown on the Events page, the Home page and the pop-up.</p></div></div></div>
      <div class="row"><label><input type="checkbox" id="ev-pub" checked> Show on the website</label>
       <button class="btn sm" type="submit" id="ev-save">Save event</button><button class="lnk" type="button" id="ev-cancel" hidden>Cancel editing</button></div>
     </form>
@@ -614,27 +617,65 @@ td .muted{color:var(--muted)}
     var today = new Date().toISOString().slice(0, 10);
     $('ev-rows').innerHTML = events.length ? events.map(function (e) {
       var past = e.date < today;
-      return '<tr><td>' + fmtDate(e.date + 'T00:00') + (e.time ? '<br><span class="muted">' + esc(e.time) + '</span>' : '') + '</td><td><b>' + esc(e.name) + '</b>' + (e.description ? '<br><span class="muted">' + esc(e.description) + '</span>' : '') + '</td><td>' + (e.price ? '€' + esc(String(e.price).replace(/^€\s*/, '')) : '') + '</td><td>' +
+      return '<tr><td>' + fmtDate(e.date + 'T00:00') + (e.time ? '<br><span class="muted">' + esc(e.time) + '</span>' : '') + '</td><td><b>' + esc(e.name) + '</b>' + (e.description ? '<br><span class="muted">' + esc(e.description) + '</span>' : '') + (e.wines ? '<br><span class="muted">Wines: ' + esc(e.wines) + '</span>' : '') + (e.photo ? '<br><span class="muted">Poster ✓</span>' : '') + '</td><td>' + (e.price ? '€' + esc(String(e.price).replace(/^€\s*/, '')) : '') + '</td><td>' +
         (past ? '<span class="pill off">Past</span>' : e.published ? '<span class="pill">On the website</span>' : '<span class="pill off">Hidden</span>') +
         '</td><td><button class="lnk" data-ev-edit="' + e.id + '">Edit</button><button class="lnk danger" data-ev-del="' + e.id + '">Delete</button></td></tr>';
     }).join('') : '<tr><td colspan="5" class="empty">No events yet. Add the first one above.</td></tr>';
   }
   function resetForm() {
-    $('ev-form').reset(); $('ev-id').value = ''; $('ev-pub').checked = true;
+    $('ev-form').reset(); $('ev-id').value = ''; $('ev-pub').checked = true; setPoster('');
     $('ev-title').textContent = 'Add an event'; $('ev-cancel').hidden = true;
   }
   $('ev-cancel').addEventListener('click', resetForm);
+
+  /* Poster: shrunk in the browser to at most 1400 px (WebP), then stored in the
+     posters bucket by the event-poster function; the form keeps its URL. */
+  function setPoster(url) {
+    $('ev-photo').value = url; $('ev-poster').value = '';
+    $('ev-poster-img').hidden = !url; $('ev-poster-rm').hidden = !url;
+    if (url) $('ev-poster-img').src = /^https:\/\//.test(url) ? url : '/' + url.replace(/^\//, '');
+  }
+  function shrink(file) {
+    return new Promise(function (ok, fail) {
+      var img = new Image();
+      img.onload = function () {
+        var k = Math.min(1, 1400 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(img.src);
+        c.toBlob(function (b) { b ? ok(b) : fail(new Error('Could not read that image')); }, 'image/webp', 0.86);
+      };
+      img.onerror = function () { fail(new Error('Could not read that image')); };
+      img.src = URL.createObjectURL(file);
+    });
+  }
+  $('ev-poster-rm').addEventListener('click', function () { setPoster(''); });
+  $('ev-poster').addEventListener('change', async function () {
+    var f = this.files[0]; if (!f) return;
+    var msg = $('ev-poster-msg'), save = $('ev-save');
+    save.disabled = true; msg.textContent = 'Uploading poster…';
+    try {
+      var blob = await shrink(f);
+      var r = await fetch(SB_URL + '/functions/v1/event-poster', { method: 'POST', headers: { apikey: SB_KEY, 'x-admin-pw': pw, 'Content-Type': blob.type }, body: blob });
+      var body = await r.json().catch(function () { return {}; });
+      if (!r.ok || !body.url) throw new Error(body.error || 'Upload failed (' + r.status + ')');
+      setPoster(body.url); msg.textContent = 'Poster ready. Save the event to keep it.';
+    } catch (e) {
+      $('ev-poster').value = ''; msg.textContent = 'Poster not uploaded: ' + e.message;
+    }
+    save.disabled = false;
+  });
   $('ev-form').addEventListener('submit', async function (e) {
     e.preventDefault();
     var booking = $('ev-booking').value.trim();
     if (booking && !/^https:\/\//.test(booking)) return say($('ev-msg'), 'The booking link must start with https://', true);
-    var row = { date: $('ev-date').value, time: $('ev-time').value.trim() || null, name: $('ev-name').value.trim(), description: $('ev-desc').value.trim() || null,
+    var row = { date: $('ev-date').value, time: $('ev-time').value.trim() || null, name: $('ev-name').value.trim(), description: $('ev-desc').value.trim() || null, wines: $('ev-wines').value.trim() || null,
       price: $('ev-price').value.trim().replace(/^€\s*/, '') || null, booking: booking || null, photo: $('ev-photo').value.trim() || null, published: $('ev-pub').checked };
     var id = $('ev-id').value;
     if (id) row.id = +id;
     var r = await rpc('admin_event_save', { ev: row });
     if (r.error) return say($('ev-msg'), r.error.message, true);
-    say($('ev-msg'), id ? 'Event updated.' : 'Event added. It is on the Events page now.');
+    say($('ev-msg'), id ? 'Event updated.' : 'Event added. It is on the Events page, the Home page and the pop-up now.');
     resetForm(); loadEvents(); loadStats();
   });
   $('ev-rows').addEventListener('click', async function (e) {
@@ -642,8 +683,8 @@ td .muted{color:var(--muted)}
     if (ed) {
       var v = events.find(function (x) { return x.id == ed; });
       $('ev-id').value = v.id; $('ev-date').value = v.date; $('ev-time').value = v.time || ''; $('ev-name').value = v.name;
-      $('ev-desc').value = v.description || ''; $('ev-price').value = v.price || ''; $('ev-booking').value = v.booking || '';
-      $('ev-photo').value = v.photo || ''; $('ev-pub').checked = v.published;
+      $('ev-desc').value = v.description || ''; $('ev-wines').value = v.wines || ''; $('ev-price').value = v.price || ''; $('ev-booking').value = v.booking || '';
+      setPoster(v.photo || ''); $('ev-pub').checked = v.published;
       $('ev-title').textContent = 'Edit event'; $('ev-cancel').hidden = false;
       $('ev-form').scrollIntoView({ behavior: 'smooth' });
     }
