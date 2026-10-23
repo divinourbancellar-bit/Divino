@@ -181,9 +181,7 @@
 <script src="site.js" defer></script>
 <!-- /dv:footer -->
 <script>
-/* Renders the season's events from the Divino database, soonest first.
-   id=not.in.(2,3) keeps Palumbo and Ferreri off the page until their corrected
-   posters arrive (same list as HIDDEN_EVENTS in site.js). */
+/* Renders the season's events from the Divino database, soonest first. */
 (function () {
   var list = document.getElementById('events-list');
   var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -191,7 +189,7 @@
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var poster = function (e) { return /^(https:\/\/|photos\/|optimized\/|assets\/)/.test(e.photo || '') ? e.photo : ''; };
   var today0 = new Date(); var iso = today0.getFullYear() + '-' + String(today0.getMonth() + 1).padStart(2, '0') + '-' + String(today0.getDate()).padStart(2, '0');
-  fetch('https://lcsitumjazsaxqwpivie.supabase.co/rest/v1/events?select=*&published=eq.true&id=not.in.(2,3)&date=gte.' + iso + '&order=date.asc', { headers: { apikey: 'sb_publishable_ywl1PdIojSf7vlrEIGC_HQ_aO3WynN_' } }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) { var data = { events: rows };
+  fetch('https://lcsitumjazsaxqwpivie.supabase.co/rest/v1/events?select=*&published=eq.true&date=gte.' + iso + '&order=date.asc', { headers: { apikey: 'sb_publishable_ywl1PdIojSf7vlrEIGC_HQ_aO3WynN_' } }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) { var data = { events: rows };
     var today = new Date(); today.setHours(0, 0, 0, 0);
     var evs = (data.events || []).filter(function (e) { return e.date && new Date(e.date + 'T00:00') >= today; })
       .sort(function (a, b) { return a.date < b.date ? -1 : 1; });

@@ -399,15 +399,11 @@
      Both read the published events from the Divino database, from today on, so
      an evening drops off the day after it happens. select=* keeps this working
      whether or not the wines column exists yet. */
-  /* Events kept off the website even while published in the database (ids from
-     the events table). Palumbo (2) and Ferreri (3) wait for corrected posters;
-     empty this list to show them again. The Events pages carry the same filter. */
-  var HIDDEN_EVENTS = '(2,3)';
   var evList = null;
   var upcomingEvents = function () {
     if (!evList) {
       var d0 = new Date(), iso = d0.getFullYear() + '-' + String(d0.getMonth() + 1).padStart(2, '0') + '-' + String(d0.getDate()).padStart(2, '0');
-      evList = fetch(SB_URL + '/rest/v1/events?select=*&published=eq.true&id=not.in.' + HIDDEN_EVENTS + '&date=gte.' + iso + '&order=date.asc,time.asc&limit=3', { headers: { apikey: SB_KEY } })
+      evList = fetch(SB_URL + '/rest/v1/events?select=*&published=eq.true&date=gte.' + iso + '&order=date.asc,time.asc&limit=3', { headers: { apikey: SB_KEY } })
         .then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
     }
     return evList;
