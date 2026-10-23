@@ -140,6 +140,18 @@
     if (!e.target.closest || !e.target.closest('.dd')) closeAll();
   });
 
+  /* ---------- Sticky "Book a tasting" bar (phones) ----------
+     When the page's own first Book button is on the first screen, the bar
+     waits until that button has been scrolled past, so the two never show
+     stacked one above the other. */
+  var firstBook = document.querySelector('main [data-book]');
+  if (firstBook && 'IntersectionObserver' in window && firstBook.getBoundingClientRect().top < window.innerHeight) {
+    document.body.classList.add('sb-wait');
+    new IntersectionObserver(function (es) {
+      document.body.classList.toggle('sb-wait', es[0].isIntersecting || es[0].boundingClientRect.top > 0);
+    }).observe(firstBook);
+  }
+
   /* ---------- Header: mobile drawer ---------- */
   var drawer = document.getElementById('drawer');
   var menuBtn = document.getElementById('menu-btn');
@@ -398,10 +410,6 @@
   };
   var evEsc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var evHref = (IT ? 'events-it.html' : 'events.html') + '#whats-on';
-  var evPrice = function (ev) {
-    var p = String(ev.price || '15').replace(/^€\s*/, '');
-    return IT ? p + ' € a persona · porta aperta' : '€' + p + ' per person · open door';
-  };
   var evPoster = function (ev) { return /^(https:\/\/|photos\/|optimized\/|assets\/)/.test(ev.photo || '') ? ev.photo : ''; };
   var evDate = function (ev, opts) { return new Date(ev.date + 'T00:00').toLocaleDateString(IT ? 'it-IT' : 'en-GB', opts); };
 
@@ -415,7 +423,7 @@
         '<div class="b"><p class="dt">' + evEsc(evDate(ev, { weekday: 'long', day: 'numeric', month: 'long' })) + (ev.time ? ' · ' + evEsc(ev.time) : '') + '</p>' +
         '<h3>' + evEsc(ev.name) + '</h3>' + (ev.description ? '<p>' + evEsc(ev.description) + '</p>' : '') +
         (ev.wines ? '<p class="ewn"><span>' + (IT ? 'Vini' : 'Wines') + '</span> ' + evEsc(ev.wines) + '</p>' : '') +
-        '<p class="pr">' + evPrice(ev) + '</p></div></a>';
+        '</div></a>';
     }).join('');
     strip.hidden = false;
   });
@@ -441,7 +449,6 @@
         '<p class="dt">' + evEsc(evDate(ev, { weekday: 'long', day: 'numeric', month: 'long' })) + (ev.time ? ' · ' + evEsc(ev.time) : '') + '</p>' +
         '<h3>' + evEsc(ev.name) + '</h3>' + (ev.description ? '<p class="ds">' + evEsc(ev.description) + '</p>' : '') +
         (ev.wines ? '<p class="ewn"><span>' + (IT ? 'Vini' : 'Wines') + '</span> ' + evEsc(ev.wines) + '</p>' : '') +
-        '<p class="pr">' + evPrice(ev) + '</p>' +
         '<a class="btn sm" href="' + evHref + '">' + (IT ? 'Scopri la serata' : 'See the evening') + '</a>' +
         '<button class="nv" type="button">' + (IT ? 'Non mostrare più' : 'Don’t show again') + '</button></div>';
       var done = function () { try { sessionStorage.setItem('dv-evpop', '1'); } catch (e) {} box.remove(); };
