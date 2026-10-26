@@ -139,22 +139,16 @@ body.locked{overflow:hidden}
 .bk{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;padding:20px;visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s;font-family:var(--body);color:var(--cocoa)}
 .bk.open{visibility:visible;opacity:1}
 .bk .scrim{position:absolute;inset:0;background:rgba(74,55,48,.45)}
-.bk .box{position:relative;width:min(520px,100%);max-height:calc(100vh - 40px);overflow-y:auto;background:var(--ivory);border-top:3px solid var(--sage);box-shadow:0 30px 70px rgba(74,55,48,.3);padding:44px 40px 34px;text-align:center}
+.bk .box{position:relative;width:min(820px,100%);max-height:calc(100vh - 40px);overflow-y:auto;background:var(--ivory);border-top:3px solid var(--sage);box-shadow:0 30px 70px rgba(74,55,48,.3);padding:44px 40px 34px;text-align:center}
 .bk .x{position:absolute;right:10px;top:6px;font-size:34px;line-height:1;color:var(--wine);padding:6px 10px}
 .bk .kick{display:block;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
 .bk h2{font:400 38px/1.1 var(--display);color:var(--wine);margin-top:10px}
 .bk .when{font-size:16.5px;line-height:1.5;margin-top:12px}
-.bk .q{font:italic 400 22px var(--display);color:var(--green);margin-top:24px}
-.stepper{display:flex;align-items:center;justify-content:center;gap:26px;margin-top:14px}
-.stepper button{width:52px;height:52px;border-radius:50%;border:1px solid var(--green);color:var(--green);font:300 30px/1 var(--display);display:flex;align-items:center;justify-content:center;padding-bottom:4px}
-.stepper button:disabled{opacity:.3;cursor:not-allowed}
-.stepper output{min-width:70px;font:500 54px/1 var(--display);color:var(--wine)}
-.bk .total{margin-top:12px;font-size:17px;color:var(--muted)}
-.bk .btn{margin-top:24px;width:100%}
 .bk .alt{margin-top:18px;font-size:15.5px;color:var(--muted)}
 .bk .alt a{color:var(--wine);text-decoration:underline;text-underline-offset:3px}
+.bk .bkw{margin-top:22px;min-height:420px;text-align:left}
 .bk .err{margin-top:16px;color:var(--wine);font-size:16px}
-@media (max-width:760px){.bk .box{padding:40px 22px 28px}}
+@media (max-width:760px){.bk{padding:0}.bk .box{max-height:100vh;height:100%;padding:40px 12px 28px}.bk .bkw{margin-top:16px}}
 
 /* ---------- Cookie banner ---------- */
 .cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:140;max-width:780px;margin:0 auto;background:#fff;border:1px solid var(--line);border-top:3px solid var(--sage);box-shadow:0 18px 44px rgba(74,55,48,.18);padding:22px 24px;display:none;gap:20px;align-items:center;font-family:var(--body);color:var(--cocoa)}

@@ -22,6 +22,10 @@ const WA = 'https://wa.me/393312530729';
 const REVIEWS_URL = 'https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU';
 const IG_URL = 'https://www.instagram.com/divino_cantinaurbana/';
 const EMAIL = 'divino.urbancellar@gmail.com';
+/* Bókun runs the tasting bookings and takes payment (Stripe); this is the
+   wine tasting experience on Divino's booking channel. */
+const BOKUN_CHANNEL = 'dfe72029-8f73-462e-b8fe-37542603a627';
+const BOKUN_WIDGET = `https://widgets.bokun.io/online-sales/${BOKUN_CHANNEL}/experience/1330801`;
 const MAPS_URL = 'https://www.google.com/maps/dir/?api=1&destination=Divino+Urban+Cellar%2C+Via+Gibilmanna+16%2C+90015+Cefal%C3%B9+PA';
 
 /* ---------------------------------------------------------------- copy */
@@ -48,8 +52,7 @@ const T = {
     cookieSettings: 'Cookie settings', privacy: 'Privacy',
     bkKick: 'Wine tasting at Divino', bkTitle: 'Book your tasting',
     bkWhen: 'Every day at 18:00. For 11:00, message us on WhatsApp.',
-    bkQ: 'How many guests?', bkLess: 'One guest fewer', bkMore: 'One guest more',
-    bkNext: 'Choose your day and time', bkAlt: 'Prefer to talk? <a href="' + WA + '?text=' + encodeURIComponent('Hello Divino! I have a question about a wine tasting.') + '" target="_blank" rel="noopener">Message us on WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a>',
+    bkAlt: 'Prefer to talk? <a href="' + WA + '?text=' + encodeURIComponent('Hello Divino! I have a question about a wine tasting.') + '" target="_blank" rel="noopener">Message us on WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a>',
     bkErr: 'Online booking is not available right now. Please message us on WhatsApp and we will reply quickly.',
     bkClose: 'Close', stickyBook: 'Book a tasting',
     cookieTitle: 'This website uses cookies',
@@ -86,8 +89,7 @@ const T = {
     cookieSettings: 'Impostazioni cookie', privacy: 'Privacy',
     bkKick: 'Degustazione da Divino', bkTitle: 'Prenota la tua degustazione',
     bkWhen: 'Ogni giorno alle 18:00. Per le 11:00, scrivici su WhatsApp.',
-    bkQ: 'Quanti ospiti?', bkLess: 'Un ospite in meno', bkMore: 'Un ospite in più',
-    bkNext: 'Scegli giorno e orario', bkAlt: 'Preferisci parlarci? <a href="' + WA + '?text=' + encodeURIComponent('Ciao Divino! Ho una domanda su una degustazione.') + '" target="_blank" rel="noopener">Scrivici su WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a>',
+    bkAlt: 'Preferisci parlarci? <a href="' + WA + '?text=' + encodeURIComponent('Ciao Divino! Ho una domanda su una degustazione.') + '" target="_blank" rel="noopener">Scrivici su WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a>',
     bkErr: 'La prenotazione online non è disponibile in questo momento. Scrivici su WhatsApp e ti risponderemo subito.',
     bkClose: 'Chiudi', stickyBook: 'Prenota una degustazione',
     cookieTitle: 'Questo sito usa i cookie',
@@ -207,10 +209,7 @@ function footer(page) {
   <span class="kick">${t.bkKick}</span>
   <h2 id="bk-title">${t.bkTitle}</h2>
   <p class="when">${t.bkWhen}</p>
-  <p class="q">${t.bkQ}</p>
-  <div class="stepper"><button type="button" data-step="-1" aria-label="${t.bkLess}">−</button><output aria-live="polite">2</output><button type="button" data-step="1" aria-label="${t.bkMore}">+</button></div>
-  <p class="total" aria-live="polite"></p>
-  <button class="btn" type="button" data-confirm>${t.bkNext}</button>
+  <div class="bkw"><div class="bokunWidget" data-src="${BOKUN_WIDGET}"></div></div>
   <p class="err" role="alert" hidden>${t.bkErr}</p>
   <p class="alt">${t.bkAlt}</p>
  </div>
@@ -284,7 +283,7 @@ function head(page) {
   return `
 <link rel="preload" href="fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/eb-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preconnect" href="https://app.cal.com" crossorigin>
+<link rel="preconnect" href="https://widgets.bokun.io" crossorigin>
 <link rel="stylesheet" href="chrome.css">
 <script>/* Age check: cover the page until the visitor confirms they are 18+ (once per visit). */try{if(sessionStorage.getItem('dv-age')!=='yes')document.documentElement.classList.add('ag')}catch(e){document.documentElement.classList.add('ag')}</script>
 `;

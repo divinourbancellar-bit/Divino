@@ -167,7 +167,7 @@ td .muted{color:var(--muted)}
    </div>
    <div class="panel"><h3>Quick links</h3>
     <div class="links">
-     <a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener"><b>Bookings</b><small>Upcoming tastings on Cal.com</small></a>
+     <a href="https://extranet.bokun.io/" target="_blank" rel="noopener"><b>Bookings</b><small>Tastings and payments in Bókun</small></a>
      <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener"><b>Google Analytics</b><small>Full reports (property G-31NB1K438E)</small></a>
      <a href="https://business.google.com/" target="_blank" rel="noopener"><b>Google Business</b><small>Opening hours, photos, replies</small></a>
      <a href="https://search.google.com/local/reviews?placeid=ChIJbfUTBsQ7FxMRd-LJ0zExPYU" target="_blank" rel="noopener"><b>Google reviews</b><small>Read and answer reviews</small></a>
@@ -249,19 +249,15 @@ td .muted{color:var(--muted)}
 
   <!-- Bookings -->
   <section data-panel="bookings" hidden>
-   <div class="head"><div><h2>Bookings</h2><p>Tastings are booked and managed in Cal.com.</p></div>
+   <div class="head"><div><h2>Bookings</h2><p>Tastings are booked, paid and managed in Bókun.</p></div>
     <div class="period" data-period><button data-days="7">7 days</button><button data-days="30" aria-pressed="true">30 days</button><button data-days="90">90 days</button></div></div>
    <div class="panel" style="margin-top:0"><h3>From the website to the calendar</h3>
     <div class="funnel" id="funnel"></div>
-    <p class="note">The last step happens inside Cal.com, so finished bookings are counted there.</p></div>
-   <div class="panel"><h3>Other ways guests got in touch</h3><ul class="bars" id="bk-touch"></ul><p class="note">Taps on WhatsApp, call and email buttons. Bookings made by message are confirmed by you, so they only show up here, not in Cal.com.</p></div>
-   <div class="panel"><h3>Manage bookings in Cal.com</h3>
+    <p class="note">The last step happens inside Bókun, so finished bookings are counted there. “Started booking” counts visitors who tapped into the calendar.</p></div>
+   <div class="panel"><h3>Other ways guests got in touch</h3><ul class="bars" id="bk-touch"></ul><p class="note">Taps on WhatsApp, call and email buttons. Bookings made by message are confirmed by you, so they only show up here, not in Bókun.</p></div>
+   <div class="panel"><h3>Manage bookings in Bókun</h3>
     <div class="links">
-     <a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener"><b>Upcoming</b><small>Confirm, reschedule or cancel</small></a>
-     <a href="https://app.cal.com/bookings/unconfirmed" target="_blank" rel="noopener"><b>Waiting for confirmation</b><small>Tastings that need a yes</small></a>
-     <a href="https://app.cal.com/bookings/past" target="_blank" rel="noopener"><b>Past</b><small>Who came, and when</small></a>
-     <a href="https://app.cal.com/event-types" target="_blank" rel="noopener"><b>Event types</b><small>Prices, times and group sizes</small></a>
-     <a href="https://app.cal.com/availability" target="_blank" rel="noopener"><b>Availability</b><small>Days off and opening times</small></a>
+     <a href="https://extranet.bokun.io/" target="_blank" rel="noopener"><b>Bókun</b><small>Bookings, availability, prices and Stripe payments</small></a>
     </div>
    </div>
   </section>
@@ -387,7 +383,7 @@ td .muted{color:var(--muted)}
     var max = Math.max.apply(null, rows.map(function (r) { return r[1]; }));
     $(id).innerHTML = rows.map(function (r) { return '<li><em style="width:' + (r[1] / max * 100) + '%"></em><span>' + esc(r[0]) + '</span><b>' + r[1] + '</b></li>'; }).join('');
   }
-  var ACTION_LABEL = { book_open: 'Opened the booking window', book_calendar: 'Went on to the Cal.com calendar', whatsapp: 'Tapped a WhatsApp button', call: 'Tapped to call', email: 'Tapped to email', signup: 'Signed up for news', directions: 'Asked for directions', instagram: 'Opened Instagram' };
+  var ACTION_LABEL = { book_open: 'Opened the booking window', book_calendar: 'Started booking in the calendar', whatsapp: 'Tapped a WhatsApp button', call: 'Tapped to call', email: 'Tapped to email', signup: 'Signed up for news', directions: 'Asked for directions', instagram: 'Opened Instagram' };
   var PAGE_LABEL = function (p) { return p === '/' ? 'Home' : p.replace(/^\//, '').replace(/\.html$/, ''); };
   var C = { wine: 'var(--wine)', green: 'var(--green)', sage: 'var(--sage)', lav: 'var(--lavender)', gold: '#B8923A', brown: '#7B6458', teal: '#3C6E71' };
   var shortDate = function (d) { return new Date(d + 'T00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); };
@@ -544,7 +540,7 @@ td .muted{color:var(--muted)}
     colChart('ch-days', dl, dn.map(function (d) { return wd[d] || 0; }), C.green, 'views');
 
     var opened = nz(a.book_open), cal = nz(a.book_calendar);
-    $('funnel').innerHTML = '<div><b>' + s.views + '</b><span>Page views</span></div><i>›</i><div><b>' + opened + '</b><span>Opened the booking window' + (s.views ? ' (' + rate(opened, s.views) + ')' : '') + '</span></div><i>›</i><div><b>' + cal + '</b><span>Chose guests and opened the calendar' + (opened ? ' (' + Math.round(cal / opened * 100) + '%)' : '') + '</span></div><i>›</i><div><b>→</b><span><a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener">Bookings in Cal.com</a></span></div>';
+    $('funnel').innerHTML = '<div><b>' + s.views + '</b><span>Page views</span></div><i>›</i><div><b>' + opened + '</b><span>Opened the booking window' + (s.views ? ' (' + rate(opened, s.views) + ')' : '') + '</span></div><i>›</i><div><b>' + cal + '</b><span>Started booking in the calendar' + (opened ? ' (' + Math.round(cal / opened * 100) + '%)' : '') + '</span></div><i>›</i><div><b>→</b><span><a href="https://extranet.bokun.io/" target="_blank" rel="noopener">Bookings in Bókun</a></span></div>';
     bars('bk-touch', [['WhatsApp taps', nz(a.whatsapp)], ['Calls', nz(a.call)], ['Email taps', nz(a.email)], ['Instagram taps', nz(a.instagram)]].filter(function (r) { return r[1]; }), 'No taps yet');
   }
 

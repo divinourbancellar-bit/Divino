@@ -1,5 +1,5 @@
 /* Divino Urban Cellar — shared behaviour for every page:
-   menu, booking (Cal.com), gallery slider, Letters sign-up, cookie consent. */
+   menu, booking (Bókun), gallery slider, Letters sign-up, cookie consent. */
 (function () {
   'use strict';
 
@@ -90,7 +90,6 @@
     if (typeof window.gtag !== 'function') return;
     window.gtag('event', name, { link_text: label || '', page_path: page, language: IT ? 'it' : 'en', transport_type: 'beacon' });
   }
-  var CAL_HREF = /(^|\/\/)(app\.)?cal\.com\/divino-urban-cellar-gcpvix\//;
   track('view');
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]');
@@ -106,11 +105,9 @@
     if (/wa\.me\/|api\.whatsapp\.com/.test(href)) ga('whatsapp_click', label);
     if (/^tel:/.test(href)) ga('phone_click', label);
     if (/^mailto:/.test(href)) ga('email_click', label);
-    // The Book key event is a click through to the booking calendar (see goToCalendar);
-    // opening the guest window is only the step before it. A plain link to the
-    // calendar counts as a Book click too.
-    if (CAL_HREF.test(href)) { track('book_calendar', label); ga('book_click', label); }
-    else if (a.hasAttribute('data-book') || /#book$/.test(href)) ga('book_open', label);
+    // The Book key event is using the Bókun calendar (see the booking window);
+    // opening the window is only the step before it.
+    if (a.hasAttribute('data-book') || /#book$/.test(href)) ga('book_open', label);
     if (/instagram\.com/.test(href)) ga('instagram_click', label);
     if (/google\.com\/maps|maps\.app\.goo\.gl/.test(href)) ga('directions_click', label);
   }, true);
@@ -197,64 +194,41 @@
     a.setAttribute('rel', 'noopener');
   });
 
-  /* ---------- Booking: guests -> Cal.com ----------
-     Cal.com has no per-guest pricing, so each party size is its own event
-     type on the Divino Cal account; the stepper picks which one to open. */
-  var CAL_NS = 'wine-tasting';
-  var CAL_USER = 'divino-urban-cellar-gcpvix';
-  var GUEST_MIN = 1, GUEST_MAX = 16, PRICE_PER_PERSON = 30;
-  var calLinkFor = function (n) {
-    return CAL_USER + '/' + (n === 1 ? 'wine-tasting' : 'wine-tasting-' + n + '-people');
-  };
-
-  var calReady = false;
-  function initCal() {
-    if (calReady) return;
-    calReady = true;
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-    window.Cal.config = window.Cal.config || {};
-    window.Cal.config.forwardQueryParams = true;
-    window.Cal('init', CAL_NS, { origin: 'https://app.cal.com' });
-    window.Cal.ns[CAL_NS]('ui', { theme: 'light', hideEventTypeDetails: false, layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': '#6E2A34' } } });
-    window.Cal.ns[CAL_NS]('on', {
-      action: 'linkFailed',
-      callback: function () {
-        var box = document.querySelector('cal-modal-box');
-        if (box) box.remove();
-        openBooking();
-        showBookingError();
-      }
-    });
+  /* ---------- Booking: Bókun widget ----------
+     The booking window holds Bókun's calendar for the wine tasting (guests,
+     price and Stripe payment all happen inside it). The loader script is only
+     fetched once a visitor shows intent, then it fills the .bokunWidget div. */
+  var BOKUN_LOADER = 'https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=dfe72029-8f73-462e-b8fe-37542603a627';
+  var bokunReady = false;
+  function initBokun() {
+    if (bokunReady) return;
+    bokunReady = true;
+    var s = document.createElement('script');
+    s.src = BOKUN_LOADER;
+    s.async = true;
+    s.onerror = function () { showBookingError(); };
+    document.head.appendChild(s);
   }
 
   var bk = document.getElementById('booking');
-  var guests = 2, bookTime = '';
-  var countEl, totalEl, minus, plus, whenEl, errEl, lastTrigger;
+  var bookTime = '', calCounted = false;
+  var whenEl, errEl, lastTrigger;
 
-  function render() {
-    countEl.textContent = String(guests);
-    totalEl.textContent = IT
-      ? guests + (guests === 1 ? ' ospite' : ' ospiti') + ' · €' + guests * PRICE_PER_PERSON + ' in totale'
-      : guests + (guests === 1 ? ' guest' : ' guests') + ' · €' + guests * PRICE_PER_PERSON + ' in total';
-    minus.disabled = guests <= GUEST_MIN;
-    plus.disabled = guests >= GUEST_MAX;
-  }
   function openBooking(trigger) {
     if (!bk) return;
     if (trigger) lastTrigger = trigger;
     bookTime = trigger && trigger.getAttribute('data-book-time') || '';
     if (!whenEl.dataset.def) whenEl.dataset.def = whenEl.textContent;
     whenEl.textContent = !bookTime ? whenEl.dataset.def : IT
-      ? 'Hai scelto la degustazione delle ' + bookTime + ': seleziona le ' + bookTime + ' nel calendario al passo successivo.'
-      : 'You chose the ' + bookTime + ' tasting: pick ' + bookTime + ' in the calendar on the next step.';
-    errEl.hidden = true;
-    render();
+      ? 'Hai scelto la degustazione delle ' + bookTime + ': seleziona le ' + bookTime + ' nel calendario qui sotto.'
+      : 'You chose the ' + bookTime + ' tasting: pick ' + bookTime + ' in the calendar below.';
+    calCounted = false;
     track('book_open', bookTime || null);
     bk.classList.add('open');
     bk.setAttribute('aria-hidden', 'false');
     document.body.classList.add('locked');
-    initCal();
-    setTimeout(function () { plus.focus(); }, 50);
+    initBokun();
+    setTimeout(function () { bk.querySelector('.x').focus(); }, 50);
   }
   function closeBooking() {
     bk.classList.remove('open');
@@ -265,30 +239,10 @@
   function showBookingError() {
     if (errEl) errEl.hidden = false;
   }
-  function goToCalendar() {
-    var link = calLinkFor(guests);
-    var ns = window.Cal && window.Cal.ns && window.Cal.ns[CAL_NS];
-    closeBooking();
-    track('book_calendar', guests + (bookTime ? ' · ' + bookTime : ''));
-    ga('book_click', guests + (guests === 1 ? ' guest' : ' guests') + (bookTime ? ' · ' + bookTime : ''));
-    if (ns) {
-      ns('modal', { calLink: link, config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true', theme: 'light' } });
-    } else {
-      // The embed script could not load (offline, blocked): open Cal.com directly.
-      window.open('https://cal.com/' + link, '_blank', 'noopener');
-    }
-  }
 
   if (bk) {
-    countEl = bk.querySelector('output');
-    totalEl = bk.querySelector('.total');
-    minus = bk.querySelector('[data-step="-1"]');
-    plus = bk.querySelector('[data-step="1"]');
     whenEl = bk.querySelector('.when');
     errEl = bk.querySelector('.err');
-    minus.addEventListener('click', function () { guests = Math.max(GUEST_MIN, guests - 1); render(); });
-    plus.addEventListener('click', function () { guests = Math.min(GUEST_MAX, guests + 1); render(); });
-    bk.querySelector('[data-confirm]').addEventListener('click', goToCalendar);
     bk.querySelectorAll('[data-close-booking]').forEach(function (el) { el.addEventListener('click', closeBooking); });
     document.addEventListener('click', function (e) {
       var t = e.target.closest && e.target.closest('[data-book]');
@@ -297,10 +251,20 @@
       if (drawer && drawer.classList.contains('open')) setDrawer(false);
       openBooking(t);
     });
-    // Warm the embed script up on intent, so the calendar opens quickly.
+    // The Book key event: the visitor starts using the Bókun calendar. Clicks
+    // inside its iframe can't be seen, but the page loses focus to the iframe.
+    window.addEventListener('blur', function () {
+      if (calCounted || !bk.classList.contains('open')) return;
+      var f = document.activeElement;
+      if (!f || f.tagName !== 'IFRAME' || !bk.contains(f)) return;
+      calCounted = true;
+      track('book_calendar', bookTime || null);
+      ga('book_click', bookTime || '');
+    });
+    // Warm the widget up on intent, so the calendar is ready when the window opens.
     ['pointerover', 'focusin', 'touchstart'].forEach(function (evt) {
       document.addEventListener(evt, function (e) {
-        if (e.target.closest && e.target.closest('[data-book]')) initCal();
+        if (e.target.closest && e.target.closest('[data-book]')) initBokun();
       }, { passive: true });
     });
     if (location.hash === '#book') openBooking();

@@ -35,7 +35,7 @@
 <!-- dv:head -->
 <link rel="preload" href="fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/eb-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preconnect" href="https://app.cal.com" crossorigin>
+<link rel="preconnect" href="https://widgets.bokun.io" crossorigin>
 <link rel="stylesheet" href="chrome.css">
 <script>/* Age check: cover the page until the visitor confirms they are 18+ (once per visit). */try{if(sessionStorage.getItem('dv-age')!=='yes')document.documentElement.classList.add('ag')}catch(e){document.documentElement.classList.add('ag')}</script>
 <!-- /dv:head -->
@@ -80,11 +80,11 @@
   <p><span translate="no">Divino Urban Cellar</span>, Via Gibilmanna 16, 90015 Cefalù (PA), Italy · P.IVA IT06950220829. We are the data controller. You can reach us at <a href="mailto:divino.urbancellar@gmail.com">divino.urbancellar@gmail.com</a> or on +39 331 253 0729.</p>
   <h2>What we collect, and why</h2>
   <p><b>Newsletter.</b> When you sign up to our letters we keep your email address and the date you signed up, to send you our monthly letter. The legal basis is your consent (GDPR art. 6.1.a). Every letter has a link to unsubscribe, and you can also ask us by email.</p>
-  <p><b>Bookings.</b> When you book a tasting online, the booking is handled by Cal.com, which collects your name, email and the details of your booking so that we can confirm it. The legal basis is the booking you ask us for (art. 6.1.b).</p>
+  <p><b>Bookings.</b> When you book a tasting online, the booking is handled by Bókun, which collects your name, email and the details of your booking so that we can confirm it; card payments are processed by Stripe. The legal basis is the booking you ask us for (art. 6.1.b).</p>
   <p><b>Messages.</b> If you write to us on WhatsApp, by phone or by email, we use what you send only to answer you and to arrange your order, booking or delivery (art. 6.1.b).</p>
   <p><b>Website statistics.</b> Without your consent we only count page visits anonymously, with no cookies. If you accept cookies, we also use Google Analytics and one small first-party cookie (dv_vid) that counts returning visitors (art. 6.1.a). You can change your choice at any time from “Cookie settings” at the bottom of every page.</p>
   <h2>Who handles the data for us</h2>
-  <p>We use trusted providers to run the website and send our letters: Supabase (website database), Brevo (newsletter emails), Cal.com (online bookings), Google (Analytics, only with your consent), GitHub Pages (website hosting) and WhatsApp. They process the data only on our behalf. Some of them may store data outside the European Union, with the safeguards required by the GDPR.</p>
+  <p>We use trusted providers to run the website and send our letters: Supabase (website database), Brevo (newsletter emails), Bókun (online bookings), Stripe (booking payments), Google (Analytics, only with your consent), GitHub Pages (website hosting) and WhatsApp. They process the data only on our behalf. Some of them may store data outside the European Union, with the safeguards required by the GDPR.</p>
   <h2>How long we keep it</h2>
   <p>Newsletter addresses: until you unsubscribe. Bookings and messages: as long as needed for your booking or order and for our legal and tax obligations. Website statistics: up to 14 months.</p>
   <h2>Your rights</h2>
@@ -116,10 +116,7 @@
   <span class="kick">Wine tasting at <span translate="no">Divino</span></span>
   <h2 id="bk-title">Book your tasting</h2>
   <p class="when">Every day at 18:00. For 11:00, message us on WhatsApp.</p>
-  <p class="q">How many guests?</p>
-  <div class="stepper"><button type="button" data-step="-1" aria-label="One guest fewer">−</button><output aria-live="polite">2</output><button type="button" data-step="1" aria-label="One guest more">+</button></div>
-  <p class="total" aria-live="polite"></p>
-  <button class="btn" type="button" data-confirm>Choose your day and time</button>
+  <div class="bkw"><div class="bokunWidget" data-src="https://widgets.bokun.io/online-sales/dfe72029-8f73-462e-b8fe-37542603a627/experience/1330801"></div></div>
   <p class="err" role="alert" hidden>Online booking is not available right now. Please message us on WhatsApp and we will reply quickly.</p>
   <p class="alt">Prefer to talk? <a href="https://wa.me/393312530729?text=Hello%20Divino!%20I%20have%20a%20question%20about%20a%20wine%20tasting." target="_blank" rel="noopener">Message us on WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a></p>
  </div>

@@ -35,7 +35,7 @@
 <!-- dv:head -->
 <link rel="preload" href="fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/eb-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preconnect" href="https://app.cal.com" crossorigin>
+<link rel="preconnect" href="https://widgets.bokun.io" crossorigin>
 <link rel="stylesheet" href="chrome.css">
 <script>/* Age check: cover the page until the visitor confirms they are 18+ (once per visit). */try{if(sessionStorage.getItem('dv-age')!=='yes')document.documentElement.classList.add('ag')}catch(e){document.documentElement.classList.add('ag')}</script>
 <!-- /dv:head -->
@@ -80,11 +80,11 @@
   <p><span translate="no">Divino Urban Cellar</span>, Via Gibilmanna 16, 90015 Cefalù (PA), Italia · P.IVA IT06950220829. Siamo il titolare del trattamento. Puoi contattarci a <a href="mailto:divino.urbancellar@gmail.com">divino.urbancellar@gmail.com</a> o al +39 331 253 0729.</p>
   <h2>Quali dati raccogliamo e perché</h2>
   <p><b>Newsletter.</b> Quando ti iscrivi alle nostre lettere conserviamo il tuo indirizzo email e la data di iscrizione, per inviarti la nostra lettera mensile. La base giuridica è il tuo consenso (art. 6.1.a GDPR). In ogni lettera trovi il link per annullare l’iscrizione, e puoi chiederlo anche via email.</p>
-  <p><b>Prenotazioni.</b> Quando prenoti una degustazione online, la prenotazione è gestita da Cal.com, che raccoglie nome, email e dettagli della prenotazione per permetterci di confermarla. La base giuridica è la prenotazione che ci chiedi (art. 6.1.b).</p>
+  <p><b>Prenotazioni.</b> Quando prenoti una degustazione online, la prenotazione è gestita da Bókun, che raccoglie nome, email e dettagli della prenotazione per permetterci di confermarla; i pagamenti con carta sono elaborati da Stripe. La base giuridica è la prenotazione che ci chiedi (art. 6.1.b).</p>
   <p><b>Messaggi.</b> Se ci scrivi su WhatsApp, ci chiami o ci mandi una email, usiamo ciò che ci invii solo per risponderti e organizzare il tuo ordine, la prenotazione o la consegna (art. 6.1.b).</p>
   <p><b>Statistiche del sito.</b> Senza il tuo consenso contiamo solo le visite alle pagine, in forma anonima e senza cookie. Se accetti i cookie usiamo anche Google Analytics e un piccolo cookie nostro (dv_vid) che conta i visitatori di ritorno (art. 6.1.a). Puoi cambiare la tua scelta in qualsiasi momento da “Impostazioni cookie” in fondo a ogni pagina.</p>
   <h2>Chi tratta i dati per noi</h2>
-  <p>Per gestire il sito e inviare le nostre lettere ci affidiamo a fornitori di fiducia: Supabase (database del sito), Brevo (invio della newsletter), Cal.com (prenotazioni online), Google (Analytics, solo con il tuo consenso), GitHub Pages (hosting del sito) e WhatsApp. Trattano i dati solo per nostro conto. Alcuni possono conservare dati fuori dall’Unione europea, con le garanzie previste dal GDPR.</p>
+  <p>Per gestire il sito e inviare le nostre lettere ci affidiamo a fornitori di fiducia: Supabase (database del sito), Brevo (invio della newsletter), Bókun (prenotazioni online), Stripe (pagamenti delle prenotazioni), Google (Analytics, solo con il tuo consenso), GitHub Pages (hosting del sito) e WhatsApp. Trattano i dati solo per nostro conto. Alcuni possono conservare dati fuori dall’Unione europea, con le garanzie previste dal GDPR.</p>
   <h2>Per quanto tempo li conserviamo</h2>
   <p>Indirizzi della newsletter: fino a quando annulli l’iscrizione. Prenotazioni e messaggi: per il tempo necessario alla prenotazione o all’ordine e agli obblighi di legge e fiscali. Statistiche del sito: fino a 14 mesi.</p>
   <h2>I tuoi diritti</h2>
@@ -116,10 +116,7 @@
   <span class="kick">Degustazione da <span translate="no">Divino</span></span>
   <h2 id="bk-title">Prenota la tua degustazione</h2>
   <p class="when">Ogni giorno alle 18:00. Per le 11:00, scrivici su WhatsApp.</p>
-  <p class="q">Quanti ospiti?</p>
-  <div class="stepper"><button type="button" data-step="-1" aria-label="Un ospite in meno">−</button><output aria-live="polite">2</output><button type="button" data-step="1" aria-label="Un ospite in più">+</button></div>
-  <p class="total" aria-live="polite"></p>
-  <button class="btn" type="button" data-confirm>Scegli giorno e orario</button>
+  <div class="bkw"><div class="bokunWidget" data-src="https://widgets.bokun.io/online-sales/dfe72029-8f73-462e-b8fe-37542603a627/experience/1330801"></div></div>
   <p class="err" role="alert" hidden>La prenotazione online non è disponibile in questo momento. Scrivici su WhatsApp e ti risponderemo subito.</p>
   <p class="alt">Preferisci parlarci? <a href="https://wa.me/393312530729?text=Ciao%20Divino!%20Ho%20una%20domanda%20su%20una%20degustazione." target="_blank" rel="noopener">Scrivici su WhatsApp</a> · <a href="tel:+393312530729">+39 331 253 0729</a></p>
  </div>
