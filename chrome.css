@@ -123,7 +123,6 @@ body.locked{overflow:hidden}
 .fgrid h4{font:500 13px var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--wine);margin-bottom:14px}
 .fgrid p,.fgrid a{display:block;font-size:16px;line-height:1.85;color:var(--cocoa)}
 .fgrid p{margin-bottom:8px}
-.fgrid .wa-note{font-size:14px;line-height:1.4;font-style:italic;color:var(--muted);margin:-2px 0 6px}
 .fgrid a:hover{color:var(--wine)}
 .fgrid .wm{margin-bottom:16px}
 .fgrid .ul{color:var(--wine);text-decoration:underline;text-underline-offset:3px}

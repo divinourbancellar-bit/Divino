@@ -178,6 +178,7 @@ h2{font-size:clamp(34px,4.2vw,48px);line-height:1.12;text-align:center}
 .split li{padding:12px 0;border-bottom:1px solid var(--line);font-size:18px}
 .split li b{color:var(--wine);font-weight:500}
 .split.flip .img{order:2}
+.split h3.mh{font:400 clamp(22px,2.2vw,27px)/1.2 var(--display);color:var(--green);margin-top:26px}
 .need{display:flex;align-items:center;justify-content:center;background:var(--sand)!important;color:var(--muted);font:italic 22px var(--display)}
 .hosts{display:flex;justify-content:center;gap:70px;flex-wrap:wrap;margin-top:44px;text-align:center}
 .hosts img{width:200px;height:200px;border-radius:50%;object-fit:cover;object-position:center 25%;border:5px solid #fff;box-shadow:0 0 0 1px var(--line),0 10px 26px rgba(74,55,48,.12);margin:0 auto}
@@ -331,4 +332,9 @@ h2{font-size:clamp(34px,4.2vw,48px);line-height:1.12;text-align:center}
 .legaltxt h2{font:500 30px/1.2 var(--display);margin-top:42px;text-align:left}
 .legaltxt p{font-size:18px;line-height:1.7;margin-top:12px}
 .legaltxt a{color:var(--green);text-decoration:underline;text-underline-offset:3px}
+.legaltxt .ck{width:100%;border-collapse:collapse;margin-top:18px;font-size:15.5px;line-height:1.5}
+.legaltxt .ck th,.legaltxt .ck td{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.legaltxt .ck th{font-weight:600;color:var(--green)}
+.legaltxt .ck td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:14px;word-break:break-all}
+@media (max-width:760px){.legaltxt .ck{display:block;overflow-x:auto}}
 .legaltxt .upd{margin-top:44px;font-size:15px;color:var(--muted)}

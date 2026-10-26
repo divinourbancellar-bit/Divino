@@ -36,7 +36,7 @@ const T = {
     tastings: 'Tastings', atDivino: 'At Divino', atVilla: 'At your villa', tastingCefalu: 'Wine tasting in Cefalù', tastingPrivate: 'Private & group tastings',
     classes: 'Classes', wineClasses: 'Wine classes', cooking: 'Farm-to-table cooking',
     events: 'Events',
-    products: 'Our Products', oil: 'Olivum Mariae olive oil',
+    products: 'Our Products', oil: 'Olivum Mariae olive oil', manna: 'Manna from the Madonie',
     delivered: 'Wines delivered', gift: 'Gift cards',
     countryside: 'The Countryside', ourLand: 'Our land', donnaMaria: 'Donna Maria products',
     magazine: 'Magazine', about: 'About Us', book: 'Book', home: 'Home',
@@ -45,9 +45,9 @@ const T = {
     tagline: 'Enoteca · Experiences · The Countryside',
     findUs: 'Find us', contact: 'Contact', explore: 'Explore',
     address: 'Via Gibilmanna 16<br>90015 Cefalù (PA), Italy',
-    hours: 'Mon–Sat 10:00–14:00, 17:00–22:30<br>Sun 10:00–13:00, 17:00–22:00',
-    directions: 'Get directions', phone: 'Phone &amp; WhatsApp +39 331 253 0729',
-    waReply: 'We’ll reply within the hour', reviewsLink: 'Google reviews', delivery: 'Delivery',
+    hours: 'Mon–Sat 10:00–14:00, 17:00–22:30<br>Sun 17:00–22:00',
+    directions: 'Get directions', phone: 'WhatsApp +39 331 253 0729',
+    reviewsLink: 'Google reviews', delivery: 'Delivery',
     piva: '© 2026 Divino Urban Cellar · P.IVA IT06950220829',
     cookieSettings: 'Cookie settings', privacy: 'Privacy',
     bkKick: 'Wine tasting at Divino', bkTitle: 'Book your tasting',
@@ -73,7 +73,7 @@ const T = {
     tastings: 'Degustazioni', atDivino: 'Da Divino', atVilla: 'Nella tua villa', tastingCefalu: 'Degustazione a Cefalù', tastingPrivate: 'Degustazioni private e di gruppo',
     classes: 'Corsi', wineClasses: 'Corsi di vino', cooking: 'Cucina dal campo alla tavola',
     events: 'Eventi',
-    products: 'I nostri prodotti', oil: 'Olio Olivum Mariae',
+    products: 'I nostri prodotti', oil: 'Olio Olivum Mariae', manna: 'Manna delle Madonie',
     delivered: 'Vini a domicilio', gift: 'Carte regalo',
     countryside: 'La Campagna', ourLand: 'La nostra terra', donnaMaria: 'Prodotti Donna Maria',
     magazine: 'Magazine', about: 'Chi siamo', book: 'Prenota', home: 'Home',
@@ -82,9 +82,9 @@ const T = {
     tagline: 'Enoteca · Esperienze · La Campagna',
     findUs: 'Dove siamo', contact: 'Contatti', explore: 'Esplora',
     address: 'Via Gibilmanna 16<br>90015 Cefalù (PA), Italia',
-    hours: 'Lun–Sab 10:00–14:00, 17:00–22:30<br>Dom 10:00–13:00, 17:00–22:00',
-    directions: 'Indicazioni stradali', phone: 'Telefono e WhatsApp +39 331 253 0729',
-    waReply: 'Ti risponderemo entro un’ora', reviewsLink: 'Recensioni Google', delivery: 'Consegna',
+    hours: 'Lun–Sab 10:00–14:00, 17:00–22:30<br>Dom 17:00–22:00',
+    directions: 'Indicazioni stradali', phone: 'WhatsApp +39 331 253 0729',
+    reviewsLink: 'Recensioni Google', delivery: 'Consegna',
     piva: '© 2026 Divino Urban Cellar · P.IVA IT06950220829',
     cookieSettings: 'Impostazioni cookie', privacy: 'Privacy',
     bkKick: 'Degustazione da Divino', bkTitle: 'Prenota la tua degustazione',
@@ -126,7 +126,7 @@ function menu(t, lang) {
   return {
     tastings: [[L('tastings.html'), t.atDivino], [L('wine-tasting-cefalu.html'), t.tastingCefalu], [L('private-group-wine-tasting.html'), t.tastingPrivate], [L('tasting-villa.html'), t.atVilla]],
     classes: [[L('wine-classes.html'), t.wineClasses, true], [L('cooking-classes.html'), t.cooking, true]],
-    products: [[L('products.html#countryside'), t.oil], [L('delivery.html'), t.delivered], [L('products.html#gift-cards'), t.gift]],
+    products: [[L('products.html#countryside'), t.oil], [L('products.html#manna'), t.manna], [L('delivery.html'), t.delivered], [L('products.html#gift-cards'), t.gift]],
     countryside: [[L('countryside.html'), t.ourLand], [L('countryside.html#donna-maria'), t.donnaMaria]],
   };
 }
@@ -195,7 +195,7 @@ function footer(page) {
   <div class="fgrid">
    <div>${logo(34)}<p>${t.tagline}</p></div>
    <div><h4>${t.findUs}</h4><p>${t.address}</p><p>${t.hours}</p><a class="ul" href="${MAPS_URL}" target="_blank" rel="noopener">${t.directions}</a></div>
-   <div id="contact"><h4>${t.contact}</h4><a href="${WA}" target="_blank" rel="noopener">${t.phone}</a><p class="wa-note">${t.waReply}</p><a href="${IG_URL}" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><a href="mailto:${EMAIL}">${EMAIL}</a><a href="${REVIEWS_URL}" target="_blank" rel="noopener">${t.reviewsLink}</a></div>
+   <div id="contact"><h4>${t.contact}</h4><a href="${WA}" target="_blank" rel="noopener">${t.phone}</a><a href="${IG_URL}" target="_blank" rel="noopener">Instagram @divino_cantinaurbana</a><a href="https://www.facebook.com/divinourbancellar" target="_blank" rel="noopener">Facebook Divino Cantina Urbana</a><a href="https://www.youtube.com/@DivinoUrbanCellar" target="_blank" rel="noopener">YouTube @DivinoUrbanCellar</a><a href="mailto:${EMAIL}">${EMAIL}</a><a href="${REVIEWS_URL}" target="_blank" rel="noopener">${t.reviewsLink}</a></div>
    <div><h4>${t.explore}</h4><a href="${L('tastings.html')}">${t.tastings}</a><a href="${L('wine-classes.html')}">${t.classes}</a><a href="${L('events.html')}">${t.events}</a><a href="${L('products.html')}">${t.products}</a><a href="${L('countryside.html')}">${t.countryside}</a><a href="${L('magazine.html')}">${t.magazine}</a><a href="${L('delivery.html')}">${t.delivery}</a><a href="${L('products.html#gift-cards')}">${t.gift}</a></div>
   </div>
   <div class="legal"><span>${t.piva}</span><span><a href="${L('privacy.html')}">${t.privacy}</a> · <button type="button" data-cookie-settings>${t.cookieSettings}</button> · ${langSwitch(page, 'll').replace(/^<div class="ll"[^>]*>|<\/div>$/g, '')}</span></div>
